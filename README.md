@@ -1,2 +1,2 @@
 # PandalikeInvesting
-This is the pandalikeInvesting homepage
+This is the Pandalike Investing homepage
