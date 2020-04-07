@@ -13,5 +13,10 @@ def index():
 def favicon():
     return send_from_directory(os.path.join(app.root_path, 'static'), 'resources/img/favicon.ico', mimetype='image/vnd.microsoft.icon')
 
+@app.route('/visu')
+def visualization():
+    return render_template('visu.html')
+
+
 if __name__ == "__main__":
     app.run(debug=True)

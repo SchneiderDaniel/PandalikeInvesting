@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>Visualize a Ticker</title>
+{% endblock %}
+
+
+{% block body %}
+
+<br>
+
+<form>
+    <div class="form-group">
+      <!-- <label for="tickerInput">Ticker</label> -->
+      <input type="text" style="text-transform: uppercase" class="form-control" id="tickerInput" aria-describedby="tickerHelp" placeholder="Enter Ticker">
+      <small id="tickerHelp" class="form-text text-muted">You get the Ticker from Yahoo Finance</small>
+    </div>
+    <button type="submit" class="btn btn-primary">Go</button>
+  </form>
+
+
+{% endblock %}
