@@ -1,19 +1,23 @@
+{% import "bootstrap/wtf.html" as wtf %}
 {% extends 'base.html' %}
 
 
 
 {% block title %}
 Contact Me
+{% endblock %}
 
 {% block content %}
+<div class="container">
+
 
 <div class="form-group">
     <h2 class="title">Contact</h2>
     <form method="POST" action="/contact">
         {{ form.csrf_token }}
+        {{ wtf.quick_form(form) }}
 
-
-        <div class="form-field">{{ form.name.label }} {{ form.name }}
+        <!-- <div class="form-field">{{ form.name.label }} {{ form.name }} -->
         {% if form.name.errors %}
           <ul class="errors">
             {% for error in form.name.errors %}
@@ -24,7 +28,7 @@ Contact Me
       </div>
 
 
-      <div class="form-field">{{ form.email.label }} {{ form.email }}
+      <!-- <div class="form-field">{{ form.email.label }} {{ form.email }} -->
         {% if form.email.errors %}
           <ul class="errors">
             {% for error in form.email.errors %}
@@ -35,7 +39,7 @@ Contact Me
       </div>
 
 
-      <div class="form-field">{{ form.body.label }} {{ form.body }}
+      <!-- <div class="form-field">{{ form.body.label }} {{ form.body }} -->
         {% if form.body.errors %}
           <ul class="errors">
             {% for error in form.body.errors %}
@@ -44,8 +48,9 @@ Contact Me
           </ul>
         {% endif %}
       </div> 
-      {{ form.submit }}
+      <!-- {{ form.submit }} -->
     </form>
   </div>
 
+</div>
 {% endblock %}

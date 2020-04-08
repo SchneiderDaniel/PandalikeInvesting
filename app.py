@@ -10,9 +10,9 @@ app = Flask(__name__)
 fa = FontAwesome(app)
 Bootstrap(app)
 
-# app.config.from_mapping(
-#     SECRET_KEY=b'\xd6\x04\xbdj\xfe\xed$c\x1e@\xad\x0f\x13,@G')
-# app.config['SECRET_KEY'] = SECRET_KEY
+app.config.from_mapping(
+    SECRET_KEY=b'\xd6\x04\xbdj\xfe\xed$c\x1e@\xad\x0f\x13,@G')
+
 
 @app.route('/')
 def index():
@@ -26,8 +26,6 @@ def favicon():
 @app.route('/visu/', methods=['GET', 'POST'])
 def visualization():
     if request.method == 'POST':
-        # tickerID = request.form["tickerInput"]
-        #print(request.form, file=sys.stderr)
         return render_template('visu.html')
     else:
         return render_template('visu.html')
