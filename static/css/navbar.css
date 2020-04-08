@@ -1,0 +1,11 @@
+@import url("//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css");
+
+.navbar-default { 
+    background-color: white; 
+} 
+
+.navbar-brand {
+    padding: 0;
+    margin-left: 15px;
+    margin-right: 15px
+}

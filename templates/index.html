@@ -1,35 +1,26 @@
 {% extends 'base.html' %}
 
-{% block head %}
-<title>Pandalike Investing</title>
+{% block title %}
+Pandalike Investing
 {% endblock %}
 
 
-{% block body %}
+{% block content %}
 
-<br>
-<h1>My Homepage</h1>
-<br>
+<div class="jumbotron">
+    <h1 class="display-4">Hello, world!</h1>
+    <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
+    <hr class="my-4">
+    <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
+    <p class="lead">
+      <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
+    </p>
+  </div>
 
-<main role="main">
-    <div class="jumbotron">
-        <div class="col-sm-8 mx-auto">
-            <h1>Welcome</h1>
-            <p>Hi this is my  block about something.  For positioning of
-
-                Visit us at <a
-                href="/docs/4.4/examples/navbar-fixed/">
-
-                navbars, checkout the <a href="/docs/4.4/examples/navbar-static/">top</a> and fixed top</a> examples.</p>
-            <p>At the smallest breakpoint, the collapse plugin is used to hide the links and show a menu button to
-                toggle the collapsed content.</p>
-            <p>
-                <a class="btn btn-primary" href="/posts" role="button">Go To Blog
-                    &raquo;</a>
-            </p>
-        </div>
-    </div>
-</main>
-</div>
+  <p>This is an example of a <span class="fas fa-link"></span> link.</p>
+  <p>This is an example of a <span class="fa fa-link"></span> link.</p>
+  <p><i class='fa fa-github'></i> Hello github</p>
+  <p><i class='fab fa-twitter'></i> Hello github</p>
+  <i class="fab fa-github btn btn-dark btn-lg" href="#" role="button"> Github</i>
 
 {% endblock %}
