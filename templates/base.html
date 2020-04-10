@@ -40,7 +40,10 @@ Pandalike Investing
 {% block navbar %} 
     <nav class="navbar navbar-default navbar-expand-lg navbar-light">
         <div class="navbar-header d-flex col">
-            <a class="navbar-brand" href="#">Pandalike<b>Investing</b></a>  		
+            <a class="navbar-brand" href="#">
+                <span><img src="{{ url_for('static', filename='resources/img/logo.jpg') }}" width="45" height="50" ></span>
+                &nbsp; Pandalike<b>Investing</b>
+            </a>  		
             <button type="button" data-target="#navbarCollapse" data-toggle="collapse" class="navbar-toggle navbar-toggler ml-auto">
                 <span class="navbar-toggler-icon"></span>
                 <span class="icon-bar"></span>
