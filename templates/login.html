@@ -1,9 +1,38 @@
 {% extends 'base.html' %}
+{% from "_formhelpers.html" import render_field, render_checkbox, render_recaptcha %}
 
 {% block title %}
 Login
 {% endblock %}
 
-{% block content %}
+{% block scripts %}
+{{super()}}
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+{% endblock %}
 
+{% block content %}
+<br>
+<div class="container" style="width: 500px">
+
+  <div class="form-group">
+    <div class="jumbotron">
+      <br>
+      <h2 class="title">Login</h2>
+      <form method="POST" action="/login" class="login_form" role="login_form">
+
+      {{ login_form.csrf_token }}
+      <d1>
+        <br>
+        {{ render_field(login_form.email, class='form-control', placeholder='Enter your E-Mail') }} 
+        {{ render_field(login_form.password, class='form-control', placeholder='Enter a password') }}
+        {{ render_checkbox(login_form.remember)}}
+      </d1>
+      <br>
+      {{render_recaptcha(login_form.recaptcha)}}
+      
+      <br>
+      <p><input type=submit name="submit" value="Send" class='btn btn-primary btn-block'>
+    </div>
+  </div>
+</div>
 {% endblock %}

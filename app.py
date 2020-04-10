@@ -75,10 +75,6 @@ def contact():
         print('Get!', file=sys.stderr)
         return render_template('contact.html', contact_form=contact_form)
 
-
-
-
-
 @app.route('/backtesting', methods=['GET', 'POST'])
 def backtesting():
     general_form = BT_GeneralForm()
@@ -86,8 +82,6 @@ def backtesting():
         return render_template('backtesting.html')
     else:
         return render_template('backtesting.html', general_form=general_form)
-
-
 
 @app.route('/success')
 def success():
