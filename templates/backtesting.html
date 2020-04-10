@@ -12,10 +12,11 @@ Backtesting
     <div class="form-group">
 
         <div class="jumbotron">
-        <h2 class="title">General Settings</h2>
+            <h2 class="title">General Settings</h2>
             <form method="POST" action="/backtesting" class="general_form" role="form">
-    
+
                 {{ general_form.csrf_token }}
+
                 {{general_form.currency.label}} &nbsp; &nbsp;
                 {% for subfield in general_form.currency %}
                 <tr>
@@ -24,6 +25,7 @@ Backtesting
                     &nbsp;
                 </tr>
                 {% endfor %}
+                
                 <br>
                 <h3 class="title">Buy Transaction Costs</h3>
                 <br>
@@ -35,8 +37,15 @@ Backtesting
                 {{ render_field(general_form.sell_absolute, class='form-control', placeholder='Enter smth. like 5.00') }}
                 <br>
                 {{ render_field(general_form.sell_relative, class='form-control', placeholder='Enter smth. like 1.20') }}
-            </div> 
+        </div>
+        <div class="jumbotron">
+            <h2 class="title">Finish</h2>
+            <br>
+            {{ general_form.recaptcha }}
+            <br>
 
+            <p><input type=submit name="submit" value="Simulate" class='btn btn-warning btn-block'>
+        </div>
 
 
     </div>
