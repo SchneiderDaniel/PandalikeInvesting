@@ -1,4 +1,4 @@
-{% import "bootstrap/wtf.html" as wtf %}
+<!-- {% import "bootstrap/wtf.html" as wtf %} -->
 {% extends 'base.html' %}
 {% from "_formhelpers.html" import render_field %}
 
@@ -12,27 +12,29 @@ Contact Me
 {% endblock %}
 
 {% block content %}
-<div class="container" style="width: 400px">
-
+<br>
+<div class="container" style="width: 500px">
 
   <div class="form-group">
-    <br>
+    <div class="jumbotron">
+      <br>
       <h2 class="title">Write a message to us</h2>
       <form method="POST" action="/contact" class="contact_form" role="contact_form">
 
-          {{ contact_form.csrf_token }}
-          <d1>
-          {{ render_field(contact_form.name, class='form-control', placeholder='What is your name?') }}
-          <br>
-          {{ render_field(contact_form.email, class='form-control', placeholder='Enter your E-Mail') }}
-          <br>
-          {{ render_field(contact_form.body, class='form-control', placeholder='Enter your message, question or request') }}
-        </d1> 
+      {{ contact_form.csrf_token }}
+      <d1>
+        {{ render_field(contact_form.name, class='form-control', placeholder='What is your name?') }}
         <br>
-        {{ contact_form.recaptcha }}
+        {{ render_field(contact_form.email, class='form-control', placeholder='Enter your E-Mail') }}
         <br>
+        {{ render_field(contact_form.body, class='form-control', placeholder='Enter your message, question or request') }}
+      </d1>
+      <br>
+      {{ contact_form.recaptcha }}
+      <br>
 
-          <p><input type=submit name= "submit" value="Send" class='btn btn-warning btn-block'>
+      <p><input type=submit name="submit" value="Send" class='btn btn-warning btn-block'>
+    </div>
   </div>
 </div>
 {% endblock %}
