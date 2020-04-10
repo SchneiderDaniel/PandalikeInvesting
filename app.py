@@ -2,7 +2,7 @@ from flask import Flask, render_template, request, redirect, url_for, send_from_
 from datetime import datetime
 import os
 import sys
-from forms import ContactForm, BT_GeneralForm
+from forms import ContactForm, BT_GeneralForm, RegistrationForm, LoginForm
 from flask_bootstrap import Bootstrap
 from flask_fontawesome import FontAwesome
 
@@ -18,6 +18,7 @@ fa = FontAwesome(app)
 Bootstrap(app)
 
 app.config.from_mapping(SECRET_KEY=b'\xd6\x04\xbdj\xfe\xed$c\x1e@\xad\x0f\x13,@G')
+# app.config.from_mapping(SECRET_KEY=os.getenv('SECRET_PUBLIC_KEY'))
 app.config.from_object(__name__)
 
 
@@ -44,6 +45,11 @@ def pricing():
 @app.route('/correlation')
 def correlation():
     return render_template('correlation.html')
+
+@app.route('/register')
+def register():
+    return render_template('register.html')
+
 
 
 @app.route('/backtesting', methods=['GET', 'POST'])

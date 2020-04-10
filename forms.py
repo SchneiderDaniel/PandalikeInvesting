@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm, RecaptchaField
-from wtforms import StringField, TextField, SubmitField, TextAreaField, RadioField, DecimalField
-from wtforms.validators import DataRequired, Length, Email
+from wtforms import StringField, TextField, SubmitField, TextAreaField, RadioField, DecimalField, PasswordField, BooleanField
+from wtforms.validators import DataRequired, Length, Email, EqualTo
 
 
 
@@ -25,3 +25,19 @@ class BT_GeneralForm(FlaskForm):
     sell_relative = DecimalField('Relative (%):', places=2, validators=[DataRequired()] )
     recaptcha = RecaptchaField()
     simulate = SubmitField('Simulate')
+
+
+class RegistrationForm(FlaskForm):
+    username = StringField('Username', validators=[DataRequired(),Length(min=6, max=20)])
+    email = StringField('E-Mail', validators=[DataRequired(),Email()])
+    password = PasswordField('Password', validators=[DataRequired(),Length(min=8)])
+    confirm_password = PasswordField('Confirm Password',validators=[DataRequired(),EqualTo('password')])
+    conditions = BooleanField('I accept the Terms & Conditions')
+    submit = SubmitField('Sign Up')
+
+
+class LoginForm(FlaskForm):
+    email = StringField('E-Mail', validators=[DataRequired(),Email()])
+    password = PasswordField('Password', validators=[DataRequired(),Length(min=8)])
+    remember = BooleanField('Remember Me')
+    submit = SubmitField('Login')
