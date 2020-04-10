@@ -10,8 +10,9 @@ app = Flask(__name__)
 fa = FontAwesome(app)
 Bootstrap(app)
 
-app.config.from_mapping(
-    SECRET_KEY=b'\xd6\x04\xbdj\xfe\xed$c\x1e@\xad\x0f\x13,@G')
+app.config.from_mapping(SECRET_KEY=b'\xd6\x04\xbdj\xfe\xed$c\x1e@\xad\x0f\x13,@G')
+# google_API_KEY = os.getenv['GOOGLE_API_KEY']
+
 
 
 @app.route('/')

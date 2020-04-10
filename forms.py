@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm, RecaptchaField
-from wtforms import StringField, TextField, SubmitField
+from wtforms import StringField, TextField, SubmitField, TextAreaField
 from wtforms.validators import DataRequired, Length, Email
 
 
@@ -11,7 +11,7 @@ class ContactForm(FlaskForm):
     email = StringField('E-Mail:', [
         Email(message=('Not a valid email address.')),
         DataRequired()])
-    body = TextField('Message:', [
+    body = TextAreaField('Message:', [
         DataRequired(),
         Length(min=4, message=('Your message is too short.'))])
     #recaptcha = RecaptchaField()
