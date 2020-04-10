@@ -8,9 +8,7 @@ Backtesting
 
 {% block content %}
 <div class="container" style="max-width: 500px">
-
     <div class="form-group">
-
         <div class="jumbotron">
             <h2 class="display-4">General Settings</h2>
             <form method="POST" action="/backtesting" class="general_form" role="form">
@@ -38,15 +36,15 @@ Backtesting
                 <br>
                 {{ render_field(general_form.sell_relative, class='form-control', placeholder='Enter smth. like 1.20') }}
         </div>
-        <div class="jumbotron">
-            <h2 class="title">Finish</h2>
+        <div class="jumbotron"> -->
+             <h2 class="title">Finish</h2>
             <br>
             {{ general_form.recaptcha }}
             <br>
 
-            <p><input type=submit name="submit" value="Simulate" class='btn btn-primary btn-block'>
+             <p><input type=submit name="submit" value="Simulate" class='btn btn-primary btn-block'> 
         </div>
 
-
-    </div>
+     </div>           
+</div>
 {% endblock %}
