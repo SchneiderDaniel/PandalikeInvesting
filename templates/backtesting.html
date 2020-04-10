@@ -1,11 +1,42 @@
+{% import "bootstrap/wtf.html" as wtf %}
 {% extends 'base.html' %}
+{% from "_formhelpers.html" import render_field %}
 
 {% block title %}
 Backtesting
 {% endblock %}
 
 {% block content %}
+<div class="container" style="width: 400px">
 
-sadfsadf
+    <div class="form-group">
+        <h2 class="title">General Settings</h2>
 
-{% endblock %}
+        
+            <form method="POST" action="/backtesting" class="form" role="form">
+    
+                {{ form.csrf_token }}
+                {{form.currency.label}} &nbsp; &nbsp;
+                {% for subfield in form.currency %}
+                <tr>
+                    <td>{{ subfield }}</td>
+                    <td>{{ subfield.label }}</td>
+                </tr>
+                {% endfor %}
+                <br>
+                <h3 class="title">Buy Transaction Costs</h3>
+                <br>
+                {{ render_field(form.buy_absolute, class='form-control', placeholder='Enter smth. like 5.00') }}
+                <br>
+                {{ render_field(form.buy_relative, class='form-control', placeholder='Enter smth. like 1.2') }}
+                <h3 class="title">Sell Transaction Costs</h3>
+                <br>
+                {{ render_field(form.sell_absolute, class='form-control', placeholder='Enter smth. like 5.00') }}
+                <br>
+                {{ render_field(form.sell_relative, class='form-control', placeholder='Enter smth. like 1.2') }}
+
+
+            
+
+    </div>
+    {% endblock %}

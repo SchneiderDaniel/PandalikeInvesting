@@ -2,7 +2,7 @@ from flask import Flask, render_template, request, redirect, url_for, send_from_
 from datetime import datetime
 import os
 import sys
-from forms import ContactForm
+from forms import ContactForm, BT_GeneralForm
 from flask_bootstrap import Bootstrap
 from flask_fontawesome import FontAwesome
 
@@ -31,11 +31,12 @@ def favicon():
 
 
 @app.route('/backtesting', methods=['GET', 'POST'])
-def visualization():
+def backtesting():
+    form = BT_GeneralForm()
     if request.method == 'POST':
         return render_template('backtesting.html')
     else:
-        return render_template('backtesting.html')
+        return render_template('backtesting.html', form=form)
 
 @app.route('/contact', methods=('GET', 'POST'))
 def contact():
