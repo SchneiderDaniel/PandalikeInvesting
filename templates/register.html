@@ -1,9 +1,42 @@
 {% extends 'base.html' %}
+{% from "_formhelpers.html" import render_field, render_checkbox, render_recaptcha %}
 
 {% block title %}
 Register Success
 {% endblock %}
 
+{% block scripts %}
+{{super()}}
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+{% endblock %}
+
 {% block content %}
-Tada
+<br>
+<div class="container" style="width: 500px">
+
+  <div class="form-group">
+    <div class="jumbotron">
+      <br>
+      <h2 class="title">Register for  Pandalike<b>Investing</b> </h2>
+      <form method="POST" action="/register" class="register_form" role="register_form">
+
+      {{ register_form.csrf_token }}
+      <d1>
+        <br>
+        {{ render_field(register_form.username, class='form-control', placeholder='Enter a username') }}
+        {{ render_field(register_form.email, class='form-control', placeholder='Enter your E-Mail') }} 
+        {{ render_field(register_form.password, class='form-control', placeholder='Enter a password') }}
+        {{ render_field(register_form.confirm_password, class='form-control', placeholder='Enter your password again') }}
+        {{ render_checkbox(register_form.conditions)}}
+
+
+      </d1>
+      <br>
+      {{render_recaptcha(register_form.recaptcha)}}
+      
+      <br>
+      <p><input type=submit name="submit" value="Send" class='btn btn-primary btn-block'>
+    </div>
+  </div>
+</div>
 {% endblock %}

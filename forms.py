@@ -28,16 +28,18 @@ class BT_GeneralForm(FlaskForm):
 
 
 class RegistrationForm(FlaskForm):
-    username = StringField('Username', validators=[DataRequired(),Length(min=6, max=20)])
-    email = StringField('E-Mail', validators=[DataRequired(),Email()])
-    password = PasswordField('Password', validators=[DataRequired(),Length(min=8)])
-    confirm_password = PasswordField('Confirm Password',validators=[DataRequired(),EqualTo('password')])
-    conditions = BooleanField('I accept the Terms & Conditions')
+    username = StringField('Username:', validators=[DataRequired(),Length(min=6, max=20, message=('Username needs 6-20 characters.'))])
+    email = StringField('E-Mail:', validators=[DataRequired(),Email()])
+    password = PasswordField('Password:', validators=[DataRequired(),Length(min=8, message=('Password needs at least 8 characters'))])
+    confirm_password = PasswordField('Confirm Password:',validators=[DataRequired(),EqualTo('password')])
+    conditions = BooleanField('I accept the <a href="terms">Terms &amp; Conditions', validators=[DataRequired()])
+    recaptcha = RecaptchaField()
     submit = SubmitField('Sign Up')
 
 
 class LoginForm(FlaskForm):
-    email = StringField('E-Mail', validators=[DataRequired(),Email()])
-    password = PasswordField('Password', validators=[DataRequired(),Length(min=8)])
+    email = StringField('E-Mail:', validators=[DataRequired(),Email()])
+    password = PasswordField('Password:', validators=[DataRequired(),Length(min=8)])
     remember = BooleanField('Remember Me')
+    recaptcha = RecaptchaField()
     submit = SubmitField('Login')

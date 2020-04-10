@@ -34,6 +34,10 @@ def favicon():
 def blog():
     return render_template('blog.html')
 
+@app.route('/terms')
+def terms():
+    return render_template('terms.html')
+
 @app.route('/about')
 def about():
     return render_template('about.html')
@@ -46,9 +50,32 @@ def pricing():
 def correlation():
     return render_template('correlation.html')
 
-@app.route('/register')
+@app.route('/register', methods=('GET', 'POST'))
 def register():
-    return render_template('register.html')
+    register_form = RegistrationForm()
+    if register_form.validate_on_submit():
+        return redirect(url_for('success'))
+    else:
+        return render_template('register.html', register_form=register_form)
+
+@app.route('/login', methods=('GET', 'POST'))
+def login():
+    login_form = LoginForm()
+    if login_form.validate_on_submit():
+        return redirect(url_for('success'))
+    else:
+        return render_template('login.html', login_form=login_form)
+
+@app.route('/contact', methods=('GET', 'POST'))
+def contact():
+    contact_form = ContactForm()
+    if contact_form.validate_on_submit():
+        return redirect(url_for('success'))
+    else:
+        print('Get!', file=sys.stderr)
+        return render_template('contact.html', contact_form=contact_form)
+
+
 
 
 
@@ -60,14 +87,7 @@ def backtesting():
     else:
         return render_template('backtesting.html', general_form=general_form)
 
-@app.route('/contact', methods=('GET', 'POST'))
-def contact():
-    contact_form = ContactForm()
-    if contact_form.validate_on_submit():
-        return redirect(url_for('success'))
-    else:
-        print('Get!', file=sys.stderr)
-        return render_template('contact.html', contact_form=contact_form)
+
 
 @app.route('/success')
 def success():

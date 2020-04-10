@@ -1,6 +1,6 @@
 <!-- {% import "bootstrap/wtf.html" as wtf %} -->
 {% extends 'base.html' %}
-{% from "_formhelpers.html" import render_field %}
+{% from "_formhelpers.html" import render_field, render_recaptcha %}
 
 {% block title %}
 Contact Me
@@ -30,7 +30,7 @@ Contact Me
         {{ render_field(contact_form.body, class='form-control', placeholder='Enter your message, question or request') }}
       </d1>
       <br>
-      {{ contact_form.recaptcha }}
+      {{render_recaptcha(contact_form.recaptcha)}}
       <br>
 
       <p><input type=submit name="submit" value="Send" class='btn btn-warning btn-block'>
