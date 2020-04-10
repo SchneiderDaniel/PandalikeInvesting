@@ -29,6 +29,18 @@ def index():
 def favicon():
     return send_from_directory(os.path.join(app.root_path, 'static'), 'resources/img/favicon.ico', mimetype='image/vnd.microsoft.icon')
 
+@app.route('/blog')
+def blog():
+    return render_template('blog.html')
+
+@app.route('/about')
+def about():
+    return render_template('about.html')
+
+@app.route('/pricing')
+def pricing():
+    return render_template('pricing.html')
+
 
 @app.route('/backtesting', methods=['GET', 'POST'])
 def backtesting():
