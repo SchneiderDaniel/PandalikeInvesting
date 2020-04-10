@@ -19,18 +19,18 @@ Contact Me
 
 <div class="form-group">
     <h2 class="title">Write a message to us</h2>
-    <form method="POST" action="/contact" class="form" role="form">
+    <form method="POST" action="/contact" class="contact_form" role="contact_form">
 
-        {{ form.csrf_token }}
+        {{ contact_form.csrf_token }}
         <d1>
-        {{ render_field(form.name, class='form-control', placeholder='What is your name?') }}
+        {{ render_field(contact_form.name, class='form-control', placeholder='What is your name?') }}
         <br>
-        {{ render_field(form.email, class='form-control', placeholder='Enter your E-Mail') }}
+        {{ render_field(contact_form.email, class='form-control', placeholder='Enter your E-Mail') }}
         <br>
-        {{ render_field(form.body, class='form-control', placeholder='Enter your message, question or request') }}
+        {{ render_field(contact_form.body, class='form-control', placeholder='Enter your message, question or request') }}
       </d1> 
       <br>
-      {{ form.recaptcha }}
+      {{ contact_form.recaptcha }}
       <br>
 
         <p><input type=submit name= "submit" value="Send" class='btn btn-warning btn-block'>

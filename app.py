@@ -32,24 +32,20 @@ def favicon():
 
 @app.route('/backtesting', methods=['GET', 'POST'])
 def backtesting():
-    form = BT_GeneralForm()
+    general_form = BT_GeneralForm()
     if request.method == 'POST':
         return render_template('backtesting.html')
     else:
-        return render_template('backtesting.html', form=form)
+        return render_template('backtesting.html', general_form=general_form)
 
 @app.route('/contact', methods=('GET', 'POST'))
 def contact():
-    form = ContactForm()
-    if form.validate_on_submit():
-        print('POSTI!', file=sys.stderr)
-        print(form.name, file=sys.stderr)
-        print(form.email, file=sys.stderr)
-        print(form.body, file=sys.stderr)
+    contact_form = ContactForm()
+    if contact_form.validate_on_submit():
         return redirect(url_for('success'))
     else:
         print('Get!', file=sys.stderr)
-        return render_template('contact.html', form=form)
+        return render_template('contact.html', contact_form=contact_form)
 
 @app.route('/success')
 def success():

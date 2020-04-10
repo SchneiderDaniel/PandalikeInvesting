@@ -7,36 +7,37 @@ Backtesting
 {% endblock %}
 
 {% block content %}
-<div class="container" style="width: 400px">
+<div class="container" style="max-width: 500px">
 
     <div class="form-group">
-        <h2 class="title">General Settings</h2>
 
-        
-            <form method="POST" action="/backtesting" class="form" role="form">
+        <div class="jumbotron">
+        <h2 class="title">General Settings</h2>
+            <form method="POST" action="/backtesting" class="general_form" role="form">
     
-                {{ form.csrf_token }}
-                {{form.currency.label}} &nbsp; &nbsp;
-                {% for subfield in form.currency %}
+                {{ general_form.csrf_token }}
+                {{general_form.currency.label}} &nbsp; &nbsp;
+                {% for subfield in general_form.currency %}
                 <tr>
                     <td>{{ subfield }}</td>
                     <td>{{ subfield.label }}</td>
+                    &nbsp;
                 </tr>
                 {% endfor %}
                 <br>
                 <h3 class="title">Buy Transaction Costs</h3>
                 <br>
-                {{ render_field(form.buy_absolute, class='form-control', placeholder='Enter smth. like 5.00') }}
+                {{ render_field(general_form.buy_absolute, class='form-control', placeholder='Enter smth. like 5.00') }}
                 <br>
-                {{ render_field(form.buy_relative, class='form-control', placeholder='Enter smth. like 1.2') }}
+                {{ render_field(general_form.buy_relative, class='form-control', placeholder='Enter smth. like 1.20') }}
                 <h3 class="title">Sell Transaction Costs</h3>
                 <br>
-                {{ render_field(form.sell_absolute, class='form-control', placeholder='Enter smth. like 5.00') }}
+                {{ render_field(general_form.sell_absolute, class='form-control', placeholder='Enter smth. like 5.00') }}
                 <br>
-                {{ render_field(form.sell_relative, class='form-control', placeholder='Enter smth. like 1.2') }}
+                {{ render_field(general_form.sell_relative, class='form-control', placeholder='Enter smth. like 1.20') }}
+            </div> 
 
 
-            
 
     </div>
     {% endblock %}
