@@ -56,8 +56,14 @@ Pandalike Investing
             <ul class="nav navbar-nav">
                 <li class="nav-item"><a href="/" class="nav-link">Home</a></li>
                 <li class="nav-item"><a href="/blog" class="nav-link">Blog</a></li>
-                <li class="nav-item"><a href="/backtesting" class="nav-link">Backtesting</a></li>
-                <li class="nav-item"><a href="/pricing" class="nav-link">Pricing</a></li>
+                <li class="nav-item dropdown">
+                    <a data-toggle="dropdown" class="nav-link dropdown-toggle" href="#">Analysis <b class="caret"></b></a>
+                    <ul class="dropdown-menu">					
+                        <li><a href="/correlation"><span class="fas fa-arrows-alt"></span> Correlation</a></li>
+                        <li><a href="/backtesting"><span class="fas fa-chart-line"></span> Backtesting</a></li>                        
+                    </ul>
+                </li>
+                <!-- <li class="nav-item"><a href="/pricing" class="nav-link">Pricing</a></li> -->
                 <li class="nav-item dropdown">
                     <a data-toggle="dropdown" class="nav-link dropdown-toggle" href="#">Contact <b class="caret"></b></a>
                     <ul class="dropdown-menu">					

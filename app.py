@@ -41,6 +41,10 @@ def about():
 def pricing():
     return render_template('pricing.html')
 
+@app.route('/correlation')
+def correlation():
+    return render_template('correlation.html')
+
 
 @app.route('/backtesting', methods=['GET', 'POST'])
 def backtesting():
