@@ -6,13 +6,19 @@ from forms import ContactForm
 from flask_bootstrap import Bootstrap
 from flask_fontawesome import FontAwesome
 
+
+# RECAPTCHA_PUBLIC_KEY = os.getenv('RECAPTCHA_PUBLIC_KEY')
+# RECAPTCHA_PRIVATE_KEY = os.getenv('RECAPTCHA_PRIVATE_KEY')
+RECAPTCHA_PUBLIC_KEY = '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI'
+RECAPTCHA_PRIVATE_KEY = '6LeIxAcTAAAAAGG-vFI1TnRWxMZNFuojJ4WifJWe'
+
+
 app = Flask(__name__)
 fa = FontAwesome(app)
 Bootstrap(app)
 
 app.config.from_mapping(SECRET_KEY=b'\xd6\x04\xbdj\xfe\xed$c\x1e@\xad\x0f\x13,@G')
-# google_API_KEY = os.getenv['GOOGLE_API_KEY']
-
+app.config.from_object(__name__)
 
 
 @app.route('/')

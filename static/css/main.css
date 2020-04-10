@@ -7,3 +7,8 @@ input::placeholder {
     width:100%;
     background: rgb(0, 0, 0);
  }
+
+ .g-recaptcha {
+    transform:scale(1.0);
+    transform-origin:0 0;
+}
