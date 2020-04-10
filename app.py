@@ -30,12 +30,12 @@ def favicon():
     return send_from_directory(os.path.join(app.root_path, 'static'), 'resources/img/favicon.ico', mimetype='image/vnd.microsoft.icon')
 
 
-@app.route('/visu/', methods=['GET', 'POST'])
+@app.route('/backtesting', methods=['GET', 'POST'])
 def visualization():
     if request.method == 'POST':
-        return render_template('visu.html')
+        return render_template('backtesting.html')
     else:
-        return render_template('visu.html')
+        return render_template('backtesting.html')
 
 @app.route('/contact', methods=('GET', 'POST'))
 def contact():

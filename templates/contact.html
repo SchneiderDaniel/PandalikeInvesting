@@ -23,7 +23,6 @@ Contact Me
     <form method="POST" action="/contact" class="form" role="form">
 
         {{ form.csrf_token }}
-        <!-- {{ wtf.quick_form(form) }} -->
         <d1>
         {{ render_field(form.name, class='form-control', placeholder='What is your name?') }}
         <br>
