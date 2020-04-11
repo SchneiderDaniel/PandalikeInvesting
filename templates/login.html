@@ -12,10 +12,11 @@ Login
 
 {% block content %}
 <br>
-<div class="container" style="width: 500px">
+<div class="container" style="max-width: 500px">
 
   <div class="form-group">
     <div class="jumbotron">
+
       <br>
       <h2 class="title">Login</h2>
       <form method="POST" action="{{ url_for( 'login') }}" class="login_form" role="login_form">
@@ -35,12 +36,10 @@ Login
 
       <div class ="border-top pt-3">
         <small class="text-muted">
-          No Account? <a class="ml-2" href = {{ url_for('register') }}> Register </a>
+          No Account? <a class="ml-2" href = {{ url_for('register') }}> Sign Up </a>
         </small>
       </div>
-
-    
-    </div>
+    </div>  
   </div>
 </div>
 {% endblock %}

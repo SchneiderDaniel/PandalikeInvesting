@@ -3,7 +3,7 @@
 {% from "_formhelpers.html" import render_field, render_recaptcha %}
 
 {% block title %}
-Contact Me
+Contact Us
 {% endblock %}
 
 {% block scripts %}
@@ -13,12 +13,13 @@ Contact Me
 
 {% block content %}
 <br>
-<div class="container" style="width: 500px">
+<div class="container" style="max-width: 500px">
 
   <div class="form-group">
     <div class="jumbotron">
       <br>
-      <h2 class="title">Write a message to us</h2>
+      <h2 class="title">Contact Us</h2>
+      <br>
       <form method="POST" action="{{ url_for( 'contact') }}" class="contact_form" role="contact_form">
 
       {{ contact_form.hidden_tag() }}
