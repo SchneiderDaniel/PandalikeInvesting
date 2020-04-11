@@ -2,8 +2,6 @@ from flask_wtf import FlaskForm, RecaptchaField
 from wtforms import StringField, TextField, SubmitField, TextAreaField, RadioField, DecimalField, PasswordField, BooleanField
 from wtforms.validators import DataRequired, Length, Email, EqualTo
 
-
-
 class ContactForm(FlaskForm):
     name = StringField('Name:', [
         DataRequired()])
@@ -16,7 +14,6 @@ class ContactForm(FlaskForm):
     recaptcha = RecaptchaField()
     submit = SubmitField('Submit')
 
-
 class BT_GeneralForm(FlaskForm):
     currency = RadioField('Select your currency:', choices=[('value','USD'),('value_two','EUR')], default='value')
     buy_absolute = DecimalField('Absolute (USD/EUR):', places=2, validators=[DataRequired()] )
@@ -26,7 +23,6 @@ class BT_GeneralForm(FlaskForm):
     recaptcha = RecaptchaField()
     simulate = SubmitField('Simulate')
 
-
 class RegistrationForm(FlaskForm):
     username = StringField('Username:', validators=[DataRequired(),Length(min=6, max=20, message=('Username needs 6-20 characters.'))])
     email = StringField('E-Mail:', validators=[DataRequired(),Email()])
@@ -35,7 +31,6 @@ class RegistrationForm(FlaskForm):
     conditions = BooleanField('I accept the <a href="terms">Terms &amp; Conditions', validators=[DataRequired()])
     recaptcha = RecaptchaField()
     submit = SubmitField('Sign Up')
-
 
 class LoginForm(FlaskForm):
     email = StringField('E-Mail:', validators=[DataRequired(),Email()])

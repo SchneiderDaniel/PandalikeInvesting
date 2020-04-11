@@ -6,6 +6,7 @@ input::placeholder {
     position: relative;
     min-height: 100%;
 }
+
 body {
     margin-bottom: 60px; /* Margin bottom by footer height */
 
@@ -29,10 +30,8 @@ body {
     /* Set a background color that will be displayed
         while the background image is loading */
     background-color: #464646;
-
-
-
 }
+
 .footer {
     position: absolute;
     bottom: 0;
