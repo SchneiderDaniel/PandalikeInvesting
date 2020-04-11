@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, send_from_directory
+from flask import Flask, render_template, request, redirect, url_for, send_from_directory, flash
 from datetime import datetime
 import os
 import sys
@@ -54,26 +54,32 @@ def correlation():
 def register():
     register_form = RegistrationForm()
     if register_form.validate_on_submit():
-        return redirect(url_for('success'))
-    else:
-        return render_template('register.html', register_form=register_form)
+        flash(f'Account created for {register_form.email.data}!', 'success')
+        return redirect(url_for('index'))
+    
+    return render_template('register.html', register_form=register_form)
 
 @app.route('/login', methods=('GET', 'POST'))
 def login():
     login_form = LoginForm()
     if login_form.validate_on_submit():
-        return redirect(url_for('success'))
-    else:
-        return render_template('login.html', login_form=login_form)
+        if login_form.email.data == 'admin@blog.com' and login_form.password.data == 'qweqweqwe':
+            flash(f'Logged in as {login_form.email.data}!', 'success')
+            return redirect(url_for('index'))
+        else:
+            flash ('Login Unsuccessful. Please check mail and password', 'danger')
+        
+
+    return render_template('login.html', login_form=login_form)
 
 @app.route('/contact', methods=('GET', 'POST'))
 def contact():
     contact_form = ContactForm()
     if contact_form.validate_on_submit():
-        return redirect(url_for('success'))
-    else:
-        print('Get!', file=sys.stderr)
-        return render_template('contact.html', contact_form=contact_form)
+        flash(f'Thanks {contact_form.name.data}, we received your meessage. We will respond soon!', 'success')
+        return redirect(url_for('index'))
+    
+    return render_template('contact.html', contact_form=contact_form)
 
 @app.route('/backtesting', methods=['GET', 'POST'])
 def backtesting():
@@ -82,10 +88,6 @@ def backtesting():
         return render_template('backtesting.html')
     else:
         return render_template('backtesting.html', general_form=general_form)
-
-@app.route('/success')
-def success():
-    return render_template('success.html')
 
 if __name__ == "__main__":
     app.run(debug=True)

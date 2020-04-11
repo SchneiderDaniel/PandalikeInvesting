@@ -18,7 +18,7 @@ Login
     <div class="jumbotron">
       <br>
       <h2 class="title">Login</h2>
-      <form method="POST" action="/login" class="login_form" role="login_form">
+      <form method="POST" action="{{ url_for( 'login') }}" class="login_form" role="login_form">
 
       {{ login_form.hidden_tag() }}
       <d1>
@@ -32,6 +32,14 @@ Login
       
       <br>
       <p><input type=submit name="submit" value="Send" class='btn btn-primary btn-block'>
+
+      <div class ="border-top pt-3">
+        <small class="text-muted">
+          No Account? <a class="ml-2" href = {{ url_for('register') }}> Register </a>
+        </small>
+      </div>
+
+    
     </div>
   </div>
 </div>

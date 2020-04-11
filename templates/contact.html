@@ -19,7 +19,7 @@ Contact Me
     <div class="jumbotron">
       <br>
       <h2 class="title">Write a message to us</h2>
-      <form method="POST" action="/contact" class="contact_form" role="contact_form">
+      <form method="POST" action="{{ url_for( 'contact') }}" class="contact_form" role="contact_form">
 
       {{ contact_form.hidden_tag() }}
       <d1>
