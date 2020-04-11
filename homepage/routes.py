@@ -60,15 +60,12 @@ def login():
         user = User.query.filter_by(email = login_form.email.data).first()
         if user and bcrypt.check_password_hash(user.password,login_form.password.data):
             login_user(user,remember = login_form.remember.data)
-            next_page = request.args.get('next')
-            print('POSTI!' +  str(next_page) , file=sys.stderr)
-            print('POSTI2' +  str(request) , file=sys.stderr)
-            
+            next_page = request.args.get('next')            
             return redirect(next_page) if next_page else redirect(url_for('index'))
         else:
             flash ('Login Unsuccessful. Please check mail and password', 'danger')
-    else:
-        return render_template('login.html', login_form=login_form, title = 'Login')
+    
+    return render_template('login.html', login_form=login_form, title = 'Login')
 
 @app.route('/contact', methods=['GET', 'POST'])
 def contact():
