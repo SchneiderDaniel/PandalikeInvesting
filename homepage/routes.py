@@ -2,8 +2,9 @@ from flask import render_template, request, redirect, url_for, send_from_directo
 from homepage.forms import ContactForm, BT_GeneralForm, RegistrationForm, LoginForm
 from homepage.models import User, Post
 from homepage import app, db, bcrypt
-from flask_login import login_user, current_user, logout_user
+from flask_login import login_user, current_user, logout_user, login_required
 import os
+import sys
 
 @app.route('/')
 def index():
@@ -33,7 +34,7 @@ def pricing():
 def correlation():
     return render_template('correlation.html', title = 'Correlation')
 
-@app.route('/register', methods=('GET', 'POST'))
+@app.route('/register', methods=['GET', 'POST'])
 def register():
     if current_user.is_authenticated:
         return redirect(url_for('index'))
@@ -48,8 +49,10 @@ def register():
     
     return render_template('register.html', register_form=register_form, title = 'Register')
 
-@app.route('/login', methods=('GET', 'POST'))
+@app.route('/login', methods=['GET', 'POST'])
 def login():
+   
+
     if current_user.is_authenticated:
         return redirect(url_for('index'))
     login_form = LoginForm()
@@ -57,12 +60,17 @@ def login():
         user = User.query.filter_by(email = login_form.email.data).first()
         if user and bcrypt.check_password_hash(user.password,login_form.password.data):
             login_user(user,remember = login_form.remember.data)
-            return redirect(url_for('index'))
+            next_page = request.args.get('next')
+            print('POSTI!' +  str(next_page) , file=sys.stderr)
+            print('POSTI2' +  str(request) , file=sys.stderr)
+            
+            return redirect(next_page) if next_page else redirect(url_for('index'))
         else:
             flash ('Login Unsuccessful. Please check mail and password', 'danger')
-    return render_template('login.html', login_form=login_form, title = 'Login')
+    else:
+        return render_template('login.html', login_form=login_form, title = 'Login')
 
-@app.route('/contact', methods=('GET', 'POST'))
+@app.route('/contact', methods=['GET', 'POST'])
 def contact():
     contact_form = ContactForm()
     if contact_form.validate_on_submit():
@@ -72,6 +80,7 @@ def contact():
     return render_template('contact.html', contact_form=contact_form, title = 'Contact Us')
 
 @app.route('/backtesting', methods=['GET', 'POST'])
+@login_required
 def backtesting():
     general_form = BT_GeneralForm()
     if request.method == 'POST':
@@ -87,5 +96,6 @@ def logout():
 
 
 @app.route('/account')
+@login_required
 def account():
     return render_template('account.html', title = 'Account')
