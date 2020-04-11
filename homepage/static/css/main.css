@@ -88,6 +88,8 @@ body {
     border: 1px solid #dddddd;
     border-radius: 3px;
     margin-bottom: 20px;
+    border-color: #888888;
+    box-shadow: 2px 5px #888888
 }
 
 .article-title {

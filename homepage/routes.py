@@ -1,5 +1,5 @@
 from flask import render_template, request, redirect, url_for, send_from_directory, flash
-from homepage.forms import ContactForm, BT_GeneralForm, RegistrationForm, LoginForm
+from homepage.forms import ContactForm, BT_GeneralForm, RegistrationForm, LoginForm, UpdateAccountForm
 from homepage.models import User, Post
 from homepage import app, db, bcrypt
 from flask_login import login_user, current_user, logout_user, login_required
@@ -92,8 +92,18 @@ def logout():
     return redirect(url_for('index'))
 
 
-@app.route('/account')
+@app.route('/account', methods=['GET', 'POST'])
 @login_required
 def account():
+    updateAccount_form = UpdateAccountForm()
+    if updateAccount_form.validate_on_submit():
+        current_user.username = updateAccount_form.username.data
+        current_user.email = updateAccount_form.email.data
+        db.session.commit()
+        flash('Your account has been updated!', 'success')
+        return redirect(url_for('account'))
+    elif request.method == 'GET':
+        updateAccount_form.username.data = current_user.username
+        updateAccount_form.email.data = current_user.email
     image_file = url_for('static', filename='resources/img/profile_pics/' + current_user.image_file )
-    return render_template('account.html', title = 'Account', image_file = image_file)
+    return render_template('account.html', title = 'Account', image_file = image_file, updateAccount_form=updateAccount_form)
