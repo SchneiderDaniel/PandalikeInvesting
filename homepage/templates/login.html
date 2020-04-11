@@ -1,10 +1,6 @@
 {% extends 'base.html' %}
 {% from "_formhelpers.html" import render_field, render_checkbox, render_recaptcha %}
 
-{% block title %}
-Login
-{% endblock %}
-
 {% block scripts %}
 {{super()}}
 <script src="https://www.google.com/recaptcha/api.js" async defer></script>

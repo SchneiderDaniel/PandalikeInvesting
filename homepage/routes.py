@@ -2,6 +2,8 @@ from flask import render_template, request, redirect, url_for, send_from_directo
 from homepage.forms import ContactForm, BT_GeneralForm, RegistrationForm, LoginForm
 from homepage.models import User, Post
 from homepage import app, db, bcrypt
+from flask_login import login_user, current_user, logout_user
+import os
 
 @app.route('/')
 def index():
@@ -13,26 +15,28 @@ def favicon():
 
 @app.route('/blog')
 def blog():
-    return render_template('blog.html')
+    return render_template('blog.html', title = 'Blog')
 
 @app.route('/terms')
 def terms():
-    return render_template('terms.html')
+    return render_template('terms.html', title = 'Terms &amp; Conditions')
 
 @app.route('/about')
 def about():
-    return render_template('about.html')
+    return render_template('about.html', title = 'About Me')
 
 @app.route('/pricing')
 def pricing():
-    return render_template('pricing.html')
+    return render_template('pricing.html', title = 'Pricing')
 
 @app.route('/correlation')
 def correlation():
-    return render_template('correlation.html')
+    return render_template('correlation.html', title = 'Correlation')
 
 @app.route('/register', methods=('GET', 'POST'))
 def register():
+    if current_user.is_authenticated:
+        return redirect(url_for('index'))
     register_form = RegistrationForm()
     if register_form.validate_on_submit():
         hashed_password = bcrypt.generate_password_hash(register_form.password.data).decode('utf-8')
@@ -42,20 +46,21 @@ def register():
         flash(f'Account created for {register_form.email.data}! You are now able to login', 'success')
         return redirect(url_for('login'))
     
-    return render_template('register.html', register_form=register_form)
+    return render_template('register.html', register_form=register_form, title = 'Register')
 
 @app.route('/login', methods=('GET', 'POST'))
 def login():
+    if current_user.is_authenticated:
+        return redirect(url_for('index'))
     login_form = LoginForm()
     if login_form.validate_on_submit():
-        if login_form.email.data == 'admin@blog.com' and login_form.password.data == 'qweqweqwe':
-            flash(f'Logged in as {login_form.email.data}!', 'success')
+        user = User.query.filter_by(email = login_form.email.data).first()
+        if user and bcrypt.check_password_hash(user.password,login_form.password.data):
+            login_user(user,remember = login_form.remember.data)
             return redirect(url_for('index'))
         else:
             flash ('Login Unsuccessful. Please check mail and password', 'danger')
-        
-
-    return render_template('login.html', login_form=login_form)
+    return render_template('login.html', login_form=login_form, title = 'Login')
 
 @app.route('/contact', methods=('GET', 'POST'))
 def contact():
@@ -64,7 +69,7 @@ def contact():
         flash(f'Thanks {contact_form.name.data}, we have received your meessage. We will respond soon!', 'success')
         return redirect(url_for('index'))
     
-    return render_template('contact.html', contact_form=contact_form)
+    return render_template('contact.html', contact_form=contact_form, title = 'Contact Us')
 
 @app.route('/backtesting', methods=['GET', 'POST'])
 def backtesting():
@@ -72,4 +77,15 @@ def backtesting():
     if request.method == 'POST':
         return render_template('backtesting.html')
     else:
-        return render_template('backtesting.html', general_form=general_form)
+        return render_template('backtesting.html', general_form=general_form, title = 'Backtesting')
+
+
+@app.route('/logout')
+def logout():
+    logout_user()
+    return redirect(url_for('index'))
+
+
+@app.route('/account')
+def account():
+    return render_template('account.html', title = 'Account')

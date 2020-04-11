@@ -20,7 +20,11 @@
 {% endblock %} 
 
 {% block title %}
-Pandalike Investing
+{% if title %}
+    Pandalike Investing - {{ title }}    
+{% else %}
+    Pandalike Investing
+{% endif %}
 {% endblock %}
 
 {% block body %}
@@ -83,8 +87,17 @@ Pandalike Investing
                 </div>
             </form>
             <ul class="nav navbar-nav navbar-right ml-auto">
-                <li class="nav-item"><a href="{{ url_for( 'register') }}" class="nav-link">Sign Up</a></li>
-                <a href="{{ url_for( 'login') }}" class="btn btn-primary pull-left"><i class="fas fa-sign-in-alt"></i> Login</a>				
+                {% if current_user.is_authenticated %}
+                    <a href="{{ url_for( 'logout') }}" class="btn btn-primary pull-left"><i class="fas fa-arrow-alt-circle-left"></i> Logout</a> 
+                    <li class="nav-item">
+                        <a href="{{ url_for( 'account') }}" class="nav-link">
+                            <i class="fas fa-user-circle">  </i>  Account
+                        </a>
+                    </li>
+                {% else %}
+                    <li class="nav-item"><a href="{{ url_for( 'register') }}" class="nav-link">Sign Up</a></li>
+                    <a href="{{ url_for( 'login') }}" class="btn btn-primary pull-left"><i class="fas fa-sign-in-alt"></i> Login</a>
+                {% endif %}				
             </ul>
         </div>
     </nav>
