@@ -1,6 +1,7 @@
 from flask_wtf import FlaskForm, RecaptchaField
 from wtforms import StringField, TextField, SubmitField, TextAreaField, RadioField, DecimalField, PasswordField, BooleanField
-from wtforms.validators import DataRequired, Length, Email, EqualTo
+from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
+from homepage.models import User
 
 class ContactForm(FlaskForm):
     name = StringField('Name:', [
@@ -31,6 +32,16 @@ class RegistrationForm(FlaskForm):
     conditions = BooleanField('I accept the <a href="terms">Terms &amp; Conditions', validators=[DataRequired()])
     recaptcha = RecaptchaField()
     submit = SubmitField('Sign Up')
+
+    def validate_username(self,username):
+        user = User.query.filter_by(username=username.data).first()
+        if user:
+            raise ValidationError('That username is already used. Please choose a different one.')
+    
+    def validate_email(self,email):
+        mail = User.query.filter_by(email=email.data).first()
+        if mail:
+            raise ValidationError('That E-Mail is already used. Please choose a different one.')
 
 class LoginForm(FlaskForm):
     email = StringField('E-Mail:', validators=[DataRequired(),Email()])

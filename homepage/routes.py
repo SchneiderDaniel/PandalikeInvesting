@@ -1,7 +1,7 @@
 from flask import render_template, request, redirect, url_for, send_from_directory, flash
 from homepage.forms import ContactForm, BT_GeneralForm, RegistrationForm, LoginForm
 from homepage.models import User, Post
-from homepage import app
+from homepage import app, db, bcrypt
 
 @app.route('/')
 def index():
@@ -35,8 +35,12 @@ def correlation():
 def register():
     register_form = RegistrationForm()
     if register_form.validate_on_submit():
-        flash(f'Account created for {register_form.email.data}!', 'success')
-        return redirect(url_for('index'))
+        hashed_password = bcrypt.generate_password_hash(register_form.password.data).decode('utf-8')
+        user = User(username = register_form.username.data, email = register_form.email.data, password=hashed_password)
+        db.session.add(user)
+        db.session.commit()
+        flash(f'Account created for {register_form.email.data}! You are now able to login', 'success')
+        return redirect(url_for('login'))
     
     return render_template('register.html', register_form=register_form)
 

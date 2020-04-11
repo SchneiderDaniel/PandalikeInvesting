@@ -3,6 +3,7 @@ from flask import Flask
 from flask_bootstrap import Bootstrap
 from flask_fontawesome import FontAwesome
 from flask_sqlalchemy import SQLAlchemy
+from flask_bcrypt import Bcrypt
 import os
 import sys
 
@@ -21,6 +22,7 @@ app.config.from_object(__name__)
 # DEV (Don't use for PROD)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
 db = SQLAlchemy(app)
+bcrypt = Bcrypt(app)
 
 
 from homepage import routes
