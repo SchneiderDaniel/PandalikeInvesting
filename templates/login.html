@@ -20,7 +20,7 @@ Login
       <h2 class="title">Login</h2>
       <form method="POST" action="/login" class="login_form" role="login_form">
 
-      {{ login_form.csrf_token }}
+      {{ login_form.hidden_tag() }}
       <d1>
         <br>
         {{ render_field(login_form.email, class='form-control', placeholder='Enter your E-Mail') }} 

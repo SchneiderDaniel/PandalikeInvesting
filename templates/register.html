@@ -20,7 +20,7 @@ Register
       <h2 class="title">Register</h2>
       <form method="POST" action="/register" class="register_form" role="register_form">
 
-      {{ register_form.csrf_token }}
+      {{ register_form.hidden_tag() }}
       <d1>
         <br>
         {{ render_field(register_form.username, class='form-control', placeholder='Enter a username') }}

@@ -14,7 +14,7 @@ Backtesting
             <h2 class="display-4">General Settings</h2>
             <form method="POST" action="/backtesting" class="general_form" role="form">
 
-                {{ general_form.csrf_token }}
+                {{ general_form.hidden_tag() }}
 
                 {{general_form.currency.label}} &nbsp; &nbsp;
                 {% for subfield in general_form.currency %}

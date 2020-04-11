@@ -21,7 +21,7 @@ Contact Me
       <h2 class="title">Write a message to us</h2>
       <form method="POST" action="/contact" class="contact_form" role="contact_form">
 
-      {{ contact_form.csrf_token }}
+      {{ contact_form.hidden_tag() }}
       <d1>
         {{ render_field(contact_form.name, class='form-control', placeholder='What is your name?') }}
         <br>
