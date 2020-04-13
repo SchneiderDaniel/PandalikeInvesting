@@ -11,20 +11,20 @@
       <br>
       <legend class="border-bottom mb-4">Reset Password</legend>
       <form method="POST" action="" class="login_form" role="login_form">
-      {{ form.hidden_tag() }}
-      <d1>
+        {{ form.hidden_tag() }}
+        <d1>
+          <br>
+          {{ render_field(form.password, class='form-control', placeholder='Enter your new password') }}
+          {{ render_field(form.confirm_password, class='form-control', placeholder='Confirm your new password') }}
+        </d1>
         <br>
-        {{ render_field(form.password, class='form-control', placeholder='Enter your new password') }}
-        {{ render_field(form.confirm_password, class='form-control', placeholder='Confirm your new password') }}
-      </d1>
-      <br>
-      {{render_recaptcha(form.recaptcha)}}
-      
-      <br>
+        {{render_recaptcha(form.recaptcha)}}
+
+        <br>
         <div class="form-group">
           {{ form.submit(class="btn btn-outline-info") }}
-      </div>
-    </div>  
+        </div>
+    </div>
   </div>
 </div>
 {% endblock %}

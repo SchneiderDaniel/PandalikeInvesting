@@ -12,34 +12,34 @@
       <legend class="border-bottom mb-4">Join our community</legend>
       <form method="POST" action="{{ url_for( 'users.register') }}" class="register_form" role="register_form">
 
-      {{ register_form.hidden_tag() }}
-      <d1>
-        
-        {{ render_field(register_form.username, class='form-control', placeholder='Enter a username') }}
-        {{ render_field(register_form.email, class='form-control', placeholder='Enter your E-Mail') }} 
-        {{ render_field(register_form.password, class='form-control', placeholder='Enter a password') }}
-        {{ render_field(register_form.confirm_password, class='form-control', placeholder='Enter your password again') }}
-        {{ render_checkbox(register_form.conditions)}}
+        {{ register_form.hidden_tag() }}
+        <d1>
+
+          {{ render_field(register_form.username, class='form-control', placeholder='Enter a username') }}
+          {{ render_field(register_form.email, class='form-control', placeholder='Enter your E-Mail') }}
+          {{ render_field(register_form.password, class='form-control', placeholder='Enter a password') }}
+          {{ render_field(register_form.confirm_password, class='form-control', placeholder='Enter your password again') }}
+          {{ render_checkbox(register_form.conditions)}}
 
 
-      </d1>
-      {{render_recaptcha(register_form.recaptcha)}}
-      
-      <br>
-      <div class="form-group">
-        {{ register_form.submit(class="btn btn-outline-info") }}
-      </div>
+        </d1>
+        {{render_recaptcha(register_form.recaptcha)}}
 
-      <div class ="border-top pt-3">
-        <small class="text-muted">
-          Already Have An Account? <a class="ml-2" href = {{ url_for('users.login') }}> Login </a>
-        </small>
-      </div>
+        <br>
+        <div class="form-group">
+          {{ register_form.submit(class="btn btn-outline-info") }}
+        </div>
+
+        <div class="border-top pt-3">
+          <small class="text-muted">
+            Already Have An Account? <a class="ml-2" href={{ url_for('users.login') }}> Login </a>
+          </small>
+        </div>
 
 
     </div>
 
-    
+
   </div>
 </div>
 {% endblock %}

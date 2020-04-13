@@ -4,40 +4,40 @@
 {% block content %}
 <br>
 <div class="content-section">
-    <div class="media">
-      <img class="rounded-circle account-img" src={{image_file}}>
-      <div class="media-body">
-        <h2 class="account-heading">{{current_user.username}}</h2>
-        <p class="text-secondary">{{current_user.email}}</p>
-      </div>
+  <div class="media">
+    <img class="rounded-circle account-img" src={{image_file}}>
+    <div class="media-body">
+      <h2 class="account-heading">{{current_user.username}}</h2>
+      <p class="text-secondary">{{current_user.email}}</p>
     </div>
-    <div class="form-group">
-        
-        <br>
-        <legend class="border-bottom mb-4">Account Info</legend>
-        <form method="POST" action="" enctype = "multipart/form-data">
+  </div>
+  <div class="form-group">
 
-        {{ updateAccount_form.hidden_tag() }}
-        <d1>
-        
+    <br>
+    <legend class="border-bottom mb-4">Account Info</legend>
+    <form method="POST" action="" enctype="multipart/form-data">
+
+      {{ updateAccount_form.hidden_tag() }}
+      <d1>
+
         {{ render_field(updateAccount_form.username, class='form-control') }}
-        
-        {{ render_field(updateAccount_form.email, class='form-control') }} 
-        </d1>
-        
-        {{ render_picture(updateAccount_form.picture, class='form-control-file') }}
+
+        {{ render_field(updateAccount_form.email, class='form-control') }}
+      </d1>
+
+      {{ render_picture(updateAccount_form.picture, class='form-control-file') }}
 
 
-      
-        {{render_recaptcha(updateAccount_form.recaptcha)}}
-        
-        <br>
-        <div class="form-group">
-            {{ updateAccount_form.submit(class="btn btn-outline-info") }}
-        </div>
-    
-    
-        
-    </div>
+
+      {{render_recaptcha(updateAccount_form.recaptcha)}}
+
+      <br>
+      <div class="form-group">
+        {{ updateAccount_form.submit(class="btn btn-outline-info") }}
+      </div>
+
+
+
+  </div>
 </div>
 {% endblock %}

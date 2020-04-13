@@ -1,12 +1,19 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description"
+        content="This is a website with a blog for ETF, Fonds, Stocks and Investing in general. Also tools for Backtesting and correlation of portfolios is provided.">
+    <meta name="keywords"
+        content="Finance, ETF, Fond, Stock, Correlation, Backtesting, Investing, Advice, Blog, Tools, MSCI World, S&P500">
+    <meta name="author" content="Daniel Schneider">
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
     <link rel="stylesheet" type="text/css" href={{ url_for('static', filename='css/main.css') }}>
     <link rel="stylesheet" type="text/css" href={{ url_for('static', filename='css/navbar.css') }}>
@@ -14,20 +21,23 @@
     {{ fontawesome_html() }}
 
     {% if title %}
-        <title>Pandalike Investing - {{ title }}</title>
+    <title>Pandalike Investing - {{ title }}</title>
     {% else %}
-        <title>Pandalike Investing</title>
+    <title>Pandalike Investing</title>
     {% endif %}
 </head>
+
 <body>
     <header class="site-header">
         <nav class="navbar navbar-default navbar-expand-lg navbar-light">
             <div class="navbar-header d-flex col">
                 <a class="navbar-brand" href="{{ url_for( 'main.index') }}">
-                    <span><img src="{{ url_for('static', filename='resources/img/logo.jpg') }}" width="45" height="50" ></span>
+                    <span><img src="{{ url_for('static', filename='resources/img/logo.jpg') }}" width="45"
+                            height="50"></span>
                     &nbsp; Pandalike<b> Investing</b>
-                </a>  		
-                <button type="button" data-target="#navbarCollapse" data-toggle="collapse" class="navbar-toggle navbar-toggler ml-auto">
+                </a>
+                <button type="button" data-target="#navbarCollapse" data-toggle="collapse"
+                    class="navbar-toggle navbar-toggler ml-auto">
                     <span class="navbar-toggler-icon"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
@@ -39,97 +49,112 @@
                     <li class="nav-item"><a href="{{ url_for( 'main.index') }}" class="nav-link">Home</a></li>
                     <li class="nav-item"><a href="{{ url_for( 'main.blog') }}" class="nav-link">Blog</a></li>
                     <li class="nav-item dropdown">
-                        <a data-toggle="dropdown" class="nav-link dropdown-toggle" href="#">Analysis <b class="caret"></b></a>
-                        <ul class="dropdown-menu">					
-                            <li><a href="{{ url_for( 'main.correlation') }}"><span class="fas fa-arrows-alt"></span> Correlation</a></li>
-                            <li><a href="{{ url_for( 'main.backtesting') }}"><span class="fas fa-chart-line"></span> Backtesting</a></li>                        
+                        <a data-toggle="dropdown" class="nav-link dropdown-toggle" href="#">Analysis <b
+                                class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="{{ url_for( 'main.correlation') }}"><span class="fas fa-arrows-alt"></span>
+                                    Correlation</a></li>
+                            <li><a href="{{ url_for( 'main.backtesting') }}"><span class="fas fa-chart-line"></span>
+                                    Backtesting</a></li>
                         </ul>
                     </li>
                     <li class="nav-item dropdown">
-                        <a data-toggle="dropdown" class="nav-link dropdown-toggle" href="#">Contact <b class="caret"></b></a>
-                        <ul class="dropdown-menu">					
+                        <a data-toggle="dropdown" class="nav-link dropdown-toggle" href="#">Contact <b
+                                class="caret"></b></a>
+                        <ul class="dropdown-menu">
                             <li><a href="#"><span class="fab fa-youtube"></span> Youtube</a></li>
                             <li><a href="#"><span class="fab fa-instagram"></span> Instagram</a></li>
                             <li><a href="#"><span class="fab fa-twitter"></span> Twitter</a></li>
                             <div class="border-top my-3"></div>
-                            <li><a href="{{ url_for( 'main.contact') }}"><span class="fas fa-pen-alt"></span> Contact Us</a></li>
-                            
+                            <li><a href="{{ url_for( 'main.contact') }}"><span class="fas fa-pen-alt"></span> Contact
+                                    Us</a></li>
+
                         </ul>
                     </li>
                     <li class="nav-item"><a href="{{ url_for( 'main.about') }}" class="nav-link">About Me</a></li>
-                    
+
                 </ul>
                 <form class="navbar-form form-inline">
-                    <div class="input-group search-box">								
+                    <div class="input-group search-box">
                         <input type="text" id="search" class="form-control" placeholder="Search here...">
                         <span class="input-group-addon"><i class="fas fa-search"></i></span>
                     </div>
                 </form>
                 <ul class="nav navbar-nav navbar-right ml-auto">
                     {% if current_user.is_authenticated %}
-                        <a href="{{ url_for( 'users.logout') }}" class="btn btn-primary pull-left"><i class="fas fa-arrow-alt-circle-left"></i> Logout</a> 
-                        <li class="nav-item">
-                            <a href="{{ url_for( 'users.account') }}" class="nav-link">
-                                <i class="fas fa-user-circle">  </i>  Account
-                            </a>
-                        </li>
+                    <a href="{{ url_for( 'users.logout') }}" class="btn btn-primary pull-left"><i
+                            class="fas fa-arrow-alt-circle-left"></i> Logout</a>
+                    <li class="nav-item">
+                        <a href="{{ url_for( 'users.account') }}" class="nav-link">
+                            <i class="fas fa-user-circle"> </i> Account
+                        </a>
+                    </li>
                     {% else %}
-                        <li class="nav-item"><a href="{{ url_for( 'users.register') }}" class="nav-link">Sign Up</a></li>
-                        <a href="{{ url_for( 'users.login') }}" class="btn btn-primary pull-left"><i class="fas fa-sign-in-alt"></i> Login</a>
-                    {% endif %}				
+                    <li class="nav-item"><a href="{{ url_for( 'users.register') }}" class="nav-link">Sign Up</a></li>
+                    <a href="{{ url_for( 'users.login') }}" class="btn btn-primary pull-left"><i
+                            class="fas fa-sign-in-alt"></i> Login</a>
+                    {% endif %}
                 </ul>
             </div>
         </nav>
     </header>
     <main role="main" class="container">
-    
-      <div class="row">
-        
-        <div class="col-md-8">
-          {% with messages = get_flashed_messages(with_categories=true) %}
-            {% if messages %}
-              {% for category, message in messages %}
+
+        <div class="row">
+
+            <div class="col-md-8">
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                {% for category, message in messages %}
                 <div class="alert alert-{{ category }}">
-                  {{ message }}
+                    {{ message }}
                 </div>
-              {% endfor %}
-            {% endif %}
-          {% endwith %}
-          {% block content %}{% endblock %}
+                {% endfor %}
+                {% endif %}
+                {% endwith %}
+                {% block content %}{% endblock %}
+            </div>
+            <div class="col-md-4">
+                <br>
+                <div class="content-section">
+                    <h3>Our Sidebar</h3>
+                    <p class='text-muted'>You can put any information here you'd like.
+                        <ul class="list-group">
+                            <li class="list-group-item list-group-item-light">Latest Posts</li>
+                            <li class="list-group-item list-group-item-light">Announcements</li>
+                            <li class="list-group-item list-group-item-light">Calendars</li>
+                            <li class="list-group-item list-group-item-light">etc</li>
+                        </ul>
+                    </p>
+                </div>
+            </div>
         </div>
-        <div class="col-md-4">
-        <br>
-          <div class="content-section">
-            <h3>Our Sidebar</h3>
-            <p class='text-muted'>You can put any information here you'd like.
-              <ul class="list-group">
-                <li class="list-group-item list-group-item-light">Latest Posts</li>
-                <li class="list-group-item list-group-item-light">Announcements</li>
-                <li class="list-group-item list-group-item-light">Calendars</li>
-                <li class="list-group-item list-group-item-light">etc</li>
-              </ul>
-            </p>
-          </div>
-        </div>
-      </div>
     </main>
 
     <footer class="footer">
         <div class="container">
             <span class="text-muted">© 2020 Copyright
-                <a href="https://PandalikeInvesting.com/"> PandalikeInvesting.com</a> | <a href="terms">Terms &amp; Conditions
+                <a href="https://PandalikeInvesting.com/"> PandalikeInvesting.com</a> | <a href="terms">Terms &amp;
+                    Conditions
             </span>
         </div>
-      </footer>
+    </footer>
 
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
     <script src="{{url_for('static', filename='js/main.js')}}"></script>
     <script src="{{url_for('static', filename='js/navbar.js')}}"></script>
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </body>
+
 </html>

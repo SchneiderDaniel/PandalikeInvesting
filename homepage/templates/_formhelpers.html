@@ -3,14 +3,14 @@
   {{ field.label(class="form-label-txt") }}
   {{ field(**kwargs)|safe }}
   {% if field.errors %}
-    <ul class=errors>
+  <ul class=errors>
     {% for error in field.errors %}
-      <div class="alert alert-danger" role="alert">
-        {{ error }}
-      </div>
+    <div class="alert alert-danger" role="alert">
+      {{ error }}
+    </div>
 
     {% endfor %}
-    </ul>
+  </ul>
   {% endif %}
 </div>
 {% endmacro %}
@@ -25,35 +25,32 @@
 
 {% macro render_recaptcha(field) %}
 <div class="form-group">
-{{ field }}
+  {{ field }}
   {% if field.errors %}
-    <ul class=errors>
+  <ul class=errors>
     {% for error in field.errors %}
-      <div class="alert alert-danger" role="alert">
-        {{ error }}
-      </div>
+    <div class="alert alert-danger" role="alert">
+      {{ error }}
+    </div>
     {% endfor %}
-    </ul>
+  </ul>
   {% endif %}
-  
+
 </div>
 {% endmacro %}
 
 {% macro render_picture(field) %}
-  <dt>{{ field.label(class="form-label-txt") }}
-  <dd>{{ field(**kwargs)|safe }}
+<dt>{{ field.label(class="form-label-txt") }}
+<dd>{{ field(**kwargs)|safe }}
   {% if field.errors %}
-    <ul class=errors>
+  <ul class=errors>
     {% for error in field.errors %}
-      <span class = "text-danger"> 
-        {{ error }}
-      </span>
-      <br>
+    <span class="text-danger">
+      {{ error }}
+    </span>
+    <br>
     {% endfor %}
-    </ul>
+  </ul>
   {% endif %}
-  </dd>
+</dd>
 {% endmacro %}
-
-
-

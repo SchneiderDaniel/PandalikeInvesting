@@ -12,23 +12,23 @@
 
       <form method="POST" action="{{ url_for( 'main.contact') }}" class="contact_form" role="contact_form">
 
-      {{ contact_form.hidden_tag() }}
-      <d1>
-        {{ render_field(contact_form.name, class='form-control', placeholder='What is your name?') }}
-        
-        {{ render_field(contact_form.email, class='form-control', placeholder='Enter your E-Mail') }}
-        
-        {{ render_field(contact_form.body, class='form-control', placeholder='Enter your message, question or request') }}
-      </d1>
-      
-      {{render_recaptcha(contact_form.recaptcha)}}
-      
-      <br>
+        {{ contact_form.hidden_tag() }}
+        <d1>
+          {{ render_field(contact_form.name, class='form-control', placeholder='What is your name?') }}
 
-      <!-- <input type=submit name="submit" value="Send" class='btn btn-warning btn-block'> -->
-      <div class="form-group">
-        {{ contact_form.submit(class="btn btn-outline-info") }}
-      </div>
+          {{ render_field(contact_form.email, class='form-control', placeholder='Enter your E-Mail') }}
+
+          {{ render_field(contact_form.body, class='form-control', placeholder='Enter your message, question or request') }}
+        </d1>
+
+        {{render_recaptcha(contact_form.recaptcha)}}
+
+        <br>
+
+        <!-- <input type=submit name="submit" value="Send" class='btn btn-warning btn-block'> -->
+        <div class="form-group">
+          {{ contact_form.submit(class="btn btn-outline-info") }}
+        </div>
     </div>
   </div>
 </div>
