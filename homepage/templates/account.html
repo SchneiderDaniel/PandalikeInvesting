@@ -19,16 +19,16 @@
 
         {{ updateAccount_form.hidden_tag() }}
         <d1>
-        <br>
+        
         {{ render_field(updateAccount_form.username, class='form-control') }}
+        
         {{ render_field(updateAccount_form.email, class='form-control') }} 
-
-
         </d1>
+        
         {{ render_picture(updateAccount_form.picture, class='form-control-file') }}
 
 
-        <br>
+      
         {{render_recaptcha(updateAccount_form.recaptcha)}}
         
         <br>

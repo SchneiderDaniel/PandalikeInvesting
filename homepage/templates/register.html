@@ -14,7 +14,7 @@
 
       {{ register_form.hidden_tag() }}
       <d1>
-        <br>
+        
         {{ render_field(register_form.username, class='form-control', placeholder='Enter a username') }}
         {{ render_field(register_form.email, class='form-control', placeholder='Enter your E-Mail') }} 
         {{ render_field(register_form.password, class='form-control', placeholder='Enter a password') }}
@@ -23,7 +23,6 @@
 
 
       </d1>
-      <br>
       {{render_recaptcha(register_form.recaptcha)}}
       
       <br>
