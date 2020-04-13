@@ -14,8 +14,8 @@ class RegistrationForm(FlaskForm):
         min=8, message=('Password needs at least 8 characters'))])
     confirm_password = PasswordField('Confirm Password:', validators=[
                                      DataRequired(), EqualTo('password')])
-    conditions = BooleanField(
-        'I accept the <a href="terms">Terms &amp; Conditions', validators=[DataRequired()])
+    # conditions = BooleanField('I accept the <a href="terms">Terms &amp; Conditions and  ', validators=[DataRequired()])
+    conditions = BooleanField('I accept the <a href="terms">Terms &amp; Conditions </a> and the <a href="privacy"> Privacy Policy </a>', validators=[DataRequired()])
     recaptcha = RecaptchaField()
     submit = SubmitField('Sign Up')
 

@@ -30,6 +30,14 @@ def blog():
 def terms():
     return render_template('terms.html', title='Terms &amp; Conditions')
 
+@main.route('/privacy')
+def privacy():
+    return render_template('privacy.html', title='Privacy Policy')
+
+@main.route('/legal')
+def legal_notice():
+    return render_template('legal_notice.html', title='Impressum - Legal Notice')
+
 
 @main.route('/about')
 def about():
