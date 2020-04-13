@@ -5,11 +5,15 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    {% block description %}
     <meta name="description"
         content="This is a website with a blog for ETF, Fonds, Stocks and Investing in general. Also tools for Backtesting and correlation of portfolios is provided.">
+    {% endblock %}
+    <meta name="author" content="Daniel Schneider">    
+    {% block keywords %}
     <meta name="keywords"
         content="Finance, ETF, Fond, Stock, Correlation, Backtesting, Investing, Advice, Blog, Tools, MSCI World, S&P500">
-    <meta name="author" content="Daniel Schneider">
+    {% endblock %}
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
