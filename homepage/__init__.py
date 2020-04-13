@@ -1,10 +1,10 @@
-#Libs
 from flask import Flask
-from flask_fontawesome import FontAwesome
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
 from flask_login import LoginManager
 from flask_mail import Mail
+from flask_fontawesome import FontAwesome
+
 import os
 import sys
 
@@ -24,7 +24,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
 db = SQLAlchemy(app)
 bcrypt = Bcrypt(app)
 login_manager = LoginManager(app)
-login_manager.login_view = 'login'
+login_manager.login_view = 'users.login'
 login_manager.login_message_category = 'primary'
 app.config['MAIL_SERVER'] = 'smtp.googlemail.com'
 app.config['MAIL_PORT'] = 465
@@ -37,7 +37,10 @@ mail = Mail(app)
 # print('TESTI: '+ str(app.config['MAIL_PASSWORD']) , file=sys.stderr)
 
 
+from homepage.users.routes import users
+from homepage.posts.routes import posts
+from homepage.main.routes import main
 
-
-
-from homepage import routes
+app.register_blueprint(users)
+app.register_blueprint(posts)
+app.register_blueprint(main)

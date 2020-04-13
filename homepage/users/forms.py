@@ -1,30 +1,11 @@
 from flask_wtf import FlaskForm, RecaptchaField
 from flask_wtf.file import FileField, FileAllowed
-from flask_login import current_user
-from wtforms import StringField, TextField, SubmitField, TextAreaField, RadioField, DecimalField, PasswordField, BooleanField
+from wtforms import StringField, SubmitField, PasswordField, BooleanField
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
+from flask_login import current_user
 from homepage.models import User
 
-class ContactForm(FlaskForm):
-    name = StringField('Name:', [
-        DataRequired()])
-    email = StringField('E-Mail:', [
-        Email(message=('Not a valid email address.')),
-        DataRequired()])
-    body = TextAreaField('Message:', [
-        DataRequired(),
-        Length(min=4, message=('Your message is too short.'))])
-    recaptcha = RecaptchaField()
-    submit = SubmitField('Submit')
 
-class BT_GeneralForm(FlaskForm):
-    currency = RadioField('Select your currency:', choices=[('value','USD'),('value_two','EUR')], default='value')
-    buy_absolute = DecimalField('Absolute (USD/EUR):', places=2, validators=[DataRequired()] )
-    buy_relative = DecimalField('Relative (%):', places=2, validators=[DataRequired()] )
-    sell_absolute = DecimalField('Absolute (USD/EUR):', places=2, validators=[DataRequired()] )
-    sell_relative = DecimalField('Relative (%):', places=2, validators=[DataRequired()] )
-    recaptcha = RecaptchaField()
-    simulate = SubmitField('Simulate')
 
 class RegistrationForm(FlaskForm):
     username = StringField('Username:', validators=[DataRequired(),Length(min=6, max=20, message=('Username needs 6-20 characters.'))])
@@ -58,7 +39,7 @@ class LoginForm(FlaskForm):
 class UpdateAccountForm(FlaskForm):
     username = StringField('Username:', validators=[DataRequired(),Length(min=6, max=20, message=('Username needs 6-20 characters.'))])
     email = StringField('E-Mail:', validators=[DataRequired(),Email()])
-    picture = FileField('Update Profile Picture', validators=[FileAllowed(['jpg', 'png ', 'gif'])])
+    picture = FileField('Update Profile Picture', validators=[FileAllowed(['jpg', 'jpeg','png ', 'gif'])])
     recaptcha = RecaptchaField()
     submit = SubmitField('Update')
 
@@ -75,12 +56,6 @@ class UpdateAccountForm(FlaskForm):
             mail = User.query.filter_by(email=email.data).first()
             if mail:
                 raise ValidationError('That E-Mail is already used. Please choose a different one.')
-
-class PostForm(FlaskForm):
-    title = StringField('Title', validators=[DataRequired(),Length(max=100, message=('Title is limited to 100 characters.'))])
-    content = TextAreaField('Content', [DataRequired(), Length(min=8, message=('Your message is too short. It needs at least 8 characters.'))])
-    recaptcha = RecaptchaField()
-    submit = SubmitField('Post')
 
 class RequestResetForm(FlaskForm):
     email = StringField('E-Mail:', validators=[DataRequired(),Email()])
