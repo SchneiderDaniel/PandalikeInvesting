@@ -6,6 +6,7 @@ html {
     position: relative;
     min-height: 100%;
 }
+
   
 h1, h2, h3, h4, h5, h6 {
     color: #444444;
@@ -35,6 +36,8 @@ body {
         while the background image is loading */
     /* background-color: #fafafa; */
     background-color: rgb(219, 219, 219);
+
+    /* font: normal 16px Arial, Arial, sans-serif */
 
 }
 
@@ -149,4 +152,4 @@ a.article-title:hover {
 
 .form-label-txt {
     font-weight:normal;
-  }
+}
