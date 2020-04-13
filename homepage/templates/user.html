@@ -2,8 +2,17 @@
 
 {% block content %}
 <br>
-<h1 class "mb-3"> Posts by {{user.username}} ({{posts.total}})
+<div class="content-section">
 
+    <div class="media">
+        <img class="rounded-circle account-img" src={{image_file}}>
+        <div class="media-body">
+            <h2 class="account-heading">{{current_user.username}}</h2>
+        </div>
+    </div>
+
+
+<legend class="border-bottom mb-4">Posts by {{user.username}} ({{posts.total}})</legend>
 </h1>
 {% for post in posts.items %}
 <article class="media content-section">
@@ -35,5 +44,5 @@
 
 
 {% endfor %}
-
+</div>
 {% endblock %}
