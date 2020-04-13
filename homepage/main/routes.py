@@ -1,4 +1,4 @@
-from flask import render_template, request, redirect, url_for, send_from_directory, flash, Blueprint
+from flask import render_template, request, redirect, url_for, send_from_directory, flash, Blueprint, current_app
 from homepage.main.forms import (ContactForm, BT_GeneralForm)
 from flask_login import login_required
 import os
@@ -16,7 +16,7 @@ def index():
 
 @main.route('/favicon.ico')
 def favicon():
-    return send_from_directory(os.path.join(app.root_path, 'static'), 'resources/img/favicon.ico', mimetype='image/vnd.microsoft.icon')
+    return send_from_directory(os.path.join(current_app.root_path, 'static'), 'resources/img/favicon.ico', mimetype='image/vnd.microsoft.icon')
 
 @main.route('/blog')
 def blog():
