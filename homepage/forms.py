@@ -81,3 +81,20 @@ class PostForm(FlaskForm):
     content = TextAreaField('Content', [DataRequired(), Length(min=8, message=('Your message is too short. It needs at least 8 characters.'))])
     recaptcha = RecaptchaField()
     submit = SubmitField('Post')
+
+class RequestResetForm(FlaskForm):
+    email = StringField('E-Mail:', validators=[DataRequired(),Email()])
+    recaptcha = RecaptchaField()
+    submit = SubmitField('Request Password Reset')
+
+    def validate_email(self,email):
+        user = User.query.filter_by(email=email.data).first()
+        if user is None:
+            raise ValidationError('There is no account for this E-Mail. You must register first.')
+
+
+class ResetPasswordForm(FlaskForm):
+    password = PasswordField('Password:', validators=[DataRequired(),Length(min=8, message=('Password needs at least 8 characters'))])
+    confirm_password = PasswordField('Confirm Password:',validators=[DataRequired(),EqualTo('password')])
+    recaptcha = RecaptchaField()
+    submit = SubmitField('Reset my password')
