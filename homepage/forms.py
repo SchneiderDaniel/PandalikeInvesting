@@ -75,3 +75,9 @@ class UpdateAccountForm(FlaskForm):
             mail = User.query.filter_by(email=email.data).first()
             if mail:
                 raise ValidationError('That E-Mail is already used. Please choose a different one.')
+
+class PostForm(FlaskForm):
+    title = StringField('Title', validators=[DataRequired(),Length(max=100, message=('Title is limited to 100 characters.'))])
+    content = TextAreaField('Content', [DataRequired(), Length(min=8, message=('Your message is too short. It needs at least 8 characters.'))])
+    recaptcha = RecaptchaField()
+    submit = SubmitField('Post')
