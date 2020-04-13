@@ -32,6 +32,7 @@
 
 .navbar .form-inline {
     display: inline-block;
+    padding-right:15px;
 }
 
 .navbar .nav li {

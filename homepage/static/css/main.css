@@ -60,6 +60,19 @@ body {
     background-color: #00b0f0 !important;
     border-color: #00b0f0 !important
 }
+.btn-outline-info{
+    color: #00b0f0;
+    border-color: #00b0f0 !important
+}
+
+.btn-outline-info:hover, .btn-outline-info:active, .btn-outline-info:visited {
+    border-color: #00b0f0 !important;
+    background-color: #00b0f0 !important
+}
+
+a {
+    color: #00b0f0;
+  }
 
 .colored_link {
     color: #00b0f0 !important;
