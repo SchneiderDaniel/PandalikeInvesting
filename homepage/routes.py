@@ -5,6 +5,8 @@ from homepage import app, db, bcrypt
 from flask_login import login_user, current_user, logout_user, login_required
 import os
 import sys
+import secrets
+from PIL import Image
 
 @app.route('/')
 def index():
@@ -92,11 +94,25 @@ def logout():
     return redirect(url_for('index'))
 
 
+def save_picture(form_picture):
+    random_hex = secrets.token_hex(8)
+    _, f_ext = os.path.splitext(form_picture.filename)
+    picture_fn = random_hex + f_ext
+    picture_path = os.path.join(app.root_path, 'static/resources/img/profile_pics/' + picture_fn)
+    output_size = (125,125)
+    i = Image.open(form_picture)
+    i.thumbnail(output_size)
+    i.save(picture_path)
+    return picture_fn    
+
 @app.route('/account', methods=['GET', 'POST'])
 @login_required
 def account():
     updateAccount_form = UpdateAccountForm()
     if updateAccount_form.validate_on_submit():
+        if updateAccount_form.picture.data:
+            picture_file = save_picture(updateAccount_form.picture.data)
+            current_user.image_file = picture_file
         current_user.username = updateAccount_form.username.data
         current_user.email = updateAccount_form.email.data
         db.session.commit()

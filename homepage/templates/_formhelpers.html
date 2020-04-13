@@ -34,4 +34,21 @@
   </dd>
 {% endmacro %}
 
+{% macro render_picture(field) %}
+  <dt>{{ field.label }}
+  <dd>{{ field(**kwargs)|safe }}
+  {% if field.errors %}
+    <ul class=errors>
+    {% for error in field.errors %}
+      <span class = "text-danger"> 
+        {{ error }}
+      </span>
+      <br>
+    {% endfor %}
+    </ul>
+  {% endif %}
+  </dd>
+{% endmacro %}
+
+
 

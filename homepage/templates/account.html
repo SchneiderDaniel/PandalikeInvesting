@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% from "_formhelpers.html" import render_field, render_checkbox, render_recaptcha %}
+{% from "_formhelpers.html" import render_field, render_checkbox, render_recaptcha, render_picture %}
 
 {% block content %}
 <br>
@@ -15,7 +15,7 @@
         
         <br>
         <legend class="border-bottom mb-4">Account Info</legend>
-        <form method="POST" action="">
+        <form method="POST" action="" enctype = "multipart/form-data">
 
         {{ updateAccount_form.hidden_tag() }}
         <d1>
@@ -25,6 +25,9 @@
 
 
         </d1>
+        {{ render_picture(updateAccount_form.picture, class='form-control-file') }}
+
+
         <br>
         {{render_recaptcha(updateAccount_form.recaptcha)}}
         
