@@ -15,7 +15,7 @@ body {
     margin-bottom: 60px; /* Margin bottom by footer height */
 
     /* Location of the image */
-    background-image: url("../resources/img/background.jpg");
+    /* background-image: url("../resources/img/background.jpg"); */
     
     /* Background image is centered vertically and horizontally at all times */
     background-position: center center;
@@ -33,7 +33,7 @@ body {
     
     /* Set a background color that will be displayed
         while the background image is loading */
-    background-color: #464646;
+    background-color: #fafafa;
 
 }
 
