@@ -3,11 +3,11 @@
 {% block content %}
 <br>
 {% if current_user.is_authenticated %}
-    {% if current_user.roles[0].name =='admin' %}
-        <a style="display:inline" class="btn btn-primary float-right" href={{ url_for('posts.new_post') }}> + New Post</a>
+    {% if user_has_role(current_user,'admin') %}
+        <a style="display:inline" class="btn btn-primary float-right" href={{ url_for('posts.new_post') }}> + New Post</a> 
         <br>
         <br>
-    {% endif %}
+    {% endif %}  
 {% endif %}
 
 {% for post in posts.items %}

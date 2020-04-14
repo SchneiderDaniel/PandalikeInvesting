@@ -37,9 +37,13 @@ def user_has_role (the_current_user, role):
             return True
     return False
 
+
+
 def create_app(config_class=Config):
     app = Flask(__name__)
     app.config.from_object(Config)
+
+    app.jinja_env.globals.update(user_has_role=user_has_role)
 
     from homepage.users.routes import users
     from homepage.posts.routes import posts
