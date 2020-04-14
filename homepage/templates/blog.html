@@ -3,11 +3,9 @@
 {% block content %}
 <br>
 {% if current_user.is_authenticated %}
-    {% if current_user.email=='daniel.schneider.privat@googlemail.com' %}
-        <a style="display:inline" class="btn btn-primary float-right" href={{ url_for('posts.new_post') }}> + New Post</a>
-        <br>
-        <br>
-    {% endif %}
+    <a style="display:inline" class="btn btn-primary float-right" href={{ url_for('posts.new_post') }}> + New Post</a>
+    <br>
+    <br>
 {% endif %}
 
 {% for post in posts.items %}
