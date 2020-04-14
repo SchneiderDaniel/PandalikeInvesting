@@ -1,5 +1,6 @@
 from flask import render_template, request, redirect, url_for, flash, abort, Blueprint
-from flask_login import current_user, login_required
+from flask_login import current_user
+from homepage import login_required_author
 from homepage import db
 from homepage.models import Post
 from homepage.posts.forms import (PostForm)
@@ -8,7 +9,7 @@ posts = Blueprint('posts', __name__)
 
 
 @posts.route('/new_post', methods=['GET', 'POST'])
-@login_required
+@login_required_author()
 def new_post():
     form = PostForm()
     if form.validate_on_submit():
@@ -28,7 +29,7 @@ def post(post_id):
 
 
 @posts.route('/post/<int:post_id>/update', methods=['GET', 'POST'])
-@login_required
+@login_required_author()
 def update_post(post_id):
     post = Post.query.get_or_404(post_id)
     if post.author != current_user:
@@ -49,7 +50,7 @@ def update_post(post_id):
 
 
 @posts.route('/post/<int:post_id>/delete', methods=['POST'])
-@login_required
+@login_required_author()
 def delete_post(post_id):
     post = Post.query.get_or_404(post_id)
     if post.author != current_user:

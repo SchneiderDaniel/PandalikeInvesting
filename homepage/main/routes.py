@@ -1,6 +1,6 @@
 from flask import render_template, request, redirect, url_for, send_from_directory, flash, Blueprint, current_app
 from homepage.main.forms import (ContactForm, BT_GeneralForm)
-from flask_login import login_required
+from homepage import login_required_author
 import os
 from homepage.models import Post
 
@@ -66,7 +66,7 @@ def contact():
 
 
 @main.route('/backtesting', methods=['GET', 'POST'])
-@login_required
+@login_required_author(role="admin")
 def backtesting():
     general_form = BT_GeneralForm()
     if request.method == 'POST':

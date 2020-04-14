@@ -1,10 +1,11 @@
 from flask import render_template, request, redirect, url_for, flash, Blueprint
-from flask_login import login_user, current_user, logout_user, login_required
+from flask_login import login_user, current_user, logout_user
 from homepage.models import User, Post, Role, UserRoles
 from homepage import db, bcrypt
 from homepage.users.forms import (RegistrationForm,
                                   LoginForm, UpdateAccountForm, RequestResetForm, ResetPasswordForm)
 from homepage.users.utils import save_picture
+from homepage import login_required_author
 
 
 users = Blueprint('users', __name__)
@@ -55,7 +56,7 @@ def logout():
 
 
 @users.route('/account', methods=['GET', 'POST'])
-@login_required
+@login_required_author()
 def account():
     updateAccount_form = UpdateAccountForm()
     if updateAccount_form.validate_on_submit():
