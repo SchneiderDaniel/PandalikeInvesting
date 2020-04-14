@@ -1,6 +1,6 @@
 from flask import render_template, request, redirect, url_for, flash, Blueprint
 from flask_login import login_user, current_user, logout_user, login_required
-from homepage.models import User, Post
+from homepage.models import User, Post, Role, UserRoles
 from homepage import db, bcrypt
 from homepage.users.forms import (RegistrationForm,
                                   LoginForm, UpdateAccountForm, RequestResetForm, ResetPasswordForm)
@@ -20,6 +20,7 @@ def register():
             register_form.password.data).decode('utf-8')
         user = User(username=register_form.username.data,
                     email=register_form.email.data, password=hashed_password)
+        user.roles.append(Role.query[0])
         db.session.add(user)
         db.session.commit()
         flash(

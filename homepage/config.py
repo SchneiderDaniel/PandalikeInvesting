@@ -12,3 +12,6 @@ class Config:
     MAIL_USE_SSL = True
     MAIL_USERNAME = os.environ.get('EMAIL_USER')
     MAIL_PASSWORD = os.environ.get('EMAIL_PASS')
+    ADMIN_MAIL = os.environ.get('ADMIN_MAIL')
+    ADMIN_PASSWORD = os.environ.get('ADMIN_PASSWORD')
+    ADMIN_NAME = 'Pandalike Investing' 
