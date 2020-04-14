@@ -2,11 +2,14 @@
 
 {% block content %}
 <br>
-<div>
-    <a style="display:inline" class="btn btn-primary float-right" href={{ url_for('posts.new_post') }}> + New Post</a>
-</div>
-<br>
-<br>
+{% if current_user.is_authenticated %}
+    {% if current_user.email=='daniel.schneider.privat@googlemail.com' %}
+        <a style="display:inline" class="btn btn-primary float-right" href={{ url_for('posts.new_post') }}> + New Post</a>
+        <br>
+        <br>
+    {% endif %}
+{% endif %}
+
 {% for post in posts.items %}
 <article class="media content-section">
     <img class="rounded-circle article-img"
@@ -19,6 +22,7 @@
         </div>
         <h2><a class="article-title" href="{{ url_for('posts.post', post_id=post.id) }}">{{ post.title }}</a></h2>
         <p class="article-content">{{ post.abstract }}</p>
+        <a class="btn btn-outline-info float-right" href="{{ url_for('posts.post', post_id=post.id) }}">More</a>
     </div>
 </article>
 {% endfor %}
