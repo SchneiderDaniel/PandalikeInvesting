@@ -3,9 +3,11 @@
 {% block content %}
 <br>
 {% if current_user.is_authenticated %}
-    <a style="display:inline" class="btn btn-primary float-right" href={{ url_for('posts.new_post') }}> + New Post</a>
-    <br>
-    <br>
+    {% if current_user.roles[0].name =='admin' %}
+        <a style="display:inline" class="btn btn-primary float-right" href={{ url_for('posts.new_post') }}> + New Post</a>
+        <br>
+        <br>
+    {% endif %}
 {% endif %}
 
 {% for post in posts.items %}

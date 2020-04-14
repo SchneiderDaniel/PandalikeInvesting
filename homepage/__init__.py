@@ -16,7 +16,6 @@ login_manager = LoginManager()
 login_manager.login_view = 'users.login'
 login_manager.login_message_category = 'primary'
 
-
 def login_required_author(role="ANY"):
     def wrapper(fn):
         @wraps(fn)
@@ -24,13 +23,13 @@ def login_required_author(role="ANY"):
             if not current_user.is_authenticated:
               login_manager.login_message = u"Please log in to access this page."
               return login_manager.unauthorized()
-            if ((current_user.roles[0].name != role) and (role != "ANY")):
-                login_manager.login_message = u"Your role has not enough priviledges to access this site. You need to upgrade your account."
-                return login_manager.unauthorized()
+            if (current_user.roles[0].name != "admin"):  
+                if ((current_user.roles[0].name != role) and (role != "ANY")):
+                    login_manager.login_message = u"Your role has not enough priviledges to access this site. You need to upgrade your account."
+                    return login_manager.unauthorized()
             return fn(*args, **kwargs)
         return decorated_view
     return wrapper
-
 
 def create_app(config_class=Config):
     app = Flask(__name__)

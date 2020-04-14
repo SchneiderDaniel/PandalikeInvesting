@@ -9,7 +9,7 @@ posts = Blueprint('posts', __name__)
 
 
 @posts.route('/new_post', methods=['GET', 'POST'])
-@login_required_author()
+@login_required_author('admin')
 def new_post():
     form = PostForm()
     if form.validate_on_submit():
