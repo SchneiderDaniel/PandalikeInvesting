@@ -13,7 +13,8 @@
     <d1>
       <br>
       {{ render_field(form.title, class='form-control', placeholder='Enter a title.') }}
-      {{ render_field(form.content, class='form-control', placeholder='Enter some content') }}
+      {{ render_field(form.abstract, class='form-control', placeholder='Enter an abstract.') }}
+      {{ render_field(form.content, class='form-control', placeholder='Enter detailed content') }}
     </d1>
     <br>
     {{render_recaptcha(form.recaptcha)}}
