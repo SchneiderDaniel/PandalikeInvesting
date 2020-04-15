@@ -7,6 +7,7 @@ from flask_fontawesome import FontAwesome
 from homepage.config import Config
 import sys
 from functools import wraps
+from flask_share import Share
 
 fa = FontAwesome()
 db = SQLAlchemy()
@@ -15,6 +16,7 @@ mail = Mail()
 login_manager = LoginManager()
 login_manager.login_view = 'users.login'
 login_manager.login_message_category = 'primary'
+share = Share()
 
 def login_required_author(role="ANY"):
     def wrapper(fn):
@@ -37,8 +39,6 @@ def user_has_role (the_current_user, role):
             return True
     return False
 
-
-
 def create_app(config_class=Config):
     app = Flask(__name__)
     app.config.from_object(Config)
@@ -60,5 +60,9 @@ def create_app(config_class=Config):
     bcrypt.init_app(app)
     mail.init_app(app)
     login_manager.init_app(app)
+    share.init_app(app)
 
     return app
+
+
+
