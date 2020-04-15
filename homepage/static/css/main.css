@@ -68,6 +68,18 @@ body {
     border-color: #00b0f0 !important
 }
 
+.btn-white{
+    background-color: white !important;
+    border-color: #00b0f0 !important
+}
+
+.btn-white:hover, .btn-outline-info:active, .btn-outline-info:visited {
+    border-color: white !important;
+    background-color: #00b0f0 !important;
+    color: black;
+}
+
+
 .btn-info{
     background-color: #00b0f0 !important;
 }
@@ -104,6 +116,17 @@ a {
     border-radius: 3px;
     margin-bottom: 20px;
     border-color: #888888;
+    box-shadow: 2px 5px #888888
+}
+
+.comment-section {
+    background: #a2ace9;
+    background-color: rgb(226, 226, 226) !important; 
+    padding: 10px 20px;
+    border: 1px solid #dddddd;
+    border-radius: 3px;
+    margin-bottom: 20px;
+    border-color: white;
     box-shadow: 2px 5px #888888
 }
 

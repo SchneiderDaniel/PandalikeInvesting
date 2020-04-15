@@ -48,13 +48,13 @@
 
 <br>
     
-    <a class="btn btn-outline-info btn-sm mt-1 mb-1 "
+    <a class="btn btn-white btn-sm mt-1 mb-1 "
         href="{{ url_for('posts.new_comment', post_id = post.id) }}">Comment</a>
     <br>
     {% endif %}
 
     {% for comment in comments %}
-    <article class="media content-section">
+    <article class="media comment-section">
         <div class="container">
             <div class="article-metadata">
                 <div class="row">
@@ -69,14 +69,14 @@
                         <small class="text-muted">posted on: {{ comment.date_posted.strftime("%d %b, %Y") }}</small>
                     </div>
                     <div class="col-sm">
-                        <!-- {% if post.author == current_user %}
+                        {% if post.author == current_user %}
                         <div>
                             <a class="btn btn-secondary btn-sm mt-1 mb-1 "
-                                href="{{ url_for('posts.update_post', post_id = post.id) }}">Update</a>
-                            <button type="button" class="btn btn-danger btn-sm m-1" data-toggle="modal"
-                                data-target="#deleteModal">Delete</button>
+                                href="{{ url_for('posts.update_comment', post_id = post.id, comment_id = comment.id ) }}">Update</a>
+                            <!-- <button type="button" class="btn btn-danger btn-sm m-1" data-toggle="modal"
+                                data-target="#deleteModal">Delete</button> -->
                         </div>
-                        {% endif %} -->
+                        {% endif %}
                     </div>
                 </div>
             </div>

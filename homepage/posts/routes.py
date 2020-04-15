@@ -36,6 +36,24 @@ def new_comment(post_id):
         return redirect(url_for('posts.post', post_id=post_id))
     return render_template('new_comment.html', title='New Comment', form=form, legend='New Comment')
 
+@posts.route('/post/<int:post_id>/update_comment/<int:comment_id>', methods=['GET', 'POST'])
+@login_required_author()
+def update_comment(post_id,comment_id ):
+    comment = Comment.query.get_or_404(comment_id)
+    post = Post.query.get_or_404(post_id)
+    if comment.author_comment != current_user:
+        abort(403)
+    form = CommentForm()
+    if form.validate_on_submit():
+        comment.content = form.content.data
+        db.session.commit()
+        flash('Your comment has been updated!', 'success')
+        return (redirect(url_for('posts.post', post_id=post.id)))
+    elif request.method == 'GET':
+        form.content.data = comment.content
+    return render_template('new_comment.html', title='Update Comment', form=form, legend='Update Comment')
+
+
 @posts.route('/post/<int:post_id>/update', methods=['GET', 'POST'])
 @login_required_author()
 def update_post(post_id):
