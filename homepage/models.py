@@ -59,7 +59,7 @@ class Comment(db.Model):
     content = db.Column(db.Text, nullable=False)
     uid = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     pid = db.Column(db.Integer, db.ForeignKey('posts.id'), nullable=False)
-
+    date_posted = db.Column(db.DateTime, nullable=False,default=datetime.utcnow)
     def __repr__(self):
         return f"Comment('{self.id}', '{self.content}')"
 
