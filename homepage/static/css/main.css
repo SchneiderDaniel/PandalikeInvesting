@@ -45,7 +45,7 @@ body {
     position: absolute;
     bottom: 0;
     width: 100%;
-    height: 25px; /* Set the fixed height of the footer here */
+    height: 50px; /* Set the fixed height of the footer here */
     line-height: 25px; /* Vertically center the text there */
     background-color: black;
 }
