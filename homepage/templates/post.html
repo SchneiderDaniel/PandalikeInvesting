@@ -3,15 +3,26 @@
 {% block content %}
 <br>
 <article class="media content-section">
-    <img class="rounded-circle article-img"
+<div class="container">
+    <div class="article-metadata">
+    <div class="row">
+    
+      <div class="col-md-1 mr-4 float-left ">
+        <img class="rounded-circle article-img"
         src="{{ url_for('static', filename='/resources/img/profile_pics/' + post.author.image_file) }}">
-    <div class="media-body">
-        <div class="article-metadata">
-            <a class="mr-2"
-                href="{{ url_for('users.user', username=post.author.username) }}">{{ post.author.username }}</a>
-            <small class="text-muted">posted on: {{ post.date_posted.strftime("%d %b, %Y") }}</small>
-            <small class="text-muted float-right">Time to Read: {{time_to_read}} min</small>
-            {% if post.author == current_user %}
+      </div>
+      
+      <div class="col-md-auto">
+        
+        <a class="mr-2"
+                href="{{ url_for('users.user', username=post.author.username) }}">{{ post.author.username }}</a> <br /> 
+                <small class="text-muted">posted on: {{ post.date_posted.strftime("%d %b, %Y") }}</small>
+           
+            
+         
+      </div>
+      <div class="col-sm">
+        {% if post.author == current_user %}
             <div>
                 <a class="btn btn-secondary btn-sm mt-1 mb-1 "
                     href={{url_for('posts.update_post', post_id = post.id)}}>Update</a>
@@ -19,11 +30,19 @@
                     data-target="#deleteModal">Delete</button>
             </div>
             {% endif %}
-        </div>
-        <h2 class="article-title">{{ post.title }}</h2>
+    </div>  
+      <div class="col-sm">
+        <small class="text-muted float-right">Time to Read: {{time_to_read}} min</small>
+      </div>
+    </div>
+    </div>
+    <br>
+    <h2 class="article-title">{{ post.title }}</h2>
         <p class="article-content">{{ post.abstract }}</p>
         <p class="article-content">{{ post.content }}</p>
-    </div>
+
+
+  </div>
 </article>
 
 <!-- Modal -->
