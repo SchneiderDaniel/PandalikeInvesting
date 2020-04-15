@@ -21,7 +21,7 @@
                     {% if post.author == current_user %}
                     <div>
                         <a class="btn btn-secondary btn-sm mt-1 mb-1 "
-                            href={{url_for('posts.update_post', post_id = post.id)}}>Update</a>
+                            href="{{ url_for('posts.update_post', post_id = post.id) }}">Update</a>
                         <button type="button" class="btn btn-danger btn-sm m-1" data-toggle="modal"
                             data-target="#deleteModal">Delete</button>
                     </div>
@@ -37,12 +37,56 @@
 
         <br>
         <h2 class="article-title">{{ post.title }}</h2>
+        <br>
         <p class="article-abstract"> <b>Abstract:</b> {{ post.abstract }}</p>
         <p class="article-content">{{ post.content }}</p>
 
 
     </div>
 </article>
+{% if current_user.is_authenticated %} 
+
+<br>
+    
+    <a class="btn btn-outline-info btn-sm mt-1 mb-1 "
+        href="{{ url_for('posts.new_comment', post_id = post.id) }}">Comment</a>
+    <br>
+    {% endif %}
+
+    {% for comment in comments %}
+    <article class="media content-section">
+        <div class="container">
+            <div class="article-metadata">
+                <div class="row">
+                    <div class="col-md-1 mr-4 float-left ">
+                        <img class="rounded-circle article-img"
+                            src="{{ url_for('static', filename='/resources/img/profile_pics/' + comment.author_comment.image_file) }}">
+                    </div>
+                    <div class="col-md-auto">
+                        <a class="mr-2"
+                            href="{{ url_for('users.user', username=comment.author_comment.username) }}">{{ comment.author_comment.username }}</a>
+                        <br />
+                        <!-- <small class="text-muted">posted on: {{ post.date_posted.strftime("%d %b, %Y") }}</small> -->
+                    </div>
+                    <div class="col-sm">
+                        <!-- {% if post.author == current_user %}
+                        <div>
+                            <a class="btn btn-secondary btn-sm mt-1 mb-1 "
+                                href="{{ url_for('posts.update_post', post_id = post.id) }}">Update</a>
+                            <button type="button" class="btn btn-danger btn-sm m-1" data-toggle="modal"
+                                data-target="#deleteModal">Delete</button>
+                        </div>
+                        {% endif %} -->
+                    </div>
+                </div>
+            </div>
+    
+
+            {{ comment.content }}
+    
+        </div>
+    </article>
+    {% endfor %}
 
 <!-- Modal -->
 <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel"

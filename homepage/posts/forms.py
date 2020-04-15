@@ -9,3 +9,8 @@ class PostForm(FlaskForm):
     content = TextAreaField('Content', [DataRequired(), Length(min=8, message=('Your message is too short. It needs at least 8 characters.'))])
     recaptcha = RecaptchaField()
     submit = SubmitField('Post')
+
+class CommentForm(FlaskForm):
+    content = TextAreaField('Content', [DataRequired(), Length(min=8, message=('Your message is too short. It needs at least 8 characters.'))])
+    recaptcha = RecaptchaField()
+    submit = SubmitField('Comment')

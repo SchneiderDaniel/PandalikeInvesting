@@ -4,7 +4,6 @@ from flask import current_app
 from homepage import db, login_manager
 from flask_login import UserMixin
 
-
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id))
@@ -20,8 +19,9 @@ class User(db.Model, UserMixin):
     date_joined = db.Column(db.DateTime, nullable=False,
                             default=datetime.utcnow)
     password = db.Column(db.String(60), nullable=False)
-    posts = db.relationship('Post', backref='author', lazy=True)
     roles = db.relationship('Role', secondary='user_roles')
+    posts = db.relationship('Post', backref='author', lazy=True)
+    comments_ = db.relationship('Comment', backref='author_comment', lazy=True)
 
     def get_reset_token(self, expires_sec=1800):
         s = Serializer(current_app.config['SECRET_KEY'], expires_sec)
@@ -44,14 +44,25 @@ class Post(db.Model):
     __tablename__ = 'posts'
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(100), nullable=False)
-    date_posted = db.Column(db.DateTime, nullable=False,
-                            default=datetime.utcnow)
+    date_posted = db.Column(db.DateTime, nullable=False,default=datetime.utcnow)
     abstract = db.Column(db.Text, nullable=False)
     content = db.Column(db.Text, nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+    comments = db.relationship('Comment', backref='post_comment', lazy=True)
 
     def __repr__(self):
-        return f"User('{self.title}', '{self.date_posted}' )"
+        return f"Post('{self.title}', '{self.date_posted}' )"
+
+class Comment(db.Model):
+    __tablename__ = 'comments'
+    id = db.Column(db.Integer, primary_key=True)
+    content = db.Column(db.Text, nullable=False)
+    uid = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+    pid = db.Column(db.Integer, db.ForeignKey('posts.id'), nullable=False)
+
+    def __repr__(self):
+        return f"Comment('{self.id}', '{self.content}')"
+
 
 class Role(db.Model):
     __tablename__ = 'roles'
