@@ -10,6 +10,7 @@
             <a class="mr-2"
                 href="{{ url_for('users.user', username=post.author.username) }}">{{ post.author.username }}</a>
             <small class="text-muted">posted on: {{ post.date_posted.strftime("%d %b, %Y") }}</small>
+            <small class="text-muted float-right">Time to Read: {{time_to_read}} min</small>
             {% if post.author == current_user %}
             <div>
                 <a class="btn btn-secondary btn-sm mt-1 mb-1 "

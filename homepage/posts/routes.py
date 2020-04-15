@@ -4,6 +4,9 @@ from homepage import login_required_author
 from homepage import db
 from homepage.models import Post
 from homepage.posts.forms import (PostForm)
+import sys
+
+from homepage.main.reading_time import estimate_reading_time
 
 posts = Blueprint('posts', __name__)
 
@@ -24,8 +27,11 @@ def new_post():
 
 @posts.route('/post/<int:post_id>')
 def post(post_id):
-    post = Post.query.get_or_404(post_id)
-    return render_template('post.html', title=post.title, post=post)
+    post = Post.query.get_or_404(post_id)   
+    time_to_read = 0
+    if not request.args.get('silent'): 
+        time_to_read = estimate_reading_time(request.url+"?silent=True")
+    return render_template('post.html', title=post.title, post=post,time_to_read=round(time_to_read))
 
 
 @posts.route('/post/<int:post_id>/update', methods=['GET', 'POST'])
