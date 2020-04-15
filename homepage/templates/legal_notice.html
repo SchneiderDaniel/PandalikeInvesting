@@ -1,9 +1,69 @@
 {% extends 'base.html' %}
 {% block content %}
 <br>
-<div class="content-section">
 
-    <h2><strong>TODO</strong></h2>
+<div class="content-section">
+    <h1 class="display-7">Legal Notice</h1>
+    <p class="lead">
+        <br>
+        Presented by:<br>
+    </p>
+   
+    <p>
+        Pandalike Investing <br>
+        Daniel Schneider <br>
+        Oberjesinger Street 1 <br>
+        711754 Nufringen <br>
+    </p>
+    <p class="lead">
+        Responsible for content:
+    </p>
+    <p>
+        Daniel Schneider <br>
+        Private person <br>
+        Oberjesinger Street 1 <br>
+        711754 Nufringen <br>
+    </p>
+
+    <hr class="my-4">
+    <!-- <p>It uses utility classes for typography and spacing to space content out within the larger container.</p> -->
+    <p class="lead">
+        <a class="btn btn-primary btn-lg" href="{{ url_for( 'main.contact') }}" role="button"> <span class="fas fa-pen-alt"></span> Contact Us</a>
+    </p>
 
 </div>
+
+<div class="content-section">
+    <h1 class="display-7">Impressum</h1>
+    <p class="lead">
+        <br>
+        Angaben gemäß § 5 TMG:<br>
+    </p>
+   
+    <p>
+        Pandalike Investing <br>
+        Daniel Schneider <br>
+        Privatperson <br>
+        Oberjesinger Straße 1 <br>
+        711754 Nufringen <br>
+    </p>
+    <p class="lead">
+        Verantwortlich für den Inhalt nach § 55 Abs. 2 RStV:
+    </p>
+    <p>
+        Daniel Schneider <br>
+        Oberjesinger Straße 1 <br>
+        711754 Nufringen <br>
+    </p>
+
+    <hr class="my-4">
+    <!-- <p>It uses utility classes for typography and spacing to space content out within the larger container.</p> -->
+    <p class="lead">
+        <a class="btn btn-primary btn-lg" href="{{ url_for( 'main.contact') }}" role="button"> <span class="fas fa-pen-alt"></span> Schreiben Sie uns</a>
+    </p>
+
+</div>
+
+
+
 {% endblock %}
