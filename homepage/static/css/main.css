@@ -56,14 +56,20 @@ body {
     transform-origin:0 0;
 }
 
-.btn-primary,
+.btn-primary{
+    background-color: #00b0f0 !important;
+    border-color: #00b0f0 !important;
+}
+
+
 .btn-primary:hover,
 .btn-primary:active,
-.btn-primary:visited,
 .btn-primary:focus {
     background-color: #00b0f0 !important;
-    border-color: #00b0f0 !important
+    border-color: black !important;
+    color: black;
 }
+
 .btn-outline-info{
     color: #00b0f0;
     border-color: #00b0f0 !important
@@ -157,7 +163,7 @@ a {
 }
 
 a.article-title:hover {
-    color: #428bca;
+    color: #00b0f0;
     text-decoration: none;
 }
 

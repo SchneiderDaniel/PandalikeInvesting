@@ -90,9 +90,9 @@
                         </a>
                     </li>
                     {% else %}
-                    <li class="nav-item"><a href="{{ url_for( 'users.register') }}" class="nav-link">Sign Up</a></li>
+                    <li class="nav-item"><a href="{{ url_for( 'users.register') }}" class="nav-link">&nbsp;&nbsp;Sign Up</a></li>
                     <a href="{{ url_for( 'users.login') }}" class="btn btn-primary pull-left"><i
-                            class="fas fa-sign-in-alt"></i> Login</a>
+                            class="fas fa-sign-in-alt"></i> &nbsp;Login</a>
                     {% endif %}
                 </ul>
             </div>
@@ -153,7 +153,7 @@
                             <li class="list-group-item list-group-item-light">Optional Newsletter</li>
                         </ul>
                         <br>
-                        Interested?  <a href="{{ url_for( 'users.register') }}" class="btn btn-primary btn-sm active" role="button" aria-pressed="true"><i class="fas fa-paw"></i> Register</a>
+                        Interested? &nbsp; <a href="{{ url_for( 'users.register') }}" class="btn btn-primary btn-sm active" role="button" aria-pressed="true"><i class="fas fa-paw"></i>&nbsp; Register</a>
                     </p>
                 </div>
                 <br>
@@ -168,7 +168,7 @@
                             <li class="list-group-item list-group-item-light">Exclusive Content</li>
                         </ul>
                         <br>
-                        We won't spam you and we won't share your mail!  <br><br> <a href="{{ url_for( 'users.newsletter') }}" class="btn btn-primary btn-sm active" role="button" aria-pressed="true"><i class="fas fa-envelope-open-text"></i> Sign Up</a>
+                        We won't spam you and we won't share your mail!  <br><br> <a href="{{ url_for( 'users.newsletter') }}" class="btn btn-primary btn-sm active" role="button" aria-pressed="true"><i class="fas fa-envelope-open-text"></i>&nbsp; Sign Up</a>
                     </p>
                 </div>
             </div>
