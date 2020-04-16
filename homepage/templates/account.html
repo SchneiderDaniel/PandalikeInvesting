@@ -15,6 +15,11 @@
 
     <br>
     <legend class="border-bottom mb-4">Account Info</legend>
+    {% if newsletter %}
+    <a href="{{ url_for( 'users.signoff_newsletter') }}" class="btn btn-danger btn-sm active" role="button" aria-pressed="true"><i class="fas fa-envelope-open-text"></i> Sign Off Newsletter</a>
+    <br>
+    <br>
+    {% endif %}
     <form method="POST" action="" enctype="multipart/form-data">
 
       {{ updateAccount_form.hidden_tag() }}

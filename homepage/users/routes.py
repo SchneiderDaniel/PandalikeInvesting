@@ -6,6 +6,7 @@ from homepage.users.forms import (RegistrationForm,
                                   LoginForm, UpdateAccountForm, RequestResetForm, ResetPasswordForm, ActivateAccountForm)
 from homepage.users.utils import save_picture, sendResetEMail, sendActivateEMail
 from homepage import login_required_author
+import sys
 
 
 users = Blueprint('users', __name__)
@@ -79,7 +80,11 @@ def account():
         updateAccount_form.email.data = current_user.email
     image_file = url_for(
         'static', filename='resources/img/profile_pics/' + current_user.image_file)
-    return render_template('account.html', title='Account', image_file=image_file, updateAccount_form=updateAccount_form)
+    
+    user = User.query.filter_by(id =current_user.id).first()
+    getsNewsletter = user.newsletter
+
+    return render_template('account.html', title='Account', image_file=image_file, updateAccount_form=updateAccount_form, newsletter=getsNewsletter)
 
 
 @users.route('/user/<string:username>')
@@ -165,5 +170,37 @@ def activate_account():
 
 
 @users.route('/newsletter')
+@login_required_author()
 def newsletter():
-    return render_template('newsletter.html', title='Order Newsletter')
+    user = User.query.filter_by(id =current_user.id).first()
+    getsNewsletter = user.newsletter
+    print('POSTI!', file=sys.stderr)
+    print(user, file=sys.stderr)
+    print(getsNewsletter, file=sys.stderr)
+
+    if getsNewsletter==True:
+        flash('Your account already receives the newsletter', 'info')
+        return redirect(url_for('main.index'))
+    else:
+        user.newsletter = True
+        db.session.commit()
+        flash('You will receive our newsletter now', 'success')
+        return redirect(url_for('main.index'))
+
+@users.route('/signoff_newsletter')
+@login_required_author()
+def signoff_newsletter():
+
+    user = User.query.filter_by(id =current_user.id).first()
+    getsNewsletter = user.newsletter
+    if not getsNewsletter:
+        flash('Your account does not get the newsletter', 'info')
+        return redirect(url_for('main.index'))
+    
+    user.newsletter = False
+    db.session.commit()
+    flash('Your account no longer get the newsletter', 'info')
+
+
+    return redirect(url_for('users.account'))
+
