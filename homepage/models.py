@@ -91,8 +91,14 @@ class PostLikes(db.Model):
     user_id = db.Column(db.Integer(), db.ForeignKey('users.id', ondelete='CASCADE'))
     post_id = db.Column(db.Integer(), db.ForeignKey('posts.id', ondelete='CASCADE'))
 
+    def __repr__(self):
+        return f"Role('{self.user_id}', '{self.post_id}' )"
+
 class CommentLikes(db.Model):
     __tablename__ = 'comment_likes'
     id = db.Column(db.Integer(), primary_key=True)#
     user_id = db.Column(db.Integer(), db.ForeignKey('users.id', ondelete='CASCADE'))
     comment_id = db.Column(db.Integer(), db.ForeignKey('comments.id', ondelete='CASCADE'))
+
+    def __repr__(self):
+        return f"Role('{self.user_id}', '{self.comment_id}' )"

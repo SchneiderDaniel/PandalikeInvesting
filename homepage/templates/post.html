@@ -45,7 +45,7 @@
         <p class="article-abstract"> <b>Abstract:</b> {{ post.abstract }}</p>
         <p class="article-content">{{ post.content }}</p>
        
-            <a class="btn btn-icon float-right btn-md" href=""><i class="fas fa-thumbs-up"></i>(4)</a> 
+            <a class="btn btn-icon float-right btn-md" href="{{ url_for('posts.like_post', post_id = post.id) }}"><i class="fas fa-thumbs-up"></i> {{likes}}</a> 
        
 
     </div>

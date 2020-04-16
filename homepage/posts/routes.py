@@ -1,8 +1,8 @@
 from flask import render_template, request, redirect, url_for, flash, abort, Blueprint
 from flask_login import current_user
 from homepage import login_required_author
-from homepage import db
-from homepage.models import Post, Comment
+from homepage import db, login_manager
+from homepage.models import Post, Comment, PostLikes
 from homepage.posts.forms import (PostForm, CommentForm)
 import sys
 from homepage.main.reading_time import estimate_reading_time
@@ -91,14 +91,31 @@ def update_post(post_id):
 @posts.route('/post/<int:post_id>')
 def post(post_id):
     post = Post.query.get_or_404(post_id)
-    # comments = Comment.query.filter(Comment.pid == post_id).get_or_404()
     comments = db.session.query(Comment).filter(Comment.pid == post_id).all()
     amount_comments = len(comments)
-    # print (comments)
     textlist = post.title, post.abstract, post.content
     time_to_read = estimate_reading_time(textlist) +1
-    return render_template('post.html', title=post.title, post=post, comments=comments, time_to_read=round(time_to_read), amount_comments=amount_comments)
+    likesList = db.session.query(PostLikes).filter(PostLikes.post_id == post_id ).all()
+    likes = len(likesList)
+    return render_template('post.html', title=post.title, post=post, comments=comments, time_to_read=round(time_to_read), amount_comments=amount_comments, likes = likes)
 
+@posts.route('/post/<int:post_id>/like')
+@login_required_author()
+def like_post(post_id):
+    post = Post.query.get_or_404(post_id)
+    # print(current_user.id, file=sys.stderr)
+    likes = db.session.query(PostLikes).filter(PostLikes.user_id == current_user.id).filter(PostLikes.post_id == post_id).all()
+    # print('TESTI ' +str(current_user.id) +' ' +  str(post_id), file=sys.stderr)
+    # print(likes, file=sys.stderr)
+    if likes:
+        flash('You have already liked that post', 'info')
+    else:
+        newLike = PostLikes(user_id=current_user.id, post_id=post_id)
+        db.session.add(newLike)
+        db.session.commit()
+        flash('You liked that post', 'success')
+
+    return (redirect(url_for('posts.post', post_id=post.id)))
 
 
 @posts.route('/post/<int:post_id>/delete', methods=['POST'])
