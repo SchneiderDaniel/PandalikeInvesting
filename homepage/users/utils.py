@@ -37,7 +37,7 @@ def sendActivateEMail(user):
     msg = Message('Activate Account Mail',
                   sender=current_app.config['MAIL_USERNAME'],
                   recipients=[user.email])
-    msg.body = f''' Yout account was created. To activate your account, visit the following link:
+    msg.body = f''' Your account was created. To activate your account, visit the following link:
 {url_for('users.activate', token = token, _external = True)}
 
 If you did not make this request, then simply ignore this E-Mail amd no changes will be made.
