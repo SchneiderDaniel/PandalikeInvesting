@@ -5,8 +5,8 @@ from homepage import db
 from homepage.models import Post, Comment
 from homepage.posts.forms import (PostForm, CommentForm)
 import sys
-
 from homepage.main.reading_time import estimate_reading_time
+
 
 posts = Blueprint('posts', __name__)
 
@@ -95,9 +95,8 @@ def post(post_id):
     comments = db.session.query(Comment).filter(Comment.pid == post_id).all()
     amount_comments = len(comments)
     # print (comments)
-    time_to_read = 0
-    if not request.args.get('silent'): 
-        time_to_read = estimate_reading_time(request.url+"?silent=True")
+    textlist = post.title, post.abstract, post.content
+    time_to_read = estimate_reading_time(textlist) +1
     return render_template('post.html', title=post.title, post=post, comments=comments, time_to_read=round(time_to_read), amount_comments=amount_comments)
 
 

@@ -1,7 +1,6 @@
 {% extends 'base.html' %}
 
 {% block content %}
-{{ share.load() }}
 <br>
 <article class="media content-section">
     <div class="container">
@@ -39,7 +38,6 @@
             </div>
         </div>
 
-        {{ share.create(title='', sites='twitter, linkedin, facebook, wechat') }}
 
         <br>
         <h2 class="article-title">{{ post.title }}</h2>
