@@ -120,15 +120,35 @@
             </div>
             <div class="col-md-4">
                 <br>
+                {% if not current_user.is_authenticated %}
                 <div class="content-section">
-                    <h3>Our Sidebar</h3>
-                    <p class='text-muted'>You can put any information here you'd like.
+                    <h4>Want to become a Panda?</h4>
+                    <span><img src="{{ url_for('static', filename='resources/img/logo.png') }}" width="58"
+                        height="60"></span>
+                    <p class='text-muted'>Join Us and get
                         <ul class="list-group">
-                            <li class="list-group-item list-group-item-light">Latest Posts</li>
-                            <li class="list-group-item list-group-item-light">Announcements</li>
-                            <li class="list-group-item list-group-item-light">Calendars</li>
-                            <li class="list-group-item list-group-item-light">etc</li>
+                            <li class="list-group-item list-group-item-light">Access to all Tool</li>
+                            <li class="list-group-item list-group-item-light">Exporting Portfolio Reports</li>
+                            <li class="list-group-item list-group-item-light">Posting Blog Comments</li>
+                            <li class="list-group-item list-group-item-light">Optional Newsletter</li>
                         </ul>
+                        <br>
+                        Interested?  <a href="{{ url_for( 'users.register') }}" class="btn btn-primary btn-sm active" role="button" aria-pressed="true"><i class="fas fa-paw"></i> Register</a>
+                    </p>
+                </div>
+                <br>
+                {% endif%}
+
+
+                <div class="content-section">
+                    <h4>Want to be up-to-date?</h4>
+                    <p class='text-muted'>Register for our monthly Newsletter
+                        <ul class="list-group">
+                            <li class="list-group-item list-group-item-light">Notice about new Tools</li>
+                            <li class="list-group-item list-group-item-light">Exclusive Content</li>
+                        </ul>
+                        <br>
+                        We won't spam you and we won't share your mail!  <br><br> <a href="{{ url_for( 'users.newsletter') }}" class="btn btn-primary btn-sm active" role="button" aria-pressed="true"><i class="fas fa-envelope-open-text"></i> Sign Up</a>
                     </p>
                 </div>
             </div>

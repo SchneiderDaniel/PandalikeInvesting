@@ -162,3 +162,8 @@ def activate_account():
         return redirect(url_for('users.login'))
 
     return render_template('activate_account.html', title='Activate Account', form=form)
+
+
+@users.route('/newsletter')
+def newsletter():
+    return render_template('newsletter.html', title='Order Newsletter')
