@@ -23,6 +23,9 @@ class User(db.Model, UserMixin):
     posts = db.relationship('Post', backref='author', lazy=True)
     comments_ = db.relationship('Comment', backref='author_comment', lazy=True)
 
+    
+
+
     def get_reset_token(self, expires_sec=1800):
         s = Serializer(current_app.config['SECRET_KEY'], expires_sec)
         return s.dumps({'user_id': self.id}).decode('utf-8')
@@ -49,6 +52,7 @@ class Post(db.Model):
     content = db.Column(db.Text, nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     comments = db.relationship('Comment', backref='post_comment', lazy=True)
+    who_liked = db.relationship('User', backref='post_liked', lazy=True)
 
     def __repr__(self):
         return f"Post('{self.title}', '{self.date_posted}' )"
@@ -80,3 +84,15 @@ class UserRoles(db.Model):
     
     def __repr__(self):
         return f"Role('{self.user_id}', '{self.role_id}' )"
+
+class PostLikes(db.Model):
+    __tablename__ = 'post_likes'
+    id = db.Column(db.Integer(), primary_key=True)#
+    user_id = db.Column(db.Integer(), db.ForeignKey('users.id', ondelete='CASCADE'))
+    post_id = db.Column(db.Integer(), db.ForeignKey('posts.id', ondelete='CASCADE'))
+
+class CommentLikes(db.Model):
+    __tablename__ = 'comment_likes'
+    id = db.Column(db.Integer(), primary_key=True)#
+    user_id = db.Column(db.Integer(), db.ForeignKey('users.id', ondelete='CASCADE'))
+    comment_id = db.Column(db.Integer(), db.ForeignKey('comments.id', ondelete='CASCADE'))

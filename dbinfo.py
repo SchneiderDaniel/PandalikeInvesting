@@ -5,7 +5,7 @@ app = create_app()
 app.app_context().push()
 
 from homepage import db, bcrypt
-from homepage.models import User, Post, Role, UserRoles, Comment
+from homepage.models import User, Post, Role, UserRoles, Comment, CommentLikes, PostLikes
 
 print('Users in the Database:', file=sys.stderr)
 print(User.query.all() , file=sys.stderr)
@@ -18,6 +18,12 @@ print(Role.query.all(), file=sys.stderr)
  
 print('UserRoles in the Database:', file=sys.stderr)
 print(UserRoles.query.all(), file=sys.stderr)
+
+print('Post Likes in the Database:', file=sys.stderr)
+print(PostLikes.query.all(), file=sys.stderr)
+
+print('Comment Likes in the Database:', file=sys.stderr)
+print(CommentLikes.query.all(), file=sys.stderr)
 
 
 # comment = Comment(content = 'askdjbasökjdnalöskfdnalsd', author_comment = 0, post_comment = 0)

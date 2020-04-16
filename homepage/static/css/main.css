@@ -80,12 +80,27 @@ body {
     color: black;
 }
 
+.btn-icon{
+    color: black;
+    font-size: x-large;
+    background-color: white !important;
+    border-color: white !important;
+}
+
+.btn-icon:hover, .btn-icon:active {
+    color: #00b0f0;
+    background-color: white !important;
+    border-color: white !important;
+    
+}
+
+
 
 .btn-info{
     background-color: #00b0f0 !important;
 }
 
-.btn-outline-info:hover, .btn-outline-info:active, .btn-outline-info:visited {
+.btn-outline-info:hover, .btn-outline-info:active {
     border-color: #00b0f0 !important;
     background-color: #00b0f0 !important
 }
