@@ -3,8 +3,8 @@ from flask_login import login_user, current_user, logout_user
 from homepage.models import User, Post, Role, UserRoles
 from homepage import db, bcrypt
 from homepage.users.forms import (RegistrationForm,
-                                  LoginForm, UpdateAccountForm, RequestResetForm, ResetPasswordForm)
-from homepage.users.utils import save_picture
+                                  LoginForm, UpdateAccountForm, RequestResetForm, ResetPasswordForm, ActivateAccountForm)
+from homepage.users.utils import save_picture, sendResetEMail, sendActivateEMail
 from homepage import login_required_author
 
 
@@ -24,8 +24,9 @@ def register():
         user.roles.append(Role.query[0])
         db.session.add(user)
         db.session.commit()
+        sendActivateEMail(user)
         flash(
-            f'Account created for {register_form.email.data}! You are now able to login', 'success')
+            f'Account created for {register_form.email.data}! Plz check your mails for activating your account.', 'success')
         return redirect(url_for('users.login'))
 
     return render_template('register.html', register_form=register_form, title='Register')
@@ -39,10 +40,15 @@ def login():
     login_form = LoginForm()
     if login_form.validate_on_submit():
         user = User.query.filter_by(email=login_form.email.data).first()
+        
+            
         if user and bcrypt.check_password_hash(user.password, login_form.password.data):
-            login_user(user, remember=login_form.remember.data)
-            next_page = request.args.get('next')
-            return redirect(next_page) if next_page else redirect(url_for('main.index'))
+            if not user.activated:
+                flash('Your account data is correct but your account is not activated. Check your mails.', 'danger')
+            else:
+                login_user(user, remember=login_form.remember.data)
+                next_page = request.args.get('next')
+                return redirect(next_page) if next_page else redirect(url_for('main.index'))
         else:
             flash('Login Unsuccessful. Please check mail and password', 'danger')
 
@@ -119,3 +125,40 @@ def reset_token(token):
         flash(f'The password has been reset! You are now able to login', 'success')
         return redirect(url_for('users.login'))
     return render_template('reset_token.html', title='Reset Password', form=form)
+
+
+@users.route('/activate/<token>', methods=['GET'])
+def activate(token):
+    if current_user.is_authenticated:
+        return redirect(url_for('main.index'))
+
+    user = User.verify_reset_token(token)
+    if user is None:
+        flash('That is an invalid or expired token', 'warning')
+        return redirect(url_for('users.activate_account'))
+    
+    if user.activated 
+        flash('Your account is already activated.', 'info')
+        redirect(url_for('users.login'))
+
+    user.activated = True
+    db.session.commit()
+    flash(f'Your account has been activated. You can now log in.', 'success')
+    return redirect(url_for('users.login'))
+
+
+@users.route('/activate_account', methods=['GET', 'POST'])
+def activate_account():
+    if current_user.is_authenticated:
+        return redirect(url_for('main.index'))
+    form = ActivateAccountForm()
+    if form.validate_on_submit():
+        user = User.query.filter_by(email=form.email.data).first()
+        if user.activated 
+            flash('Your account is already activated.', 'info')
+            return redirect(url_for('users.login'))
+        sendActivateEMail(user)
+        flash(f'The activation mail was send out again', 'info')
+        return redirect(url_for('users.login'))
+
+    return render_template('activate_account.html', title='Activate Account', form=form)

@@ -22,6 +22,8 @@ class User(db.Model, UserMixin):
     roles = db.relationship('Role', secondary='user_roles')
     posts = db.relationship('Post', backref='author', lazy=True)
     comments_ = db.relationship('Comment', backref='author_comment', lazy=True)
+    newsletter = db.Column(db.Boolean(), nullable=False, default = False)
+    activated = db.Column(db.Boolean(), nullable=False, default = False)
 
     
 

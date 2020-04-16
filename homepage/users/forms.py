@@ -84,3 +84,8 @@ class ResetPasswordForm(FlaskForm):
                                      DataRequired(), EqualTo('password')])
     recaptcha = RecaptchaField()
     submit = SubmitField('Reset my password')
+
+class ActivateAccountForm(FlaskForm):
+    email = StringField('E-Mail:', validators=[DataRequired(), Email()])
+    recaptcha = RecaptchaField()
+    submit = SubmitField('Activate')

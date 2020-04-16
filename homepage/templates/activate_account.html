@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% from "_formhelpers.html" import render_field, render_recaptcha %}
+
+{% block content %}
+<br>
+<div class="container" style="max-width: 500px">
+
+  <div class="form-group">
+    <div class="content-section">
+
+      <br>
+      <legend class="border-bottom mb-4">Activate Account</legend>
+      <form method="POST" action="">
+        {{ form.hidden_tag() }}
+        <d1>
+
+          {{ render_field(form.email, class='form-control', placeholder='Enter your E-Mail') }}
+        </d1>
+
+        {{render_recaptcha(form.recaptcha)}}
+
+        <br>
+        <div class="form-group">
+          {{ form.submit(class="btn btn-outline-info") }}
+        </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
