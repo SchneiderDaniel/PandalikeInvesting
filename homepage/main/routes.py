@@ -73,3 +73,15 @@ def backtesting():
         return render_template('backtesting.html')
     else:
         return render_template('backtesting.html', general_form=general_form, title='Backtesting')
+
+
+@main.app_context_processor
+def inject_template_scope():
+    injections = dict()
+
+    def cookies_check():
+        value = request.cookies.get('cookie_consent')
+        return value == 'true'
+    injections.update(cookies_check=cookies_check)
+
+    return injections

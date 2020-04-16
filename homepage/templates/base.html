@@ -98,6 +98,26 @@
             </div>
         </nav>
     </header>
+
+    {% if cookies_check() %}
+        {# then user has already consented so no requirement for consent banner #}
+    {% else %}
+        {# show a cookie consent banner #}
+        <div id="cookie-consent-container" class="alert alert-dark" >
+            This site uses cookies to offer you a better browsing experience. 
+            For more information refer to our <a href="{{ url_for( 'main.privacy') }}">Privacy Policy </a>. 
+            With the usage of this side you agree to this.&nbsp;&nbsp;
+            <button id="cookie-consent" class="btn btn-primary btn-sm"> <i class="fas fa-check"></i>&nbsp;&nbsp; I agree</button>
+        </div>
+        <script>
+            var fn = function () {
+                document.cookie = "cookie_consent=true";
+                document.getElementById('cookie-consent-container').hidden = true;
+            };
+            document.getElementById('cookie-consent').onclick = fn;
+        </script>
+    {% endif %}
+
     <main role="main" class="container">
 
         <div class="row">

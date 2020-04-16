@@ -109,6 +109,12 @@ a {
     color: #00b0f0;
   }
 
+.alert-dark {
+    text-align: center;
+    color: white;
+    background-color: darkslategray;
+}
+
 .colored_link {
     color: #00b0f0 !important;
   }
