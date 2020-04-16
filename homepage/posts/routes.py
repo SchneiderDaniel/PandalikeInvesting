@@ -33,7 +33,8 @@ def new_comment(post_id):
         db.session.add(comment)
         db.session.commit()
         flash('Your comment has been posted!', 'success')
-        return redirect(url_for('posts.post', post_id=post_id))
+        meTo = url_for('posts.post', post_id=post_id)+ '#comment_button'
+        return redirect(meTo)
     return render_template('new_comment.html', title='New Comment', form=form, legend='New Comment')
 
 @posts.route('/post/<int:post_id>/update_comment/<int:comment_id>', methods=['GET', 'POST'])
@@ -52,6 +53,18 @@ def update_comment(post_id,comment_id ):
     elif request.method == 'GET':
         form.content.data = comment.content
     return render_template('new_comment.html', title='Update Comment', form=form, legend='Update Comment')
+
+@posts.route('/post/<int:post_id>/delete_comment/<int:comment_id>', methods=['POST'])
+@login_required_author()
+def delete_comment(post_id,comment_id):
+    post = Post.query.get_or_404(post_id)
+    comment = Comment.query.get_or_404(comment_id)
+    if comment.author_comment != current_user:
+        abort(403)
+    db.session.delete(comment)
+    db.session.commit()
+    flash('Your comment has been deleted!', 'success')
+    return (redirect(url_for('posts.post', post_id=post.id)))
 
 
 @posts.route('/post/<int:post_id>/update', methods=['GET', 'POST'])
@@ -95,6 +108,10 @@ def delete_post(post_id):
     post = Post.query.get_or_404(post_id)
     if post.author != current_user:
         abort(403)
+
+    comments = db.session.query(Comment).filter(Comment.pid == post_id).all()
+    for comment in comments:
+        db.session.delete(comment)
     db.session.delete(post)
     db.session.commit()
     flash('Your post has been deleted!', 'success')
