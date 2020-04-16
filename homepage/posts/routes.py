@@ -80,11 +80,12 @@ def post(post_id):
     post = Post.query.get_or_404(post_id)
     # comments = Comment.query.filter(Comment.pid == post_id).get_or_404()
     comments = db.session.query(Comment).filter(Comment.pid == post_id).all()
+    amount_comments = len(comments)
     # print (comments)
     time_to_read = 0
     if not request.args.get('silent'): 
         time_to_read = estimate_reading_time(request.url+"?silent=True")
-    return render_template('post.html', title=post.title, post=post, comments=comments, time_to_read=round(time_to_read))
+    return render_template('post.html', title=post.title, post=post, comments=comments, time_to_read=round(time_to_read), amount_comments=amount_comments)
 
 
 

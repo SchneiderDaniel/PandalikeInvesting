@@ -5,6 +5,7 @@ input::placeholder {
 html {
     position: relative;
     min-height: 100%;
+    scroll-behavior: smooth;
 }
 
   
@@ -152,6 +153,12 @@ a.article-title:hover {
     height: 65px;
     width: 65px;
     margin-right: 16px;
+}
+
+.article-img-sm {
+    height: 45px;
+    width: 45px;
+    margin-right: 8px;
 }
 
 .article-metadata {

@@ -27,9 +27,14 @@
                     </div>
                     {% endif %}
                 </div>
-                <div class="col-sm">
+                <div class="col-md-auto">
                     <small class="text-muted float-right">Time to Read: {{time_to_read}} min</small>
+                    
                 </div>
+                <div class="col-md-auto">
+                <small class="text-muted float-right"><a href="#comment_button">Comments ({{amount_comments}}) </a></small>
+            </div>
+
             </div>
         </div>
 
@@ -48,7 +53,7 @@
 
 <br>
     
-    <a class="btn btn-white btn-sm mt-1 mb-1 "
+    <a class="btn btn-white btn-sm mt-1 mb-1 " id="comment_button"
         href="{{ url_for('posts.new_comment', post_id = post.id) }}">Comment</a>
     <br>
     {% endif %}
@@ -59,7 +64,7 @@
             <div class="article-metadata">
                 <div class="row">
                     <div class="col-md-1 mr-4 float-left ">
-                        <img class="rounded-circle article-img"
+                        <img class="rounded-circle article-img-sm"
                             src="{{ url_for('static', filename='/resources/img/profile_pics/' + comment.author_comment.image_file) }}">
                     </div>
                     <div class="col-md-auto">
@@ -68,7 +73,7 @@
                         <br />
                         <small class="text-muted">posted on: {{ comment.date_posted.strftime("%d %b, %Y") }}</small>
                     </div>
-                    <div class="col-sm">
+                    <div class="col-sm-auto">
                         {% if post.author == current_user %}
                         <div>
                             <a class="btn btn-secondary btn-sm mt-1 mb-1 "
