@@ -137,7 +137,7 @@ def activate(token):
         flash('That is an invalid or expired token', 'warning')
         return redirect(url_for('users.activate_account'))
     
-    if user.activated 
+    if user.activated:
         flash('Your account is already activated.', 'info')
         redirect(url_for('users.login'))
 
@@ -154,7 +154,7 @@ def activate_account():
     form = ActivateAccountForm()
     if form.validate_on_submit():
         user = User.query.filter_by(email=form.email.data).first()
-        if user.activated 
+        if user.activated:
             flash('Your account is already activated.', 'info')
             return redirect(url_for('users.login'))
         sendActivateEMail(user)
