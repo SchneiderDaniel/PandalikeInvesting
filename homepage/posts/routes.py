@@ -102,6 +102,13 @@ def update_post(post_id):
         form.title.data = post.title
         form.abstract.data = post.abstract
         form.content.data = post.content
+        likesList = db.session.query(PostTags).filter(PostTags.post_id == post.id ).all()
+        tagsText = ''
+        for l in likesList:
+            toAdd = Tag.query.get_or_404(l.tag_id).name
+            tagsText = tagsText + toAdd + ',' 
+        form.tags.data = tagsText
+       
     return render_template('new_post.html', title='Update Post', form=form, legend='Update Post')
 
 
