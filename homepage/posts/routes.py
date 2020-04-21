@@ -13,8 +13,20 @@ posts = Blueprint('posts', __name__)
 @posts.route('/blog')
 def blog():
     page = request.args.get('page', 1, type=int)
-    posts = Post.query.order_by(
-        Post.date_posted.desc()).paginate(page=page, per_page=5)
+    tagged = request.args.get('tagged', -1, type=int)
+
+    if tagged ==-1:
+        # print('There', file=sys.stderr)
+        posts = Post.query.order_by(
+            Post.date_posted.desc()).paginate(page=page, per_page=5)
+    else:
+        # print('Here', file=sys.stderr)
+        theTagRel = db.session.query(PostTags).filter(PostTags.tag_id == tagged).all()
+        post_ids = []
+        for tr in theTagRel:
+            post_ids.append(tr.post_id)
+        posts= db.session.query(Post).filter(Post.id.in_(post_ids)).order_by(Post.date_posted.desc()).paginate(page=page, per_page=5)
+    
  
     allTags = []
     for p in posts.items:
@@ -25,7 +37,7 @@ def blog():
             tagsPerPost.append(tagToAdd)
         allTags.append(tagsPerPost)
 
-    return render_template('blog.html', title='Blog', posts=posts, allTags = allTags)
+    return render_template('blog.html', title='Blog', posts=posts, allTags = allTags, tagged=tagged)
 
 
 @posts.route('/new_post', methods=['GET', 'POST'])

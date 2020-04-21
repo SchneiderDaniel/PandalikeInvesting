@@ -39,9 +39,9 @@
         </div>
 
         {% for tag in theTags %}
-            <div class="badge badge-pill badge-primary">
+        <a class="badge badge-pill badge-primary" href="{{ url_for('posts.blog', page=1, tagged = tag.id) }}">
             {{tag.name}}
-            </div>
+        </a>
         {% endfor %}
         <br>
         <br>

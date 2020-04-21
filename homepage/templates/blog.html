@@ -32,9 +32,9 @@
             <small class="text-muted">posted on: {{ posts.items[i].date_posted.strftime("%d %b, %Y") }}</small>
             <br>
             {% for j in range(0, allTags[i]|length)%}
-            <div class="badge badge-pill badge-primary">
+            <a class="badge badge-pill badge-primary" href="{{ url_for('posts.blog', page=1, tagged = allTags[i][j].id) }}">
                 {{allTags[i][j].name}}
-            </div>
+            </a>
             {% endfor %}
 
         </div>
@@ -48,9 +48,9 @@
 {% for page_num in posts.iter_pages(left_edge=1, right_edge=1, left_current=1,right_current =2) %}
 {% if page_num %}
 {% if posts.page == page_num %}
-<a class="btn btn-info mb-4" href="{{ url_for('posts.blog', page=page_num) }}">{{page_num}}</a>
+<a class="btn btn-info mb-4" href="{{ url_for('posts.blog', page=page_num, tagged = tagged) }}">{{page_num}}</a>
 {%else %}
-<a class="btn btn-outline-info mb-4" href="{{ url_for('posts.blog', page=page_num) }}">{{page_num}}</a>
+<a class="btn btn-outline-info mb-4" href="{{ url_for('posts.blog', page=page_num, tagged = tagged) }}">{{page_num}}</a>
 {% endif %}
 {%else%}
 ...

@@ -182,11 +182,11 @@
                         
                         {% for i in range(0,allDBTags|length)%}
                         {%if tagSizes[i]>0 %} 
-                        <div class="badge badge-pill badge-primary">
+                        <a class="badge badge-pill badge-primary" href="{{ url_for('posts.blog', page=1, tagged = allDBTags[i].id) }}">
                            
                                 {{allDBTags[i].name}} ({{ tagSizes[i]}})
                             
-                        </div>
+                        </a>
                         {%endif%}
                         {% endfor %}
                         <br>
