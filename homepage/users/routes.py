@@ -199,7 +199,7 @@ def signoff_newsletter():
     
     user.newsletter = False
     db.session.commit()
-    flash('Your account no longer get the newsletter', 'info')
+    flash('Your account no longer gets the newsletter', 'info')
 
 
     return redirect(url_for('users.account'))

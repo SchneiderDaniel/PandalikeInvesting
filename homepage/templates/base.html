@@ -140,14 +140,39 @@
                 {% block content %}{% endblock %}
             </div>
             <div class="col-md-4">
+
                 <br>
+                <div class="content-section">
+                    <h4>Blog posts</h4>
+                    <p class='text-muted'>Check out posts about:
+                        <br>
+                        
+                        <div class="border-top border-bottom my-3">
+                            
+                        {% for i in range(0,allDBTags|length)%}
+                        {%if tagSizes[i]>0 %} 
+                        
+                            <a class="badge badge-pill badge-primary" href="{{ url_for('posts.blog', page=1, tagged = allDBTags[i].id) }}">
+                            
+                                    {{allDBTags[i].name}} ({{ tagSizes[i]}})
+                            </a>
+                        {%endif%}
+                        {% endfor %}
+                        </div>
+                        
+                    </p>
+                    Or do you want to see all blogpost?  <br><br> <a href="{{ url_for( 'posts.blog') }}" class="btn btn-primary btn-sm active" role="button" aria-pressed="true"><i class="fas fa-blog"></i>&nbsp; Blog</a>
+                </div>
+
+                
                 {% if not current_user.is_authenticated %}
+                <br>
                 <div class="content-section">
                     <h4>Want to become a Panda?</h4>
                     <span><img src="{{ url_for('static', filename='resources/img/logo.png') }}" width="58"
                         height="60"></span>
                     <p class='text-muted'>Join Us and get
-                        <ul class="list-group">
+                        <ul class="list-group list-group-flush">
                             <li class="list-group-item list-group-item-light">Access to all Tool</li>
                             <li class="list-group-item list-group-item-light">Exporting Portfolio Reports</li>
                             <li class="list-group-item list-group-item-light">Posting Blog Comments</li>
@@ -162,9 +187,22 @@
 
                 <br>
                 <div class="content-section">
+                    <h4>Tools by Pandalike Investing!</h4>
+                    <p class='text-muted'>Check out:
+                        <ul class="list-group list-group-flush" >
+                            <a href="{{ url_for( 'main.correlation') }}" class="list-group-item list-group-item-light">Portfolio Correlation</a>
+                            <a href="{{ url_for( 'main.correlation') }}" class="list-group-item list-group-item-light">Portfolio Correlation</a>
+                        </ul>
+                        <br>
+                        Is there a tool you can't find anywhere? Write us a message. Perhaps we add it.  <br><br> <a href="{{ url_for( 'main.contact') }}" class="btn btn-primary btn-sm active" role="button" aria-pressed="true"><i class="fas fa-pen-alt"></i>&nbsp; Contact us</a>
+                    </p>
+                </div>
+
+                <br>
+                <div class="content-section">
                     <h4>Want to be up-to-date?</h4>
                     <p class='text-muted'>Register for our monthly Newsletter
-                        <ul class="list-group">
+                        <ul class="list-group list-group-flush">
                             <li class="list-group-item list-group-item-light">Notice about new Tools</li>
                             <li class="list-group-item list-group-item-light">Exclusive Content</li>
                         </ul>
@@ -174,25 +212,7 @@
                 </div>
 
 
-                <br>
-                <div class="content-section">
-                    <h4>Blog posts</h4>
-                    <p class='text-muted'>Check out posts about:
-                        <br>
-                        
-                        {% for i in range(0,allDBTags|length)%}
-                        {%if tagSizes[i]>0 %} 
-                        <a class="badge badge-pill badge-primary" href="{{ url_for('posts.blog', page=1, tagged = allDBTags[i].id) }}">
-                           
-                                {{allDBTags[i].name}} ({{ tagSizes[i]}})
-                            
-                        </a>
-                        {%endif%}
-                        {% endfor %}
-                        <br>
-                        Or do you want to see all blogpost?  <br><br> <a href="{{ url_for( 'posts.blog') }}" class="btn btn-primary btn-sm active" role="button" aria-pressed="true"><i class="fas fa-blog"></i>&nbsp; Blog</a>
-                    </p>
-                </div>
+                
 
             </div>
         </div>
