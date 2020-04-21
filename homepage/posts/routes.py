@@ -150,6 +150,12 @@ def delete_post(post_id):
     comments = db.session.query(Comment).filter(Comment.pid == post_id).all()
     for comment in comments:
         db.session.delete(comment)
+    
+
+    tagRels = db.session.query(PostTags).filter(PostTags.post_id == post_id).all()
+    for tr in tagRels:
+        db.session.delete(tr)
+
     db.session.delete(post)
     db.session.commit()
     flash('Your post has been deleted!', 'success')
