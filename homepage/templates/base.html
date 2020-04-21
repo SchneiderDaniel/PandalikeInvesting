@@ -157,10 +157,10 @@
                         Interested? &nbsp; <a href="{{ url_for( 'users.register') }}" class="btn btn-primary btn-sm active" role="button" aria-pressed="true"><i class="fas fa-paw"></i>&nbsp; Register</a>
                     </p>
                 </div>
-                <br>
+                
                 {% endif%}
 
-
+                <br>
                 <div class="content-section">
                     <h4>Want to be up-to-date?</h4>
                     <p class='text-muted'>Register for our monthly Newsletter
@@ -172,6 +172,28 @@
                         We won't spam you and we won't share your mail!  <br><br> <a href="{{ url_for( 'users.newsletter') }}" class="btn btn-primary btn-sm active" role="button" aria-pressed="true"><i class="fas fa-envelope-open-text"></i>&nbsp; Sign Up</a>
                     </p>
                 </div>
+
+
+                <br>
+                <div class="content-section">
+                    <h4>Blog posts</h4>
+                    <p class='text-muted'>Check out posts about:
+                        <br>
+                        
+                        {% for i in range(0,allDBTags|length)%}
+                        {%if tagSizes[i]>0 %} 
+                        <div class="badge badge-pill badge-primary">
+                           
+                                {{allDBTags[i].name}} ({{ tagSizes[i]}})
+                            
+                        </div>
+                        {%endif%}
+                        {% endfor %}
+                        <br>
+                        Or do you want to see all blogpost?  <br><br> <a href="{{ url_for( 'users.newsletter') }}" class="btn btn-primary btn-sm active" role="button" aria-pressed="true"><i class="fas fa-blog"></i>&nbsp; Blog</a>
+                    </p>
+                </div>
+
             </div>
         </div>
     </main>

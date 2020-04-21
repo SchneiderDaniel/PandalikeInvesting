@@ -2,7 +2,8 @@ from flask import render_template, request, redirect, url_for, send_from_directo
 from homepage.main.forms import (ContactForm, BT_GeneralForm)
 from homepage import login_required_author, db
 import os
-from homepage.models import Post
+from homepage.models import Post, Tag, PostTags
+
 
 
 main = Blueprint('main', __name__)
@@ -80,3 +81,14 @@ def inject_template_scope():
     injections.update(cookies_check=cookies_check)
 
     return injections
+
+@main.app_context_processor
+def sidebar_tags():
+    allTags = Tag.query.all()
+
+    sizes = []
+    for t in allTags:
+        theTagRel = db.session.query(PostTags).filter(PostTags.tag_id == t.id ).all()
+        sizes.append(len(theTagRel))
+
+    return dict(allDBTags=allTags, tagSizes=sizes)
