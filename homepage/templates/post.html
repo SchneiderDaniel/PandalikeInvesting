@@ -38,7 +38,12 @@
             </div>
         </div>
 
-
+        {% for tag in theTags %}
+            <div class="badge badge-pill badge-primary">
+            {{tag.name}}
+            </div>
+        {% endfor %}
+        <br>
         <br>
         <h2 class="article-title">{{ post.title }}</h2>
         <br>

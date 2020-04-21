@@ -114,7 +114,12 @@ def post(post_id):
     time_to_read = estimate_reading_time(textlist) +1
     likesList = db.session.query(PostLikes).filter(PostLikes.post_id == post_id ).all()
     likes = len(likesList)
-    return render_template('post.html', title=post.title, post=post, comments=comments, time_to_read=round(time_to_read), amount_comments=amount_comments, likes = likes)
+    theTagRel = db.session.query(PostTags).filter(PostTags.post_id == post_id ).all()
+    theTags = []
+    for t in theTagRel:
+        toAdd = Tag.query.get_or_404(t.tag_id)
+        theTags.append(toAdd)
+    return render_template('post.html', title=post.title, post=post, comments=comments, time_to_read=round(time_to_read), amount_comments=amount_comments, likes = likes, theTags=theTags)
 
 @posts.route('/post/<int:post_id>/like')
 @login_required_author()
