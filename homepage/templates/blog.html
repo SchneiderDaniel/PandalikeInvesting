@@ -11,7 +11,7 @@
     {% endif %}  
 {% endif %}
 
-{% for i in range(0,posts.items|length)%}
+<!-- {% for i in range(0,posts.items|length)%}
 
 {{ posts.items[i].title }}
 
@@ -19,22 +19,29 @@
         {{allTags[i][j].name}}
 
     {% endfor %}
-{% endfor %}
+{% endfor %} -->
 
-{% for post in posts.items %}
+{% for i in range(0,posts.items|length)%}
 <article class="media content-section">
     <img class="rounded-circle article-img"
-        src="{{ url_for('static', filename='/resources/img/profile_pics/' + post.author.image_file) }}">
+        src="{{ url_for('static', filename='/resources/img/profile_pics/' + posts.items[i].author.image_file) }}">
     <div class="media-body">
         <div class="article-metadata">
             <a class="mr-2"
-                href="{{ url_for('users.user', username=post.author.username) }}">{{ post.author.username }}</a>
-            <small class="text-muted">posted on: {{ post.date_posted.strftime("%d %b, %Y") }}</small>
+                href="{{ url_for('users.user', username=posts.items[i].author.username) }}">{{ posts.items[i].author.username }}</a>
+            <small class="text-muted">posted on: {{ posts.items[i].date_posted.strftime("%d %b, %Y") }}</small>
+            <br>
+            {% for j in range(0, allTags[i]|length)%}
+            <div class="badge badge-pill badge-primary">
+                {{allTags[i][j].name}}
+            </div>
+            {% endfor %}
+
         </div>
 
-        <h2><a class="article-title" href="{{ url_for('posts.post', post_id=post.id) }}">{{ post.title }}</a></h2>
-        <p class="article-content">{{ post.abstract }}</p>
-        <a class="btn btn-outline-info float-right btn-sm" href="{{ url_for('posts.post', post_id=post.id) }}">Read More...</a>
+        <h2><a class="article-title" href="{{ url_for('posts.post', post_id=posts.items[i].id) }}">{{ posts.items[i].title }}</a></h2>
+        <p class="article-content">{{ posts.items[i].abstract }}</p>
+        <a class="btn btn-outline-info float-right btn-sm" href="{{ url_for('posts.post', post_id=posts.items[i].id) }}">Read More...</a>
     </div>
 </article>
 {% endfor %}
