@@ -70,6 +70,13 @@ class Comment(db.Model):
         return f"Comment('{self.id}', '{self.content}')"
 
 
+class Tag(db.Model):
+    __tablename__ = 'theTags'
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.Text, nullable=False, unique=True)
+    def __repr__(self):
+        return f"Role('{self.id}', '{self.name}' )"
+
 class Role(db.Model):
     __tablename__ = 'roles'
     id = db.Column(db.Integer, primary_key=True)
@@ -92,6 +99,15 @@ class PostLikes(db.Model):
     id = db.Column(db.Integer(), primary_key=True)#
     user_id = db.Column(db.Integer(), db.ForeignKey('users.id', ondelete='CASCADE'))
     post_id = db.Column(db.Integer(), db.ForeignKey('posts.id', ondelete='CASCADE'))
+
+    def __repr__(self):
+        return f"Role('{self.user_id}', '{self.post_id}' )"
+
+class PostTags(db.Model):
+    __tablename__ = 'post_tags'
+    id = db.Column(db.Integer(), primary_key=True)#
+    post_id = db.Column(db.Integer(), db.ForeignKey('posts.id', ondelete='CASCADE'))
+    tag_id = db.Column(db.Integer(), db.ForeignKey('theTags.id', ondelete='CASCADE'))
 
     def __repr__(self):
         return f"Role('{self.user_id}', '{self.post_id}' )"

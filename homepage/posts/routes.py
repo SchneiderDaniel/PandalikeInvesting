@@ -2,7 +2,7 @@ from flask import render_template, request, redirect, url_for, flash, abort, Blu
 from flask_login import current_user
 from homepage import login_required_author
 from homepage import db, login_manager
-from homepage.models import Post, Comment, PostLikes
+from homepage.models import Post, Comment, PostLikes, Tag, PostTags
 from homepage.posts.forms import (PostForm, CommentForm)
 import sys
 from homepage.main.reading_time import estimate_reading_time
@@ -20,6 +20,23 @@ def new_post():
                     content=form.content.data, author=current_user)
         db.session.add(post)
         db.session.commit()
+
+        tags = form.tags.data.split(',') 
+        for t in tags:
+            # print('Id: '  + str(post.id) + ' Tag: ' + t, file=sys.stderr)
+            current_Tag = db.session.query(Tag).filter(Tag.name ==t.upper()).first()
+            if not current_Tag:
+                # print('Adding now Tag: ' + t + ' as ' + t.upper(), file=sys.stderr)
+                current_Tag = Tag(name=t.upper())
+                db.session.add(current_Tag)
+                db.session.commit()
+                # print('Added Tag: ' + str(current_Tag.id), file=sys.stderr)
+
+            # print('Now relations for Post:' + str(post.id) + ' and Tag: ' + str(current_Tag.id), file=sys.stderr)
+            tag_relation = PostTags(post_id=post.id,tag_id=current_Tag.id)
+            db.session.add(tag_relation)
+        db.session.commit()
+        # print('Rdy', file=sys.stderr)
         flash('Your post has been created!', 'success')
         return redirect(url_for('main.blog'))
     return render_template('new_post.html', title='New post', form=form, legend='New Post')
