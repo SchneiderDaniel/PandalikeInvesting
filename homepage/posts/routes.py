@@ -10,6 +10,23 @@ from homepage.main.reading_time import estimate_reading_time
 
 posts = Blueprint('posts', __name__)
 
+@posts.route('/blog')
+def blog():
+    page = request.args.get('page', 1, type=int)
+    posts = Post.query.order_by(
+        Post.date_posted.desc()).paginate(page=page, per_page=5)
+ 
+    allTags = []
+    for p in posts.items:
+        theTagRel = db.session.query(PostTags).filter(PostTags.post_id == p.id ).all()
+        tagsPerPost= []
+        for tr in theTagRel:
+            tagToAdd = Tag.query.get_or_404(tr.tag_id)
+            tagsPerPost.append(tagToAdd)
+        allTags.append(tagsPerPost)
+
+    return render_template('blog.html', title='Blog', posts=posts, allTags = allTags)
+
 
 @posts.route('/new_post', methods=['GET', 'POST'])
 @login_required_author('admin')
@@ -55,14 +72,7 @@ def new_comment(post_id):
     return render_template('new_comment.html', title='New Comment', form=form, legend='New Comment')
 
 
-@posts.route('/blog')
-def blog():
-    page = request.args.get('page', 1, type=int)
-    posts = Post.query.order_by(
-        Post.date_posted.desc()).paginate(page=page, per_page=5)
 
- 
-    return render_template('blog.html', title='Blog', posts=posts)
 
 @posts.route('/post/<int:post_id>/update_comment/<int:comment_id>', methods=['GET', 'POST'])
 @login_required_author()

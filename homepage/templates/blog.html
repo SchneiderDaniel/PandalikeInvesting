@@ -11,6 +11,16 @@
     {% endif %}  
 {% endif %}
 
+{% for i in range(0,posts.items|length)%}
+
+{{ posts.items[i].title }}
+
+    {% for j in range(0, allTags[i]|length)%}
+        {{allTags[i][j].name}}
+
+    {% endfor %}
+{% endfor %}
+
 {% for post in posts.items %}
 <article class="media content-section">
     <img class="rounded-circle article-img"
