@@ -38,7 +38,7 @@ def new_post():
         db.session.commit()
         # print('Rdy', file=sys.stderr)
         flash('Your post has been created!', 'success')
-        return redirect(url_for('main.blog'))
+        return redirect(url_for('posts.blog'))
     return render_template('new_post.html', title='New post', form=form, legend='New Post')
 
 @posts.route('/post/<int:post_id>/new_comment', methods=['GET', 'POST'])
@@ -53,6 +53,16 @@ def new_comment(post_id):
         meTo = url_for('posts.post', post_id=post_id)+ '#comment_button'
         return redirect(meTo)
     return render_template('new_comment.html', title='New Comment', form=form, legend='New Comment')
+
+
+@posts.route('/blog')
+def blog():
+    page = request.args.get('page', 1, type=int)
+    posts = Post.query.order_by(
+        Post.date_posted.desc()).paginate(page=page, per_page=5)
+
+ 
+    return render_template('blog.html', title='Blog', posts=posts)
 
 @posts.route('/post/<int:post_id>/update_comment/<int:comment_id>', methods=['GET', 'POST'])
 @login_required_author()
@@ -176,4 +186,4 @@ def delete_post(post_id):
     db.session.delete(post)
     db.session.commit()
     flash('Your post has been deleted!', 'success')
-    return (redirect(url_for('main.blog', post_id=post.id)))
+    return (redirect(url_for('posts.blog', post_id=post.id)))

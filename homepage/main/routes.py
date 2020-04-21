@@ -18,14 +18,7 @@ def favicon():
     return send_from_directory(os.path.join(current_app.root_path, 'static'), 'resources/img/favicon.ico', mimetype='image/vnd.microsoft.icon')
 
 
-@main.route('/blog')
-def blog():
-    page = request.args.get('page', 1, type=int)
-    posts = Post.query.order_by(
-        Post.date_posted.desc()).paginate(page=page, per_page=5)
 
- 
-    return render_template('blog.html', title='Blog', posts=posts)
 
 
 @main.route('/terms')
