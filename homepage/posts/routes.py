@@ -2,7 +2,7 @@ from flask import render_template, request, redirect, url_for, flash, abort, Blu
 from flask_login import current_user
 from homepage import login_required_author
 from homepage import db, login_manager
-from homepage.models import Post, Comment, PostLikes, Tag, PostTags
+from homepage.models import Post, Comment, PostLikes, Tag, PostTags, CommentLikes
 from homepage.posts.forms import (PostForm, CommentForm)
 import sys
 from homepage.main.reading_time import estimate_reading_time
@@ -155,6 +155,16 @@ def delete_post(post_id):
     tagRels = db.session.query(PostTags).filter(PostTags.post_id == post_id).all()
     for tr in tagRels:
         db.session.delete(tr)
+
+    likes = db.session.query(PostLikes).filter(PostLikes.user_id == post_id).all()
+    for l in likes:
+        db.session.delete(l)
+
+    commentLikes = db.session.query(CommentLikes).filter(CommentLikes.user_id == post_id).all()
+    for c in commentLikes:
+        db.session.delete(c)
+
+    
 
     db.session.delete(post)
     db.session.commit()
