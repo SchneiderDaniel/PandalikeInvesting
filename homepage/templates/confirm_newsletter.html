@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<br>
+<form method="post">
+    {{cleaned_data |safe}}
+    <input type="submit" value="Confirm" />
+  </form>
+
+
+
+{% endblock %}
