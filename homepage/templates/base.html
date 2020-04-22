@@ -73,7 +73,21 @@
                         </ul>
                     </li>
                     <li class="nav-item"><a href="{{ url_for( 'main.about') }}" class="nav-link">About Me</a></li>
-
+                    {% if current_user.is_authenticated %}
+                        {% if user_has_role(current_user,'admin') %}
+                        <li class="nav-item dropdown">
+                            <a data-toggle="dropdown" class="nav-link dropdown-toggle" href="#">Admin <b
+                                    class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="{{ url_for( 'admins.admin') }}"><span class="fas fa-user-shield"></span>
+                                        Basics</a></li>
+                                <li><a href="{{ url_for( 'admins.send_newsletter') }}"><span class="fas fa-envelope-open-text"></span>
+                                        Newsletter</a></li>
+                            </ul>
+                        </li>
+                        {% endif %}  
+                    {% endif %}
+                   
                 </ul>
                 <form class="navbar-form form-inline">
                     <div class="input-group search-box">

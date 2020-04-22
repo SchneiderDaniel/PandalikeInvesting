@@ -46,12 +46,14 @@ def create_app(config_class=Config):
     from homepage.users.routes import users
     from homepage.posts.routes import posts
     from homepage.main.routes import main
+    from homepage.admin.routes import admins
     from homepage.errors.handlers import errors
 
     app.register_blueprint(users)
     app.register_blueprint(posts)
     app.register_blueprint(main)
     app.register_blueprint(errors)
+    app.register_blueprint(admins)
 
     fa.init_app(app)
     db.init_app(app)
