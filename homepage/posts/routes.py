@@ -203,9 +203,21 @@ def delete_post(post_id):
     for c in commentLikes:
         db.session.delete(c)
 
-    
-
     db.session.delete(post)
     db.session.commit()
     flash('Your post has been deleted!', 'success')
     return (redirect(url_for('posts.blog', post_id=post.id)))
+
+
+@posts.route('/comment/<int:post_id>/<int:comment_id>', methods=['GET', 'POST'])
+@login_required_author()
+def discussion(post_id, comment_id):
+
+    post = Post.query.get_or_404(post_id)
+    comment = Comment.query.get_or_404(comment_id)
+
+
+    print('Comment ID:', file=sys.stderr)
+    print(comment_id, file=sys.stderr)
+
+    return render_template('discussion.html', comment = comment, post=post)

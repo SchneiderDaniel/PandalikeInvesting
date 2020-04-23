@@ -4,8 +4,6 @@
 <br>
 <article class="media content-section">
    
-        
-    
     <div class="container">
         <div class="row">
         <img class="rounded-circle article-img"
@@ -113,6 +111,10 @@
 
 
         {{ comment.content }}
+
+        <div class="col-sm float-right">
+            <small class="text-muted float-right"><a href="{{url_for('posts.discussion', post_id = post.id, comment_id = comment.id )}}"> Discuss this</a></small>
+        </div>
 
     </div>
 </article>

@@ -25,9 +25,6 @@ class User(db.Model, UserMixin):
     newsletter = db.Column(db.Boolean(), nullable=False, default = False)
     activated = db.Column(db.Boolean(), nullable=False, default = False)
 
-    
-
-
     def get_reset_token(self, expires_sec=1800):
         s = Serializer(current_app.config['SECRET_KEY'], expires_sec)
         return s.dumps({'user_id': self.id}).decode('utf-8')

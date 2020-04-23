@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+<br>
+<article class="media comment-section">
+    <div class="container">
+        <div class="article-metadata">
+            <div class="row">
+                <div class="col-sm-auto float-left" >
+                    <img class="rounded-circle article-img-sm"
+                                src="{{ url_for('static', filename='/resources/img/profile_pics/' + comment.author_comment.image_file) }}">
+                </div>
+            
+                <div class="col-sm float-left">
+                    <div class="row">
+                
+                        <div class="col-md-auto">
+                            <a class="mr-2"
+                                href="{{ url_for('users.user', username=comment.author_comment.username) }}">{{ comment.author_comment.username }}</a>
+                            <br />
+                            <small class="text-muted">posted on: {{ comment.date_posted.strftime("%d %b, %Y") }}</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+            
+        
+
+
+        {{ comment.content }}
+
+    </div>
+</article>
+
+
+{% endblock %}
