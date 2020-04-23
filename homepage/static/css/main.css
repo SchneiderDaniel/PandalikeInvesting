@@ -223,3 +223,8 @@ a.article-title:hover {
 .form-label-txt {
     font-weight:normal;
 }
+
+.img-responsive {
+    max-width: 100%;
+    height: auto;
+  }

@@ -4,3 +4,4 @@ $('#summernote').summernote({
     height: 500,
     showVideoDialog: false
   });
+

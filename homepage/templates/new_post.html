@@ -13,11 +13,13 @@
     <d1>
       <br>
       {{ render_field(form.title, class='form-control', placeholder='Enter a title.') }}
+      {{ render_field(form.tags, class='form-control', placeholder='Enter your Tags') }}
       {{ render_field(form.abstract, class='form-control', placeholder='Enter an abstract.') }}
-      {{ render_field(form.content, class='form-control', placeholder='Enter detailed content') }}
+      <!-- {{ render_field(form.content, class='form-control', placeholder='Enter detailed content') }} -->
+      {{ render_field(form.content, id="summernote") }}
       <!-- {{ form.tags.label }}
       {{ form.tags(class='form-control', placeholder='Enter your Tags' ) }} -->
-      {{ render_field(form.tags, class='form-control', placeholder='Enter your Tags') }}
+      
     </d1>
     <br>
     {{render_recaptcha(form.recaptcha)}}

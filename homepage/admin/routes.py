@@ -56,8 +56,6 @@ def confirm_newsletter(nl_id):
     nl = Newsletter.query.get_or_404(nl_id)
 
     if request.method == 'POST':
-        # print('title: ' + nl.title, file=sys.stderr)
-        # print('Content: ' + nl.content, file=sys.stderr)
 
         sendNewsletter(nl_id)
         flash('The newsletter has been sent out!', 'success')

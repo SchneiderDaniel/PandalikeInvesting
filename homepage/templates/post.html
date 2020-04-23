@@ -3,13 +3,20 @@
 {% block content %}
 <br>
 <article class="media content-section">
+   
+        
+    
     <div class="container">
+        <div class="row">
+        <img class="rounded-circle article-img"
+            src="{{ url_for('static', filename='/resources/img/profile_pics/' + post.author.image_file) }}">
         <div class="article-metadata">
+            
             <div class="row">
-                <div class="col-md-1 mr-4 float-left ">
+                <!-- <div class="col-md-1 mr-4 float-left ">
                     <img class="rounded-circle article-img"
                         src="{{ url_for('static', filename='/resources/img/profile_pics/' + post.author.image_file) }}">
-                </div>
+                </div> -->
                 <div class="col-md-auto">
                     <a class="mr-2"
                         href="{{ url_for('users.user', username=post.author.username) }}">{{ post.author.username }}</a>
@@ -37,7 +44,7 @@
 
             </div>
         </div>
-
+        </div>
         {% for tag in theTags %}
         <a class="badge badge-pill badge-primary" href="{{ url_for('posts.blog', page=1, tagged = tag.id) }}">
             {{tag.name}}
@@ -48,7 +55,7 @@
         <h2 class="article-title">{{ post.title }}</h2>
         <br>
         <p class="article-abstract"> <b>Abstract:</b> {{ post.abstract }}</p>
-        <p class="article-content">{{ post.content }}</p>
+        <p class="article-content">{{ post.content|safe }}</p>
        
             <a class="btn btn-icon float-right btn-md" href="{{ url_for('posts.like_post', post_id = post.id) }}"><i class="fas fa-thumbs-up"></i> {{likes}}</a> 
        
@@ -69,12 +76,17 @@
     <div class="container">
         <div class="article-metadata">
             <div class="row">
-                <div class="col float-left">
+                <div class="col-sm-auto float-left" >
+                    <img class="rounded-circle article-img-sm"
+                                src="{{ url_for('static', filename='/resources/img/profile_pics/' + comment.author_comment.image_file) }}">
+                </div>
+            
+                <div class="col-sm float-left">
                     <div class="row">
-                        <div class="col-md-1 mr-4 float-left ">
+                        <!-- <div class="col-md-1 mr-4 float-left ">
                             <img class="rounded-circle article-img-sm"
                                 src="{{ url_for('static', filename='/resources/img/profile_pics/' + comment.author_comment.image_file) }}">
-                        </div>
+                        </div> -->
                         <div class="col-md-auto">
                             <a class="mr-2"
                                 href="{{ url_for('users.user', username=comment.author_comment.username) }}">{{ comment.author_comment.username }}</a>
@@ -100,6 +112,8 @@
                 </div>
             </div>
         </div>
+            
+        
 
 
         {{ comment.content }}
