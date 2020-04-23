@@ -1,12 +1,16 @@
 {% extends 'base.html' %}
 
 {% block content %}
+
+
 <br>
+<div class="content-section">
 <form method="post">
-    {{cleaned_data |safe}}
-    <input type="submit" value="Confirm" />
+    <legend class="border-bottom mb-4">{{nl_title}}</legend>
+    {{nl_content |safe}}
+    <input class="btn btn-primary" type="submit" value="Confirm">
   </form>
 
-
+</div>
 
 {% endblock %}

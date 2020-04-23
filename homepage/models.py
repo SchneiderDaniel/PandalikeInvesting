@@ -69,6 +69,16 @@ class Comment(db.Model):
     def __repr__(self):
         return f"Comment('{self.id}', '{self.content}')"
 
+class Newsletter(db.Model):
+    __tablename__ = 'newsletters'
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(100), nullable=False)
+    content = db.Column(db.Text, nullable=False)
+    date_posted = db.Column(db.DateTime, nullable=False,default=datetime.utcnow)
+    sendOut = db.Column(db.Boolean(), nullable=False, default = False)
+   
+    def __repr__(self):
+        return f"Comment('{self.id}')"
 
 class Tag(db.Model):
     __tablename__ = 'theTags'

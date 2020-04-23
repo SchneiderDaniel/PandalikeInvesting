@@ -2,11 +2,18 @@
 
 {% block content %}
 <br>
+<div class="content-section">
+  
 <form method="post">
+    <input class="form-control" type="text" name="title" placeholder="Enter your title" />
+    <br>
     <textarea id="summernote" name="editordata"></textarea>
-    <input type="submit" value="Send Newsletter" />
+    <!-- <input type="submit" value="Send Newsletter" /> -->
+    <br>
+    <input class="btn btn-primary" type="submit" value="Send Newsletter">
   </form>
 
+</div>
 
 
 {% endblock %}
