@@ -2,3 +2,4 @@ env
 __pycache__
 .pytest_cache
 homepage/__pycache__
+homepage/static/resources/private

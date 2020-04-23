@@ -34,7 +34,7 @@ def legal_notice():
 
 @main.route('/about')
 def about():
-    return render_template('about.html', title='About Me')
+    return render_template('about.html', title='About Me', showSidebar = False)
 
 
 @main.route('/pricing')
@@ -88,4 +88,4 @@ def sidebar_tags():
         theTagRel = db.session.query(PostTags).filter(PostTags.tag_id == t.id ).all()
         sizes.append(len(theTagRel))
 
-    return dict(allDBTags=allTags, tagSizes=sizes)
+    return dict(allDBTags=allTags, tagSizes=sizes, showSidebar = True)

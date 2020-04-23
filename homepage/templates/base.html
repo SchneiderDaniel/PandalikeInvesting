@@ -51,7 +51,7 @@
                     <li class="nav-item"><a href="{{ url_for( 'main.index') }}" class="nav-link">Home</a></li>
                     <li class="nav-item"><a href="{{ url_for( 'posts.blog') }}" class="nav-link">Blog</a></li>
                     <li class="nav-item dropdown">
-                        <a data-toggle="dropdown" class="nav-link dropdown-toggle" href="#">Analysis <b
+                        <a data-toggle="dropdown" class="nav-link dropdown-toggle" href="#">Tools <b
                                 class="caret"></b></a>
                         <ul class="dropdown-menu">
                             <li><a href="{{ url_for( 'main.correlation') }}"><span class="fas fa-arrows-alt"></span>
@@ -60,7 +60,7 @@
                                     Backtesting</a></li>
                         </ul>
                     </li>
-                    <li class="nav-item dropdown">
+                    <!-- <li class="nav-item dropdown">
                         <a data-toggle="dropdown" class="nav-link dropdown-toggle" href="#">Contact <b
                                 class="caret"></b></a>
                         <ul class="dropdown-menu">
@@ -72,7 +72,7 @@
                                     Us</a></li>
 
                         </ul>
-                    </li>
+                    </li> -->
                     <li class="nav-item"><a href="{{ url_for( 'main.about') }}" class="nav-link">About Me</a></li>
                     {% if current_user.is_authenticated %}
                         {% if user_has_role(current_user,'admin') %}
@@ -134,11 +134,15 @@
         </script>
     {% endif %}
 
+
     <main role="main" class="container">
 
         <div class="row">
-
+            {% if showSidebar %}
             <div class="col-md-8">
+            {%else%}
+            <div class="col">
+            {% endif %}
                 {% with messages = get_flashed_messages(with_categories=true) %}
                 {% if messages %}
                 {% for category, message in messages %}
@@ -154,6 +158,8 @@
                 {% endwith %}
                 {% block content %}{% endblock %}
             </div>
+
+            {% if showSidebar %}
             <div class="col-md-4">
 
                 <br>
@@ -230,6 +236,7 @@
                 
 
             </div>
+            {% endif %}
         </div>
     </main>
 

@@ -11,7 +11,7 @@ admins = Blueprint('admins', __name__)
 @login_required_author('admin')
 @admins.route('/admin')
 def admin():
-    return render_template('admin.html')
+    return render_template('admin.html', showSidebar = False)
 
 @login_required_author('admin')
 @admins.route('/send_newsletter', methods=['GET','POST'])
@@ -46,7 +46,7 @@ def send_newsletter():
 
         flash('First you need to confirm the newsletter', 'info')
         return redirect(url_for('admins.confirm_newsletter',nl_id=nl.id))
-    return render_template('newsletter.html')
+    return render_template('newsletter.html', showSidebar = False)
 
 
 @login_required_author('admin')
@@ -61,4 +61,4 @@ def confirm_newsletter(nl_id):
         flash('The newsletter has been sent out!', 'success')
         return (redirect(url_for('main.index')))
     
-    return render_template('confirm_newsletter.html' , nl_content=nl.content, nl_title = nl.title )
+    return render_template('confirm_newsletter.html' , nl_content=nl.content, nl_title = nl.title, showSidebar = False )

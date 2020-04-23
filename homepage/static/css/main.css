@@ -17,7 +17,7 @@ body {
     margin-bottom: 60px; /* Margin bottom by footer height */
 
     /* Location of the image */
-    /* background-image: url("../resources/img/background.jpg"); */
+    background-image: url("../resources/img/background.jpg");
     
     /* Background image is centered vertically and horizontally at all times */
     background-position: center center;
@@ -59,6 +59,7 @@ body {
 .btn-primary{
     background-color: #00b0f0 !important;
     border-color: #00b0f0 !important;
+    border-radius: 15px;
 }
 
 
@@ -68,22 +69,26 @@ body {
     background-color: #00b0f0 !important;
     border-color: black !important;
     color: black;
+    border-radius: 15px;
 }
 
 .btn-outline-info{
     color: #00b0f0;
-    border-color: #00b0f0 !important
+    border-color: #00b0f0 !important;
+    border-radius: 15px;
 }
 
 .btn-white{
     background-color: white !important;
-    border-color: #00b0f0 !important
+    border-color: #00b0f0 !important;
+    border-radius: 15px;
 }
 
 .btn-white:hover, .btn-outline-info:active {
     border-color: white !important;
     background-color: #00b0f0 !important;
     color: black;
+    border-radius: 15px;
 }
 
 .btn-icon{
@@ -145,7 +150,7 @@ a {
     background: #ffffff;
     padding: 10px 20px;
     border: 1px solid #dddddd;
-    border-radius: 3px;
+    border-radius: 30px;
     margin-bottom: 20px;
     border-color: #888888;
     box-shadow: 2px 5px #888888
@@ -156,7 +161,7 @@ a {
     background-color: rgb(226, 226, 226) !important; 
     padding: 10px 20px;
     border: 1px solid #dddddd;
-    border-radius: 3px;
+    border-radius: 30px;
     margin-bottom: 20px;
     border-color: white;
     box-shadow: 2px 5px #888888
@@ -169,7 +174,7 @@ a {
     background-color:rgb(88, 89, 92) !important; 
     padding: 10px 20px;
     border: 1px solid #dddddd;
-    border-radius: 3px;
+    border-radius: 30px;
     margin-bottom: 20px;
     border-color: white;
     box-shadow: 2px 5px #888888
