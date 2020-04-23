@@ -2,7 +2,8 @@ from flask import render_template, Blueprint, request, redirect, flash, url_for
 from homepage import login_required_author, db
 import sys
 import bleach
-from homepage.models import Newsletter
+from homepage.models import Newsletter, User
+from homepage.users.utils import sendNewsletter
 
 admins = Blueprint('admins', __name__)
 
@@ -39,6 +40,8 @@ def confirm_newsletter(nl_id):
     if request.method == 'POST':
         print('title: ' + nl.title, file=sys.stderr)
         print('Content: ' + nl.content, file=sys.stderr)
+
+        sendNewsletter(nl_id)
         flash('The Newsletter was sent out!', 'success')
         return (redirect(url_for('main.index')))
     

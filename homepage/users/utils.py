@@ -3,7 +3,9 @@ import secrets
 from PIL import Image
 from flask import url_for, current_app
 from flask_mail import Message
-from homepage import mail
+from homepage import mail, db
+from homepage.models import Newsletter, User
+import sys
 
 
 def save_picture(form_picture):
@@ -43,3 +45,21 @@ def sendActivateEMail(user):
 If you did not make this request, then simply ignore this E-Mail amd no changes will be made.
 '''
     mail.send(msg)
+
+def sendNewsletter(nl_id):
+    nl = Newsletter.query.get_or_404(nl_id)
+    users = db.session.query(User).filter(User.newsletter == True ).all()
+
+    mailingList = []
+    for u in users:
+        mailingList.append(u.email)
+
+    print('Mailing List', file=sys.stderr)
+    print(mailingList, file=sys.stderr)
+    print(len(mailingList),file=sys.stderr)
+
+    if len(mailingList)>0:
+        msg = Message(nl.title,sender=current_app.config['MAIL_USERNAME'],recipients=mailingList)
+        msg.html = nl.content
+        mail.send(msg)
+        print('Mail send out', file=sys.stderr)
