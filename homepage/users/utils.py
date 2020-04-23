@@ -63,6 +63,7 @@ def sendNewsletter(nl_id):
         
         url = '<a href="' + str(url_for('users.account',_external = True)) + '" >Here</a> '
         footer = '<br> <br> Are you no longer interested in the Newsletter? Just sign off '
+        msg.body = ''
         msg.html = nl.content + footer + url
         # print(url, file=sys.stderr)
 

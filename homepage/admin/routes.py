@@ -19,14 +19,29 @@ def send_newsletter():
     if request.method == 'POST':
         
         data = request.form.get('editordata')
-        cleaned_data = bleach.clean(data, tags= ['h1','h2','h3','h4' ,'h5' ,'h6' , 'br', 'p','blockquote', 'b', 'u', 'pre', 'span', 'ul', 'li','ul', 'ol', 'a'  ])
+   
+
+        print(data,  file=sys.stderr)
+
+        allowed_tags = ['class', 'div', 'img', 'h1', 'h2','src' ,'h3','h4' ,'h5' ,'h6' , 'br', 'p','blockquote', 'b', 'u', 'pre', 'span', 'ul', 'li','ul', 'ol', 'a', 'abbr', 'acronym', 'code',
+                        'em', 'i', 'pre', 'strong', 'video',  'iframe', 'hr', 'style' ]
+        allowed_attrs = {'*': ['class'],
+                        'a': ['href', 'rel'],
+                        'img': ['src', 'alt', 'data-filename','style' , 'width']}
+
+
+        cleaned_data = bleach.clean(data, tags=allowed_tags,attributes=allowed_attrs, protocols=['data'], styles=['width'])
+
         
+        # print('____________',  file=sys.stderr)
+        # print(cleaned_data,  file=sys.stderr)
+
         title = request.form.get('title')
         nl = Newsletter(title=title, content=cleaned_data)
         db.session.add(nl)
         db.session.commit()
 
-        flash('First you need to confirm', 'info')
+        flash('First you need to confirm the newsletter', 'info')
         return redirect(url_for('admins.confirm_newsletter',nl_id=nl.id))
     return render_template('newsletter.html')
 
@@ -38,11 +53,11 @@ def confirm_newsletter(nl_id):
     nl = Newsletter.query.get_or_404(nl_id)
 
     if request.method == 'POST':
-        print('title: ' + nl.title, file=sys.stderr)
-        print('Content: ' + nl.content, file=sys.stderr)
+        # print('title: ' + nl.title, file=sys.stderr)
+        # print('Content: ' + nl.content, file=sys.stderr)
 
         sendNewsletter(nl_id)
-        flash('The Newsletter was sent out!', 'success')
+        flash('The newsletter has been sent out!', 'success')
         return (redirect(url_for('main.index')))
     
     return render_template('confirm_newsletter.html' , nl_content=nl.content, nl_title = nl.title )
