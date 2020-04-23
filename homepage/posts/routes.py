@@ -2,8 +2,8 @@ from flask import render_template, request, redirect, url_for, flash, abort, Blu
 from flask_login import current_user
 from homepage import login_required_author
 from homepage import db, login_manager
-from homepage.models import Post, Comment, PostLikes, Tag, PostTags, CommentLikes
-from homepage.posts.forms import (PostForm, CommentForm)
+from homepage.models import Post, Comment, PostLikes, Tag, PostTags, CommentLikes, Discussion
+from homepage.posts.forms import (PostForm, CommentForm, DiscussionForm)
 import sys
 from homepage.main.reading_time import estimate_reading_time
 
@@ -110,6 +110,12 @@ def delete_comment(post_id,comment_id):
     comment = Comment.query.get_or_404(comment_id)
     if comment.author_comment != current_user:
         abort(403)
+
+
+    discussions = db.session.query(Discussion).filter(Discussion.cid == comment.id).all()
+    for d in discussions:
+            db.session.delete(d)
+
     db.session.delete(comment)
     db.session.commit()
     flash('Your comment has been deleted!', 'success')
@@ -188,6 +194,9 @@ def delete_post(post_id):
 
     comments = db.session.query(Comment).filter(Comment.pid == post_id).all()
     for comment in comments:
+        discussions = db.session.query(Discussion).filter(Discussion.cid == comment.id).all()
+        for d in discussions:
+             db.session.delete(d)
         db.session.delete(comment)
     
 
@@ -215,9 +224,17 @@ def discussion(post_id, comment_id):
 
     post = Post.query.get_or_404(post_id)
     comment = Comment.query.get_or_404(comment_id)
+    discussions = db.session.query(Discussion).filter(Discussion.cid == comment_id).all()
 
+    form = DiscussionForm()
+    if form.validate_on_submit():
+        discuss = Discussion(content = form.content.data, author_discussion = current_user, cid = comment_id)
+        db.session.add(discuss)
+        db.session.commit()
+        flash('Your text has been posted!', 'success')
+        return redirect(url_for('posts.discussion', post_id=post_id, comment_id=comment_id))
 
-    print('Comment ID:', file=sys.stderr)
-    print(comment_id, file=sys.stderr)
+    # print('Comment ID:', file=sys.stderr)
+    # print(comment_id, file=sys.stderr)
 
-    return render_template('discussion.html', comment = comment, post=post)
+    return render_template('discussion.html', comment = comment, post=post, form = form, discussions=discussions, title='Discuss...')

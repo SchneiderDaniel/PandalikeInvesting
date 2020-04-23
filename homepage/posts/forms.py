@@ -12,6 +12,11 @@ class PostForm(FlaskForm):
     submit = SubmitField('Post')
 
 class CommentForm(FlaskForm):
-    content = TextAreaField('Content', [DataRequired(), Length(min=8, message=('Your message is too short. It needs at least 8 characters.'))])
+    content = TextAreaField('Content', [DataRequired(), Length(min=8,max=150, message=('Your message needs to be 8 to 150 characters long.'))])
     recaptcha = RecaptchaField()
     submit = SubmitField('Comment')
+
+class DiscussionForm(FlaskForm):
+    content = TextAreaField('Content', [DataRequired(), Length(max=150, message=('Your message is too large. Max is 150 characters.'))])
+    recaptcha = RecaptchaField()
+    submit = SubmitField('Send')

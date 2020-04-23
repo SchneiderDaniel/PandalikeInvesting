@@ -1,7 +1,20 @@
 {% extends 'base.html' %}
+{% from "_formhelpers.html" import render_field, render_recaptcha, render_field_no_label %}
 
 
 {% block content %}
+<br>
+<div class="container">
+
+<div class="row float-right">
+    <a style="display:inline" class="btn btn-primary float-right" href={{ url_for('posts.post', post_id=post.id) }}> + Go Back to Post</a> 
+</div>
+<div class="row float-left">
+<h2>Discuss...</h2>
+</div>
+</div>
+
+<br>
 <br>
 <article class="media comment-section">
     <div class="container">
@@ -33,6 +46,41 @@
 
     </div>
 </article>
+<article class="media discussion-section">
+    <div class="container">
+        {% for discuss in discussions %}
+        <div class="border-bottom">
+            <a class="mr-2"
+            href="{{ url_for('users.user', username=discuss.author_discussion.username) }}">{{ discuss.author_discussion.username }}</a> {{discuss.content}}
+
+        
+            <!-- <br> -->
+        </div>
+        {% endfor%}
+        {%if discussions|length==0%}
+        Nothing discussed yet...  
+        {%endif%}
+
+
+    </div>
+</article>
+
+<div class="content-section">
+    <form method="POST" action="" class="login_form" role="login_form">
+        {{ form.hidden_tag() }}
+        <d1>
+            <br>
+            {{ render_field_no_label(form.content, class='form-control', placeholder='Enter text...') }}
+        </d1>
+        {{render_recaptcha(form.recaptcha)}}
+
+        <div class="form-group">
+            {{ form.submit(class="btn btn-outline-info") }}
+        </div>
+</div>
+
+
+
 
 
 {% endblock %}

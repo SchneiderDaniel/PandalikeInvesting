@@ -22,6 +22,7 @@ class User(db.Model, UserMixin):
     roles = db.relationship('Role', secondary='user_roles')
     posts = db.relationship('Post', backref='author', lazy=True)
     comments_ = db.relationship('Comment', backref='author_comment', lazy=True)
+    discussions_ = db.relationship('Discussion', backref='author_discussion', lazy=True)
     newsletter = db.Column(db.Boolean(), nullable=False, default = False)
     activated = db.Column(db.Boolean(), nullable=False, default = False)
 
@@ -63,8 +64,21 @@ class Comment(db.Model):
     uid = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     pid = db.Column(db.Integer, db.ForeignKey('posts.id'), nullable=False)
     date_posted = db.Column(db.DateTime, nullable=False,default=datetime.utcnow)
+    discussions = db.relationship('Discussion', backref='comment_discussion', lazy=True)
     def __repr__(self):
         return f"Comment('{self.id}', '{self.content}')"
+
+
+class Discussion(db.Model):
+    __tablename__ = 'discussions'
+    id = db.Column(db.Integer, primary_key=True)
+    content = db.Column(db.Text, nullable=False)
+    uid = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+    cid = db.Column(db.Integer, db.ForeignKey('comments.id'), nullable=False)
+    date_posted = db.Column(db.DateTime, nullable=False,default=datetime.utcnow)
+    def __repr__(self):
+        return f"Discussion('{self.id}', '{self.content}')"
+
 
 class Newsletter(db.Model):
     __tablename__ = 'newsletters'

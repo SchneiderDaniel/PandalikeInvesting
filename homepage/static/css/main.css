@@ -162,6 +162,19 @@ a {
     box-shadow: 2px 5px #888888
 }
 
+.discussion-section {
+    background: #00b0f0;
+    font-size: small;
+    color: white !important; 
+    background-color:rgb(88, 89, 92) !important; 
+    padding: 10px 20px;
+    border: 1px solid #dddddd;
+    border-radius: 3px;
+    margin-bottom: 20px;
+    border-color: white;
+    box-shadow: 2px 5px #888888
+}
+
 .article-title {
     color: #444444;
 }
