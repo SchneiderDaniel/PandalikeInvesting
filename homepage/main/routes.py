@@ -19,9 +19,6 @@ def favicon():
     return send_from_directory(os.path.join(current_app.root_path, 'static'), 'resources/img/favicon.ico', mimetype='image/vnd.microsoft.icon')
 
 
-
-
-
 @main.route('/terms')
 def terms():
     return render_template('terms.html', title='Terms &amp; Conditions')

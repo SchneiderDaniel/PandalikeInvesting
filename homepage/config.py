@@ -15,3 +15,4 @@ class Config:
     ADMIN_MAIL = os.environ.get('ADMIN_MAIL')
     ADMIN_PASSWORD = os.environ.get('ADMIN_PASSWORD')
     ADMIN_NAME = 'Pandalike Investing' 
+    
