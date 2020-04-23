@@ -23,18 +23,21 @@ def send_newsletter():
 
         print(data,  file=sys.stderr)
 
-        allowed_tags = ['class', 'div', 'img', 'h1', 'h2','src' ,'h3','h4' ,'h5' ,'h6' , 'br', 'p','blockquote', 'b', 'u', 'pre', 'span', 'ul', 'li','ul', 'ol', 'a', 'abbr', 'acronym', 'code',
-                        'em', 'i', 'pre', 'strong', 'video',  'iframe', 'hr', 'style' ]
-        allowed_attrs = {'*': ['class'],
-                        'a': ['href', 'rel'],
-                        'img': ['src', 'alt', 'data-filename','style' , 'width']}
+        # allowed_tags = ['class', 'div', 'img', 'h1', 'h2','src' ,'h3','h4' ,'h5' ,'h6' , 'br', 'p','blockquote', 'b', 'u', 'pre', 'span', 'ul', 'li','ul', 'ol', 'a', 'abbr', 'acronym', 'code',
+        #                 'em', 'i', 'pre', 'strong', 'video',  'iframe', 'hr', 'style', 'font' ]
+        # allowed_attrs = {'*': ['class'],
+        #                 'a': ['href', 'rel'],
+        #                 'img': ['src', 'alt', 'data-filename','style' , 'width'],
+        #                 'font': ['color']}
 
 
-        cleaned_data = bleach.clean(data, tags=allowed_tags,attributes=allowed_attrs, protocols=['data'], styles=['width'])
+        # cleaned_data = bleach.clean(data, tags=allowed_tags,attributes=allowed_attrs, protocols=['data'], styles=['width','background','font-family', 'text-align' ])
 
-        
-        # print('____________',  file=sys.stderr)
-        # print(cleaned_data,  file=sys.stderr)
+
+        cleaned_data = data
+        print(data,  file=sys.stderr)
+        print('____________',  file=sys.stderr)
+        print(cleaned_data,  file=sys.stderr)
 
         title = request.form.get('title')
         nl = Newsletter(title=title, content=cleaned_data)
