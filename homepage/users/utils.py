@@ -54,12 +54,17 @@ def sendNewsletter(nl_id):
     for u in users:
         mailingList.append(u.email)
 
-    print('Mailing List', file=sys.stderr)
-    print(mailingList, file=sys.stderr)
-    print(len(mailingList),file=sys.stderr)
+    # print('Mailing List', file=sys.stderr)
+    # print(mailingList, file=sys.stderr)
+    # print(len(mailingList),file=sys.stderr)
 
     if len(mailingList)>0:
         msg = Message(nl.title,sender=current_app.config['MAIL_USERNAME'],recipients=mailingList)
-        msg.html = nl.content
+        
+        url = '<a href="' + str(url_for('users.account',_external = True)) + '" >Here</a> '
+        footer = '<br> <br> Are you no longer interested in the Newsletter? Just sign off '
+        msg.html = nl.content + footer + url
+        # print(url, file=sys.stderr)
+
         mail.send(msg)
-        print('Mail send out', file=sys.stderr)
+        # print('Mail send out', file=sys.stderr)
