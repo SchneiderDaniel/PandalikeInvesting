@@ -80,7 +80,7 @@ body {
     border-color: #00b0f0 !important
 }
 
-.btn-white:hover, .btn-outline-info:active, .btn-outline-info:visited {
+.btn-white:hover, .btn-outline-info:active {
     border-color: white !important;
     background-color: #00b0f0 !important;
     color: black;

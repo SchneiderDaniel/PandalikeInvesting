@@ -13,10 +13,6 @@
         <div class="article-metadata">
             
             <div class="row">
-                <!-- <div class="col-md-1 mr-4 float-left ">
-                    <img class="rounded-circle article-img"
-                        src="{{ url_for('static', filename='/resources/img/profile_pics/' + post.author.image_file) }}">
-                </div> -->
                 <div class="col-md-auto">
                     <a class="mr-2"
                         href="{{ url_for('users.user', username=post.author.username) }}">{{ post.author.username }}</a>
