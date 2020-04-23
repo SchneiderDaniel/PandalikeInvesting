@@ -2,6 +2,90 @@
 
 
 {% block content %}
+<br>
+<article class="content-section">
+    <br>
+    <br>
+    <div class="row">
+        <div class="col">   
+            <p class='text-muted mb-0'>Private Investor, Data Scientist</p>
+            <legend class="border-bottom mb-4">Daniel Schneider, Ph.D.</legend>
+            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.
+            <br>
+            <br>
+        </div>
+        <div class="col-lg">
+            <img class="img img-fluid float-right" src="{{ url_for('static', filename='/resources/private/me.jpg') }}">
+        </div>
+        
+    </div>
+    <br>
+    
+    
+        <blockquote cite="https://www.huxley.net/bnw/four.html">
+            <p>Words can be like X-rays, if you use them properly—they’ll go through anything. You read and you’re pierced.</p>
+            <footer>—Aldous Huxley, <cite>Brave New World</cite></footer>
+        </blockquote>
+    
+    <br>
+    <br>
+    <h3>What I do?</h3>
+    <br>
+    <br>
+    <div class="container">
+        <div class="row">
+          <div class="col">
+            <img class="img img-fluid" src="{{ url_for('static', filename='/resources/img/headers/stocks.jpg') }}">
+            <br>
+            <br>
+            <h4>Investing</h4>
+            Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
+            Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, 
+            when an unknown printer took a galley.
+            <br>
+            <br>
+          </div>
+          <div class="col">
+            <img class="img img-fluid" src="{{ url_for('static', filename='/resources/img/headers/ai.jpg') }}">
+            <br>
+            <br>
+            <h4>Data Science and AI</h4>
+            Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
+            Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, 
+            when an unknown printer took a galley.
+            <br>
+            <br>
+          </div>
+          <div class="w-100">
 
-TESTI
+          </div>
+          <div class="col">
+            <img class="img img-fluid" src="{{ url_for('static', filename='/resources/img/headers/code.jpg') }}">
+            <br>
+            <br>
+            <h4>Computer Science</h4>
+            Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
+            Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, 
+            when an unknown printer took a galley.
+            <br>
+            <br>
+          </div>
+          <div class="col">
+            <img class="img img-fluid" src="{{ url_for('static', filename='/resources/img/headers/math.jpg') }}">
+            <br>
+            <br>
+            <h4>Mathematics</h4>
+            Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
+            Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, 
+            when an unknown printer took a galley.
+            <br>
+            <br>
+          </div>
+        </div>
+      </div>
+      <br>
+      <br>
+      <h4 class="text-center" >You want to get in touch?&nbsp;&nbsp; <a href="{{ url_for( 'main.contact') }}" class="btn btn-primary active" role="button" aria-pressed="true"><i class="fas fa-pen-alt"></i>&nbsp; Contact Me</a> </h4>
+
+</article>
 {% endblock %}
