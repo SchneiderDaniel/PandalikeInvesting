@@ -219,8 +219,9 @@ def delete_post(post_id):
 
 
 @posts.route('/comment/<int:post_id>/<int:comment_id>', methods=['GET', 'POST'])
-@login_required_author()
 def discussion(post_id, comment_id):
+
+    
 
     post = Post.query.get_or_404(post_id)
     comment = Comment.query.get_or_404(comment_id)
@@ -228,6 +229,10 @@ def discussion(post_id, comment_id):
 
     form = DiscussionForm()
     if form.validate_on_submit():
+
+        if not current_user.is_authenticated:
+            abort(403)
+
         discuss = Discussion(content = form.content.data, author_discussion = current_user, cid = comment_id)
         db.session.add(discuss)
         db.session.commit()

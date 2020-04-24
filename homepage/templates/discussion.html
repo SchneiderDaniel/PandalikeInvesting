@@ -65,6 +65,7 @@
     </div>
 </article>
 
+{% if current_user.is_authenticated %}
 <div class="content-section">
     <form method="POST" action="" class="login_form" role="login_form">
         {{ form.hidden_tag() }}
@@ -78,7 +79,7 @@
             {{ form.submit(class="btn btn-outline-info") }}
         </div>
 </div>
-
+{% endif %}
 
 
 

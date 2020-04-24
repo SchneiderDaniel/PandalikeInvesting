@@ -31,6 +31,8 @@
 </head>
 
 <body>
+
+    {% if not userIsBanned %}
     <header class="site-header">
         <nav class="navbar navbar-default navbar-expand-lg navbar-light">
             <div class="navbar-header d-flex col">
@@ -81,8 +83,8 @@
                             <a data-toggle="dropdown" class="nav-link dropdown-toggle" href="#">Admin <b
                                     class="caret"></b></a>
                             <ul class="dropdown-menu">
-                                <li><a href="{{ url_for( 'admins.admin') }}"><span class="fas fa-user-shield"></span>
-                                        Basics</a></li>
+                                <li><a href="{{ url_for( 'admins.banUser') }}"><span class="fas fa-user-shield"></span>
+                                        Ban User</a></li>
                                 <li><a href="{{ url_for( 'admins.send_newsletter') }}"><span class="fas fa-envelope-open-text"></span>
                                         Newsletter</a></li>
                             </ul>
@@ -240,6 +242,11 @@
             {% endif %}
         </div>
     </main>
+    {% else %}
+    <div class="content-section text-center">
+        You are banned. If you see this message, an Admin has banned your account from PandalikeInvesting.com. If you feel this is not appropriate or a bug, you can  &nbsp;&nbsp; <a href="{{ url_for( 'main.contact') }}" class="btn btn-primary btn-sm active" role="button" aria-pressed="true"><i class="fas fa-pen-alt"></i>&nbsp; Contact us</a> 
+    </div>
+    {% endif %}
 
     <footer class="footer">
         <div class="container">

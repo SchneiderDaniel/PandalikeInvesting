@@ -2,7 +2,8 @@ from flask import render_template, request, redirect, url_for, send_from_directo
 from homepage.main.forms import (ContactForm, BT_GeneralForm)
 from homepage import login_required_author, db
 import os
-from homepage.models import Post, Tag, PostTags
+from homepage.models import Post, Tag, PostTags, User
+from flask_login import current_user
 
 
 
@@ -55,7 +56,7 @@ def contact():
             f'Thanks {contact_form.name.data}, we have received your meessage. We will respond soon!', 'success')
         return redirect(url_for('main.index'))
 
-    return render_template('contact.html', contact_form=contact_form, title='Contact Us')
+    return render_template('contact.html', contact_form=contact_form, title='Contact Us', userIsBanned = False, showSidebar = False)
 
 
 @main.route('/backtesting', methods=['GET', 'POST'])
@@ -89,3 +90,12 @@ def sidebar_tags():
         sizes.append(len(theTagRel))
 
     return dict(allDBTags=allTags, tagSizes=sizes, showSidebar = True)
+
+@main.app_context_processor
+def bannedUser():
+    if current_user.is_authenticated:
+        user = User.query.get_or_404(current_user.id)
+        if user.banned:
+            return dict(userIsBanned = True)
+
+    return dict(userIsBanned = False)

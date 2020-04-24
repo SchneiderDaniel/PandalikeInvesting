@@ -25,6 +25,7 @@ class User(db.Model, UserMixin):
     discussions_ = db.relationship('Discussion', backref='author_discussion', lazy=True)
     newsletter = db.Column(db.Boolean(), nullable=False, default = False)
     activated = db.Column(db.Boolean(), nullable=False, default = False)
+    banned = db.Column(db.Boolean(), nullable=False, default = False)
 
     def get_reset_token(self, expires_sec=1800):
         s = Serializer(current_app.config['SECRET_KEY'], expires_sec)

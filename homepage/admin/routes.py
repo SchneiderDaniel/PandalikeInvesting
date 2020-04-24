@@ -4,14 +4,33 @@ import sys
 import bleach
 from homepage.models import Newsletter, User
 from homepage.users.utils import sendNewsletter
+from homepage.admin.forms import BanUserForm
 
 admins = Blueprint('admins', __name__)
 
 
 @login_required_author('admin')
-@admins.route('/admin')
-def admin():
-    return render_template('admin.html', showSidebar = False)
+@admins.route('/banUser', methods=['GET','POST'])
+def banUser():
+    form = BanUserForm()
+    if form.validate_on_submit():
+        user = db.session.query(User).filter(User.username == form.name.data ).first()
+        if not user:
+            flash('This user was not found in the database', 'danger')
+            return redirect(url_for('admins.banUser'))
+        if user.banned:
+            user.banned = False
+            db.session.commit()
+            flash('This user is not longer banned', 'success')
+        else:
+            user.banned = True
+            db.session.commit()
+            flash('This user has been banned', 'success')
+        
+        return redirect(url_for('admins.banUser'))
+
+
+    return render_template('banUser.html', showSidebar = False, form = form)
 
 @login_required_author('admin')
 @admins.route('/send_newsletter', methods=['GET','POST'])
@@ -19,7 +38,7 @@ def send_newsletter():
     if request.method == 'POST':
         
         data = request.form.get('editordata')
-   
+    
 
         print(data,  file=sys.stderr)
 
@@ -35,9 +54,9 @@ def send_newsletter():
 
 
         cleaned_data = data
-        print(data,  file=sys.stderr)
-        print('____________',  file=sys.stderr)
-        print(cleaned_data,  file=sys.stderr)
+        # print(data,  file=sys.stderr)
+        # print('____________',  file=sys.stderr)
+        # print(cleaned_data,  file=sys.stderr)
 
         title = request.form.get('title')
         nl = Newsletter(title=title, content=cleaned_data)
