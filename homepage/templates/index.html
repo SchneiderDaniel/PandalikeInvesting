@@ -4,73 +4,102 @@
 <br>
 <article class="media content-section">
 
-  <div class="container">
-    <h1 class="display-4">Hello, world!</h1>
-    <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to
-      featured content or information.</p>
-    <hr class="my-4">
-    <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
-    <p class="lead">
-      <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
-    </p>
 
-    <h1 class="display-4">Hello, world!</h1>
-    <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to
-      featured content or information.</p>
-    <hr class="my-4">
-    <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
-    <p class="lead">
-      <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
-    </p>
+    <div class="row">
+      <div class="col-sm-auto">
+        <span><img src="{{ url_for('static', filename='resources/img/logo.png') }}" width="145"
+          height="150"></span>
+      </div>
+      <div class="col ">
+        <div class="row-auto text-center">
+        <h1>Pandalike <b> Investing</b> </h1>
+        </div>
+        <div class="row-auto text-center">
+         <div class="text-muted"> Blog and Tools about Investing, ETFs, Stocks and Mindset </div>
+        </div>
+      
+      </div>
+      <div class="w-100"></div>
+      <br>
+      <div class="col">
 
-    <h1 class="display-4">Hello, world!</h1>
-    <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to
-      featured content or information.</p>
-    <hr class="my-4">
-    <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
-    <p class="lead">
-      <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
-    </p>
+        <div class="arrow_box_left">
+          On this page it is all about understanding your investments and bring you to the next level. We supply with tools to analyse your portfolio in depth. Tools like: <br> <br>
+          <div class="row">
+              <div class="col-sm-auto">
+                <h1><i class="fas fa-tools"></i></h1>
+              </div>
+              <div class="col">
+                 <div class="b_black">Portfolio Correlation:</div> This tool analyses your portfolio and computes the correlation of your assets. With this tool you can identify similar investment in order to reduce complextity of your portfolio. Alternatively, you can introduce new investments that reduce your overall correlation to your benchmark.
+               </div>
+          </div>
+        </div>    
+      </div>
+      <div class="w-100"></div>
+      <div class="col">
+        <div class="arrow_box_right">
+          Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
 
-    <h1 class="display-4">Hello, world!</h1>
-    <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to
-      featured content or information.</p>
-    <hr class="my-4">
-    <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
-    <p class="lead">
-      <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
-    </p>
 
-    <h1 class="display-4">Hello, world!</h1>
-    <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to
-      featured content or information.</p>
-    <hr class="my-4">
-    <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
-    <p class="lead">
-      <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
-    </p>
+        </div>
 
-    <h1 class="display-4">Hello, world!</h1>
-    <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to
-      featured content or information.</p>
-    <hr class="my-4">
-    <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
-    <p class="lead">
-      <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
-    </p>
+      </div>
 
-    <h1 class="display-4">Hello, world!</h1>
-    <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to
-      featured content or information.</p>
-    <hr class="my-4">
-    <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
-    <p class="lead">
-      <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
-    </p>
 
-  </div>
+    </div>
+
+
+
+
+
+  
 
 </article>
+
+
+<div class="sepa">
+ 
+  <h3> Some blog posts:</h3>
+</div>
+
+
+{% for i in range(0,randomPosts|length)%}
+<article class="media content-section">
+  <div class="container">
+    <div class="row">
+        <div class="col-sm-auto">
+            <img class="rounded-circle article-img"
+            src="{{ url_for('static', filename='/resources/img/profile_pics/' + randomPosts[i].author.image_file) }}">
+        </div>
+        
+        <div class="col">
+            <a class="mr-2"
+            href="{{ url_for('users.user', username=randomPosts[i].author.username) }}">{{ randomPosts[i].author.username }}</a>
+            
+            <br>
+            {% for j in range(0, randomTags[i]|length)%}
+                <a class="badge badge-pill badge-primary" href="{{ url_for('posts.blog', page=1, tagged = randomTags[i][j].id) }}">
+                    {{randomTags[i][j].name}}
+                </a>
+            {% endfor %}
+        </div>
+        <div class="w-100"></div>
+        <div class="col">
+            <h2><a class="article-title" href="{{ url_for('posts.post', post_id=randomPosts[i].id) }}">{{ randomPosts[i].title }}</a></h2>
+        </div>
+        <div class="w-100"></div>
+
+        <div class="col">
+            <p class="article-content">{{ randomPosts[i].abstract }}</p>
+        </div>
+        <div class="w-100"></div>
+        <div class="col">
+            <a class="btn btn-outline-info float-right btn-sm" href="{{ url_for('posts.post', post_id=randomPosts[i].id) }}">Read More...</a>
+        </div>
+    </div>      
+  </div>
+</article>
+{% endfor %}
 
 
 {% endblock %}

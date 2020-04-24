@@ -124,6 +124,16 @@ a {
     color: #00b0f0;
   }
 
+b {
+    color: #00b0f0;
+    
+}
+
+.b_black {
+    color: black;
+    font-weight: bold;
+}
+
 .alert-dark {
     text-align: center;
     color: white;
@@ -201,14 +211,14 @@ a.article-title:hover {
 .article-img {
     height: 65px;
     width: 65px;
-    margin-right: 16px;
+    margin-right: 4px;
 }
 
 
 .article-img-sm {
     height: 45px;
     width: 45px;
-    margin-right: 8px;
+    margin-right: 4px;
 }
 
 .article-metadata {
@@ -256,6 +266,17 @@ a.article-title:hover {
 
 .text-danger a{
     color: red;
+}
+
+.sepa {
+    text-align: center;
+    font-style: bold;
+    color: white !important; 
+    background-color:rgba(255, 255, 255, 0.4) !important; 
+    border-radius: 30px;
+    align-self: center;
+    vertical-align: text-top;
+    
 }
 
 

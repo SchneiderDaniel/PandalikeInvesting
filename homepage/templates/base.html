@@ -19,6 +19,7 @@
     <link rel="stylesheet" type="text/css" href={{ url_for('static', filename='css/navbar.css') }}>
     <link rel="stylesheet" type="text/css" href={{ url_for('static', filename='css/tags.css') }}>
     <link rel="stylesheet" type="text/css" href={{ url_for('static', filename='css/blockquote.css') }}>
+    <link rel="stylesheet" type="text/css" href={{ url_for('static', filename='css/arrowBoxes.css') }}>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
     <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.16/dist/summernote-bs4.min.css" rel="stylesheet">
     {{ fontawesome_html() }}
@@ -253,7 +254,7 @@
 
     <footer class="footer">
         <div class="container">
-            <span class="text-muted">© 2020 Copyright
+            <span class="text-muted">© 2019-{{current_year}} Copyright
                 <a href="{{ url_for( 'main.index') }}"> PandalikeInvesting.com</a> | <a href="{{ url_for( 'main.terms') }}">Terms &amp; Conditions </a> | <a href="{{ url_for( 'main.privacy') }}">Privacy Policy </a>  | <a href="{{ url_for( 'main.legal_notice') }}">Impressum – Legal Notice </a>
                     
             </span>

@@ -4,6 +4,8 @@ from homepage import login_required_author, db
 import os
 from homepage.models import Post, Tag, PostTags, User
 from flask_login import current_user
+import datetime
+import random
 
 
 
@@ -12,7 +14,37 @@ main = Blueprint('main', __name__)
 
 @main.route('/')
 def index():
-    return render_template('index.html')
+
+    randomPosts = []
+    for i in range(0,3):
+        query = db.session.query(Post)
+        rowCount = int(query.count())
+        randomRow = query.offset(int(rowCount*random.random())).first()
+        randomPosts.append(randomRow)
+
+        popularPosts = []
+
+    randomTags = []
+    for p in randomPosts:
+        theTagRel = db.session.query(PostTags).filter(PostTags.post_id == p.id ).all()
+        tagsPerPost= []
+        for tr in theTagRel:
+            tagToAdd = Tag.query.get_or_404(tr.tag_id)
+            tagsPerPost.append(tagToAdd)
+        randomTags.append(tagsPerPost)
+
+        # popularPosts = Post.query.order_by(Post.comments.count()).limit(5).all()
+
+        # popularPosts= db.session.query(Session, func.count(Run.id)).\
+        #                         outerjoin(Run).\
+        #                         group_by(Session.id).\
+        #                         order_by(Session.id.desc())
+
+
+        # db.session.query(Post, func.count(likes.c.user_id).label('total')).join(likes).group_by(Post).order_by('total DESC')
+        # db.session.query(Post.comments.count()).label('total')).join(likes).group_by(Post).order_by('total DESC')
+
+    return render_template('index.html', randomPosts = randomPosts, popularPosts=popularPosts, randomTags=randomTags)
 
 
 @main.route('/favicon.ico')
@@ -99,3 +131,10 @@ def bannedUser():
             return dict(userIsBanned = True)
 
     return dict(userIsBanned = False)
+
+
+@main.app_context_processor
+def year():
+    current_year = datetime.datetime.now().year
+
+    return dict(current_year = current_year) 

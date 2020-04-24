@@ -23,25 +23,39 @@
 
 {% for i in range(0,posts.items|length)%}
 <article class="media content-section">
-    <img class="rounded-circle article-img"
-        src="{{ url_for('static', filename='/resources/img/profile_pics/' + posts.items[i].author.image_file) }}">
-    <div class="media-body">
-        <div class="article-metadata">
-            <a class="mr-2"
+
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-auto">
+                <img class="rounded-circle article-img"
+                src="{{ url_for('static', filename='/resources/img/profile_pics/' + posts.items[i].author.image_file) }}">
+            </div>
+            
+            <div class="col">
+                <a class="mr-2"
                 href="{{ url_for('users.user', username=posts.items[i].author.username) }}">{{ posts.items[i].author.username }}</a>
-            <small class="text-muted">posted on: {{ posts.items[i].date_posted.strftime("%d %b, %Y") }}</small>
-            <br>
-            {% for j in range(0, allTags[i]|length)%}
-            <a class="badge badge-pill badge-primary" href="{{ url_for('posts.blog', page=1, tagged = allTags[i][j].id) }}">
-                {{allTags[i][j].name}}
-            </a>
-            {% endfor %}
-
-        </div>
-
-        <h2><a class="article-title" href="{{ url_for('posts.post', post_id=posts.items[i].id) }}">{{ posts.items[i].title }}</a></h2>
-        <p class="article-content">{{ posts.items[i].abstract }}</p>
-        <a class="btn btn-outline-info float-right btn-sm" href="{{ url_for('posts.post', post_id=posts.items[i].id) }}">Read More...</a>
+                <small class="text-muted">posted on: {{ posts.items[i].date_posted.strftime("%d %b, %Y") }}</small>
+                <br>
+                {% for j in range(0, allTags[i]|length)%}
+                    <a class="badge badge-pill badge-primary" href="{{ url_for('posts.blog', page=1, tagged = allTags[i][j].id) }}">
+                        {{allTags[i][j].name}}
+                    </a>
+                {% endfor %}
+            </div>
+            <div class="w-100"></div>
+            <div class="col">
+                <h2><a class="article-title" href="{{ url_for('posts.post', post_id=posts.items[i].id) }}">{{ posts.items[i].title }}</a></h2>
+            </div>
+            <div class="w-100"></div>
+   
+            <div class="col">
+                <p class="article-content">{{ posts.items[i].abstract }}</p>
+            </div>
+            <div class="w-100"></div>
+            <div class="col">
+                <a class="btn btn-outline-info float-right btn-sm" href="{{ url_for('posts.post', post_id=posts.items[i].id) }}">Read More...</a>
+            </div>
+        </div>      
     </div>
 </article>
 {% endfor %}
