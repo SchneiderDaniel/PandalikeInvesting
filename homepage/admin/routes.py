@@ -2,7 +2,7 @@ from flask import render_template, Blueprint, request, redirect, flash, url_for
 from homepage import login_required_author, db
 import sys
 import bleach
-from homepage.models import Newsletter, User
+from homepage.models import Newsletter, User, Report, Comment
 from homepage.users.utils import sendNewsletter
 from homepage.admin.forms import BanUserForm
 
@@ -87,4 +87,10 @@ def confirm_newsletter(nl_id):
 @admins.route('/report_Dashboard', methods=['GET', 'POST'])
 def report_Dashboard():
 
-    return render_template('reportDash.html' , showSidebar = False )
+    reports = db.session.query(Report).all()
+    comments = []
+    for r in reports:
+        comment = Comment.query.get_or_404(r.cid)
+        comments.append(comment)
+    
+    return render_template('reportDash.html' , showSidebar = False, reports=reports, comments = comments )

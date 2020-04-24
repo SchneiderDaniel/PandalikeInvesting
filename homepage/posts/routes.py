@@ -116,6 +116,10 @@ def delete_comment(post_id,comment_id):
     for d in discussions:
             db.session.delete(d)
 
+    reports = db.session.query(Report).filter(Report.cid == comment.id).all()
+    for r in reports:
+        db.session.delete(r)
+
     db.session.delete(comment)
     db.session.commit()
     flash('Your comment has been deleted!', 'success')
@@ -197,6 +201,11 @@ def delete_post(post_id):
         discussions = db.session.query(Discussion).filter(Discussion.cid == comment.id).all()
         for d in discussions:
              db.session.delete(d)
+
+        reports = db.session.query(Report).filter(Report.cid == comment.id).all()
+        for r in reports:
+            db.session.delete(r)
+
         db.session.delete(comment)
     
 

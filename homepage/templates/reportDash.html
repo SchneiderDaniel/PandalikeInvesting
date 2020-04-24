@@ -3,7 +3,53 @@
 
 
 {% block content %}
+<br>
+{% for n in range(comments| length) %}
+<article class="media comment-section">
+    <div class="container">
+        <div class="article-metadata">
+            <div class="row">
+                <div class="col-sm-auto float-left" >
+                    <img class="rounded-circle article-img-sm"
+                                src="{{ url_for('static', filename='/resources/img/profile_pics/' + comments[n].author_comment.image_file) }}">
+                </div>
+            
+                <div class="col-sm float-left">
+                    <div class="row">
+                        <div class="col-md-auto">
+                            <a class="mr-2"
+                                href="{{ url_for('users.user', username=comments[n].author_comment.username) }}">{{ comments[n].author_comment.username }}</a>
+                            <br />
+                            <small class="text-muted">posted on: {{ comments[n].date_posted.strftime("%d %b, %Y") }}</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-auto ml-3 float-right">     
+                    <div class="row" >
+                        {% if current_user.is_authenticated %}
+                            {% if user_has_role(current_user,'admin') %}                      
+                                <form action="{{url_for('posts.delete_comment', post_id = comments[n].pid, comment_id = comments[n].id)}}" method="POST">
+                                    <input class="btn btn-danger btn-sm mt-1 mb-1" type="submit" value="Delete">
+                                </form>               
+                            {% endif %}
+                        {% endif %}       
+                    </div> 
+                </div>
+            </div>
+        </div>
+            
+        
 
-TESTI
+
+        {{ comments[n].content }}
+    </div>
+</article>
+<div class="alert alert-danger" role="alert">
+    Report #{{reports[n].id}}: &nbsp;&nbsp;{{reports[n].complain}}
+</div>
+
+
+
+{% endfor %}
 
 {% endblock %}
