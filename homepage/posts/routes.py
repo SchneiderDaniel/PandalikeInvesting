@@ -2,8 +2,8 @@ from flask import render_template, request, redirect, url_for, flash, abort, Blu
 from flask_login import current_user
 from homepage import login_required_author
 from homepage import db, login_manager
-from homepage.models import Post, Comment, PostLikes, Tag, PostTags, CommentLikes, Discussion
-from homepage.posts.forms import (PostForm, CommentForm, DiscussionForm)
+from homepage.models import Post, Comment, PostLikes, Tag, PostTags, CommentLikes, Discussion, Report
+from homepage.posts.forms import (PostForm, CommentForm, DiscussionForm, ReportForm)
 import sys
 from homepage.main.reading_time import estimate_reading_time
 
@@ -243,3 +243,20 @@ def discussion(post_id, comment_id):
     # print(comment_id, file=sys.stderr)
 
     return render_template('discussion.html', comment = comment, post=post, form = form, discussions=discussions, title='Discuss...')
+
+
+
+@posts.route('/comment/<int:post_id>/<int:comment_id>/report', methods=['GET', 'POST'])
+def report(post_id, comment_id):
+
+    post = Post.query.get_or_404(post_id)
+    comment = Comment.query.get_or_404(comment_id)
+    form = ReportForm()
+    if form.validate_on_submit():
+        report = Report(complain = form.complain.data, cid = comment_id)
+        db.session.add(report)
+        db.session.commit()
+        flash('The comment is reported. If reasoned, we will delete it!', 'success')
+        return redirect(url_for('posts.post', post_id=post.id))
+
+    return render_template('report.html', comment = comment, post=post, form = form, title='Report')

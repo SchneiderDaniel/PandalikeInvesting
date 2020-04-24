@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% from "_formhelpers.html" import render_field, render_checkbox, render_recaptcha %}
+
+
+{% block content %}
+<br>
+<div class="content-section">
+
+    <article class="media comment-section">
+    <div class="container">
+        <div class="article-metadata">
+            <div class="row">
+                <div class="col-sm-auto float-left" >
+                    <img class="rounded-circle article-img-sm"
+                                src="{{ url_for('static', filename='/resources/img/profile_pics/' + comment.author_comment.image_file) }}">
+                </div>
+            
+                <div class="col-sm float-left">
+                    <div class="row">
+                        <div class="col-md-auto">
+                            <a class="mr-2"
+                                href="{{ url_for('users.user', username=comment.author_comment.username) }}">{{ comment.author_comment.username }}</a>
+                            <br />
+                            <small class="text-muted">posted on: {{ comment.date_posted.strftime("%d %b, %Y") }}</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {{ comment.content }}
+    </div>
+    </article>
+
+  <br>
+  <legend class="border-bottom mb-4">Report this comment</legend>
+  <form method="POST" action="" class="login_form" role="login_form">
+    {{ form.hidden_tag() }}
+    <d1>
+      <br>
+      {{ render_field(form.complain, class='form-control', placeholder='Why do you want to report this?') }}    
+    </d1>
+    <br>
+    {{render_recaptcha(form.recaptcha)}}
+
+    <br>
+    <div class="form-group">
+      {{ form.submit(class="btn btn-outline-info") }}
+    </div>
+</div>
+
+{% endblock %}

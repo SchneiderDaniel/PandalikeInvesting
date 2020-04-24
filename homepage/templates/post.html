@@ -111,17 +111,20 @@
 
 
         {{ comment.content }}
-
-        {% if comment.discussions|length ==0%}
-        <div class="col-sm float-right">
-            <small class="text-muted float-right"><a href="{{url_for('posts.discussion', post_id = post.id, comment_id = comment.id )}}"> Discuss this</a></small>
+        <div class="row" >
+            {% if comment.discussions|length ==0%}
+            <div class="col-sm float-left">
+                <small class="text-muted float-left"><a href="{{url_for('posts.discussion', post_id = post.id, comment_id = comment.id )}}"> Discuss this</a></small>
+            </div>
+            {% else %}
+            <div class="col-sm float-left">
+                <small class="text-muted float-left"><a href="{{url_for('posts.discussion', post_id = post.id, comment_id = comment.id )}}"> This is discussed! ({{comment.discussions|length}})</a></small>
+            </div>
+            {% endif %}
+            <div class="col-sm float-right">
+                <small class="text-danger float-right"><a href="{{url_for('posts.report', post_id = post.id, comment_id = comment.id )}}"> <i class="fas fa-exclamation-triangle"></i> Report</a></small>
+            </div>
         </div>
-        {% else %}
-        <div class="col-sm float-right">
-            <small class="text-muted float-right"><a href="{{url_for('posts.discussion', post_id = post.id, comment_id = comment.id )}}"> This is discussed! ({{comment.discussions|length}})</a></small>
-        </div>
-        {% endif %}
-
     </div>
 </article>
 {% endfor %}

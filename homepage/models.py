@@ -66,6 +66,7 @@ class Comment(db.Model):
     pid = db.Column(db.Integer, db.ForeignKey('posts.id'), nullable=False)
     date_posted = db.Column(db.DateTime, nullable=False,default=datetime.utcnow)
     discussions = db.relationship('Discussion', backref='comment_discussion', lazy=True)
+    reports = db.relationship('Report', backref='comment_report', lazy=True)
     def __repr__(self):
         return f"Comment('{self.id}', '{self.content}')"
 
@@ -79,6 +80,15 @@ class Discussion(db.Model):
     date_posted = db.Column(db.DateTime, nullable=False,default=datetime.utcnow)
     def __repr__(self):
         return f"Discussion('{self.id}', '{self.content}')"
+
+class Report(db.Model):
+    __tablename__ = 'reports'
+    id = db.Column(db.Integer, primary_key=True)
+    complain = db.Column(db.Text, nullable=False)
+    cid = db.Column(db.Integer, db.ForeignKey('comments.id'), nullable=False)
+    date_posted = db.Column(db.DateTime, nullable=False,default=datetime.utcnow)
+    def __repr__(self):
+        return f"Report('{self.id}', '{self.complain}')"
 
 
 class Newsletter(db.Model):

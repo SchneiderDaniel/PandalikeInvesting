@@ -254,4 +254,8 @@ a.article-title:hover {
     border-radius: 30px;
   }
 
+.text-danger a{
+    color: red;
+}
+
 

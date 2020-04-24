@@ -81,3 +81,10 @@ def confirm_newsletter(nl_id):
         return (redirect(url_for('main.index')))
     
     return render_template('confirm_newsletter.html' , nl_content=nl.content, nl_title = nl.title, showSidebar = False )
+
+
+@login_required_author('admin')
+@admins.route('/report_Dashboard', methods=['GET', 'POST'])
+def report_Dashboard():
+
+    return render_template('reportDash.html' , showSidebar = False )
