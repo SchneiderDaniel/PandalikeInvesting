@@ -1,6 +1,6 @@
 from flask import render_template, request, redirect, url_for, flash, Blueprint
 from flask_login import login_user, current_user, logout_user
-from homepage.models import User, Post, Role, UserRoles
+from homepage.models import User, Post, Role, UserRoles, Comment
 from homepage import db, bcrypt
 from homepage.users.forms import (RegistrationForm,
                                   LoginForm, UpdateAccountForm, RequestResetForm, ResetPasswordForm, ActivateAccountForm)
@@ -96,7 +96,10 @@ def user(username):
         .paginate(page=page, per_page=5)
     image_file = url_for(
         'static', filename='resources/img/profile_pics/' + user.image_file)
-    return render_template('user.html', title='Blog', posts=posts, user=user, image_file=image_file)
+
+    comments = db.session.query(Comment).filter(Comment.uid == user.id ).all()
+
+    return render_template('user.html', title='Blog', posts=posts, user=user, image_file=image_file, comments = comments)
 
 
 @users.route('/reset_password', methods=['GET', 'POST'])
