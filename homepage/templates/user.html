@@ -12,13 +12,16 @@
         </div>
     </div>
 
+        
+
 {% if posts.total>0 %}
-    <legend class="border-bottom mb-4">Posts by {{user.username}} ({{posts.total}})</legend>
+    <legend class="border-bottom mb-4">All Posts by <a class="mr-2"
+        href="{{ url_for('users.user', username=user.username) }}">{{ user.username }}</a>({{posts.total}})</legend>
     </h1>
     {% for post in posts.items %}
     <article class="media content-section">
-        <img class="rounded-circle article-img"
-            src="{{ url_for('static', filename='/resources/img/profile_pics/' + post.author.image_file) }}">
+        <!-- <img class="rounded-circle article-img"
+            src="{{ url_for('static', filename='/resources/img/profile_pics/' + post.author.image_file) }}"> -->
         <div class="media-body">
             <div class="article-metadata">
                 <a class="mr-2"
@@ -49,8 +52,50 @@
 {%endif%}
 
 {% if comments|length > 0%}
-    <legend class="border-bottom mb-4">Comments by {{user.username}} ({{comments|length}})</legend>
-    TESTI
+    <legend class="border-bottom mb-4">Recent Comments by <a class="mr-2"
+        href="{{ url_for('users.user', username=user.username) }}">{{ user.username }}</a></legend>
+
+    {% for comment in comments %}
+        <article class="media comment-section">
+            <div class="container">
+                <div class="article-metadata">
+                    <div class="row">
+                        <!-- <div class="col-sm-auto float-left" >
+                            <img class="rounded-circle article-img-sm"
+                                        src="{{ url_for('static', filename='/resources/img/profile_pics/' + comment.author_comment.image_file) }}">
+                        </div> -->
+                    
+                        <div class="col-sm float-left">
+                            <div class="row">
+                                <div class="col-md-auto">
+                                    <a class="mr-2"
+                                        href="{{ url_for('users.user', username=comment.author_comment.username) }}">{{ comment.author_comment.username }}</a>
+                                    <br />
+                                    <small class="text-muted">posted on: {{ comment.date_posted.strftime("%d %b, %Y") }}</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-auto float-right">
+
+                            <a class="btn btn-outline-info float-right btn-sm" href="{{ url_for('posts.post', post_id=comment.pid) }}">Go To Post</a>
+                        </div>
+
+
+
+                    </div>
+                </div>
+                    
+                
+
+
+                {{ comment.content }}
+
+            </div>
+        </article>
+{% endfor %}
+
+
+
 {% endif %}
 
 </div>

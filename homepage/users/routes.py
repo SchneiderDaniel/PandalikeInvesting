@@ -97,7 +97,7 @@ def user(username):
     image_file = url_for(
         'static', filename='resources/img/profile_pics/' + user.image_file)
 
-    comments = db.session.query(Comment).filter(Comment.uid == user.id ).all()
+    comments = db.session.query(Comment).filter(Comment.uid == user.id ).order_by(Comment.date_posted.desc()).limit(25).all()
 
     return render_template('user.html', title='Blog', posts=posts, user=user, image_file=image_file, comments = comments)
 
