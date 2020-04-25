@@ -7,11 +7,15 @@ from flask_fontawesome import FontAwesome
 from homepage.config import Config
 import sys
 from functools import wraps
+from flask_admin import Admin, AdminIndexView, expose
+from flask_admin.menu import  MenuLink
+
 
 fa = FontAwesome()
 db = SQLAlchemy()
 bcrypt = Bcrypt()
 mail = Mail()
+admin = Admin()
 login_manager = LoginManager()
 login_manager.login_view = 'users.login'
 login_manager.login_message_category = 'primary'
@@ -37,7 +41,10 @@ def user_has_role (the_current_user, role):
             return True
     return False
 
+
+
 def create_app(config_class=Config):
+    print('Start creating the app',  file=sys.stderr)
     app = Flask(__name__)
     app.config.from_object(Config)
 
@@ -46,7 +53,7 @@ def create_app(config_class=Config):
     from homepage.users.routes import users
     from homepage.posts.routes import posts
     from homepage.main.routes import main
-    from homepage.admin.routes import admins
+    from homepage.admins.routes import admins
     from homepage.errors.handlers import errors
 
     app.register_blueprint(users)
@@ -61,6 +68,10 @@ def create_app(config_class=Config):
     mail.init_app(app)
     login_manager.init_app(app)
 
+    admin.init_app(app)
+    admin.add_link(MenuLink(name='Go Back', category='', url='../'))
+
+    print('Done creating the app',  file=sys.stderr)
     return app
 
 

@@ -4,7 +4,7 @@ import sys
 import bleach
 from homepage.models import Newsletter, User, Report, Comment
 from homepage.users.utils import sendNewsletter
-from homepage.admin.forms import BanUserForm
+from homepage.admins.forms import BanUserForm
 
 admins = Blueprint('admins', __name__)
 
