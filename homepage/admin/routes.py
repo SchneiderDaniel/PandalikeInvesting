@@ -94,3 +94,8 @@ def report_Dashboard():
         comments.append(comment)
     
     return render_template('reportDash.html' , showSidebar = False, reports=reports, comments = comments )
+
+@login_required_author('admin')
+@admins.route('/testPage')
+def testPage():
+    return render_template('test.html', title='Test Page')
