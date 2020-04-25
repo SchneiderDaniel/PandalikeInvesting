@@ -40,7 +40,7 @@ def send_newsletter():
         data = request.form.get('editordata')
     
 
-        print(data,  file=sys.stderr)
+        # print(data,  file=sys.stderr)
 
         # allowed_tags = ['class', 'div', 'img', 'h1', 'h2','src' ,'h3','h4' ,'h5' ,'h6' , 'br', 'p','blockquote', 'b', 'u', 'pre', 'span', 'ul', 'li','ul', 'ol', 'a', 'abbr', 'acronym', 'code',
         #                 'em', 'i', 'pre', 'strong', 'video',  'iframe', 'hr', 'style', 'font' ]

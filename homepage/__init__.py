@@ -9,6 +9,7 @@ import sys
 from functools import wraps
 from flask_admin import Admin, AdminIndexView, expose
 from flask_admin.menu import  MenuLink
+from flask_migrate import Migrate
 
 
 fa = FontAwesome()
@@ -16,6 +17,7 @@ db = SQLAlchemy()
 bcrypt = Bcrypt()
 mail = Mail()
 admin = Admin()
+migrate = Migrate()
 login_manager = LoginManager()
 login_manager.login_view = 'users.login'
 login_manager.login_message_category = 'primary'
@@ -67,6 +69,7 @@ def create_app(config_class=Config):
     bcrypt.init_app(app)
     mail.init_app(app)
     login_manager.init_app(app)
+    migrate.init_app(app,db)
 
     admin.init_app(app)
     admin.add_link(MenuLink(name='Go Back', category='', url='../'))

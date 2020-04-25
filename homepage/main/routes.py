@@ -16,35 +16,28 @@ main = Blueprint('main', __name__)
 def index():
 
     randomPosts = []
-    for i in range(0,3):
-        query = db.session.query(Post)
-        rowCount = int(query.count())
-        randomRow = query.offset(int(rowCount*random.random())).first()
-        randomPosts.append(randomRow)
 
-        popularPosts = []
+    if(len(db.session.query(Post).all())>3):
+        for i in range(0,3):
+            query = db.session.query(Post)
+            rowCount = int(query.count())
+            randomRow = query.offset(int(rowCount*random.random())).first()
+            randomPosts.append(randomRow)
+
+           
 
     randomTags = []
-    for p in randomPosts:
-        theTagRel = db.session.query(PostTags).filter(PostTags.post_id == p.id ).all()
-        tagsPerPost= []
-        for tr in theTagRel:
-            tagToAdd = Tag.query.get_or_404(tr.tag_id)
-            tagsPerPost.append(tagToAdd)
-        randomTags.append(tagsPerPost)
 
-        # popularPosts = Post.query.order_by(Post.comments.count()).limit(5).all()
+    if(len(db.session.query(Post).all())>3):
+        for p in randomPosts:
+            theTagRel = db.session.query(PostTags).filter(PostTags.post_id == p.id ).all()
+            tagsPerPost= []
+            for tr in theTagRel:
+                tagToAdd = Tag.query.get_or_404(tr.tag_id)
+                tagsPerPost.append(tagToAdd)
+            randomTags.append(tagsPerPost)
 
-        # popularPosts= db.session.query(Session, func.count(Run.id)).\
-        #                         outerjoin(Run).\
-        #                         group_by(Session.id).\
-        #                         order_by(Session.id.desc())
-
-
-        # db.session.query(Post, func.count(likes.c.user_id).label('total')).join(likes).group_by(Post).order_by('total DESC')
-        # db.session.query(Post.comments.count()).label('total')).join(likes).group_by(Post).order_by('total DESC')
-
-    return render_template('index.html', randomPosts = randomPosts, popularPosts=popularPosts, randomTags=randomTags)
+    return render_template('index.html', randomPosts = randomPosts, randomTags=randomTags)
 
 
 @main.route('/favicon.ico')

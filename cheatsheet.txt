@@ -1,0 +1,12 @@
+$env:FLASK_APP="run.py"
+flask run
+
+print(data,  file=sys.stderr)
+
+Init Migration:
+flask db init
+
+Migration:
+flask db migrate  --> generates Migration scripts
+flask db upgrade  --> calls Migration scripts
+flask db downgrade --> revert Migration scripts
