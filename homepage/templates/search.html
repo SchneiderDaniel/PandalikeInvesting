@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+
+{% block content %}
+<br>
+<div class="sepa">
+<h1>{{ ('Search Results') }}</h1>
+</div>
+
+
+{% for i in range(0,posts|length)%}
+
+<article class="media content-section">
+
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-auto">
+                <img class="rounded-circle article-img"
+                    src="{{ url_for('static', filename='/resources/img/profile_pics/' + posts[i].author.image_file) }}">
+            </div>
+
+            <div class="col">
+                <a class="mr-2"
+                    href="{{ url_for('users.user', username=posts[i].author.username) }}">{{ posts[i].author.username }}</a>
+                <small class="text-muted">posted on: {{ posts[i].date_posted.strftime("%d %b, %Y") }}</small>
+                <br>
+
+            </div>
+            <div class="w-100"></div>
+            <div class="col">
+                <h2><a class="article-title"
+                        href="{{ url_for('posts.post', post_id=posts[i].id) }}">{{ posts[i].title }}</a></h2>
+            </div>
+            <div class="w-100"></div>
+
+            <div class="col">
+                <p class="article-content">{{ posts[i].abstract }}</p>
+            </div>
+            <div class="w-100"></div>
+            <div class="col">
+                <a class="btn btn-outline-info float-right btn-sm"
+                    href="{{ url_for('posts.post', post_id=posts[i].id) }}">Read More...</a>
+            </div>
+        </div>
+    </div>
+</article>
+
+
+{% endfor %}
+
+<div class="sepa">
+
+
+    <div class="row">
+        <div class="col float-right">
+            {% if prev_url %}
+            <a href="{{ prev_url or '#' }}">
+                <span aria-hidden="true">&larr;</span>
+                {{ ('Previous results') }}
+            </a>
+            {% endif %}
+        </div>
+        <div class="col float-right">
+            {% if next_url %}
+            <a href="{{ next_url or '#' }}">
+                {{ ('Next results') }}
+                <span aria-hidden="true"></span>&rarr;</span>
+            </a>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+{% endblock %}

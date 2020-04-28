@@ -14,5 +14,8 @@ class Config:
     MAIL_PASSWORD = os.environ.get('EMAIL_PASS')
     ADMIN_MAIL = os.environ.get('ADMIN_MAIL')
     ADMIN_PASSWORD = os.environ.get('ADMIN_PASSWORD')
-    ADMIN_NAME = 'Pandalike Investing' 
+    ADMIN_NAME = 'Pandalike Investing'
+    ELASTICSEARCH_URL = os.environ.get('ELASTICSEARCH_URL')
+    LANGUAGES = ['en', 'de']
+    POSTS_PER_PAGE = 3
     

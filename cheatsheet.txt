@@ -7,6 +7,7 @@ Init Migration:
 flask db init
 
 Migration:
+$env:FLASK_APP="run.py"
 flask db migrate  --> generates Migration scripts
 flask db upgrade  --> calls Migration scripts
 flask db downgrade --> revert Migration scripts

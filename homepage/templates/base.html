@@ -101,12 +101,24 @@
                     
                    
                 </ul>
-                <form class="navbar-form form-inline">
+
+                <!-- <form class="navbar-form form-inline">
                     <div class="input-group search-box">
                         <input type="text" id="search" class="form-control" placeholder="Search here...">
                         <span class="input-group-addon"><i class="fas fa-search"></i></span>
                     </div>
+                </form> -->
+                {% if g.search_form %}
+                <form class="navbar-form form-inline" method="get"
+                        action="{{ url_for('main.search') }}">
+                    <div class="form-group">
+                        {{ g.search_form.q(size=20, class='form-control',
+                            placeholder=g.search_form.q.label.text) }}
+                    </div>
                 </form>
+                {% endif %}
+
+
                 <ul class="nav navbar-nav navbar-right ml-auto">
                     {% if current_user.is_authenticated %}
                     <a href="{{ url_for( 'users.logout') }}" class="btn btn-primary pull-left"><i

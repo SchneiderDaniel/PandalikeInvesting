@@ -1,4 +1,4 @@
-from flask import render_template, request, redirect, url_for, flash, abort, Blueprint
+from flask import render_template, request, redirect, url_for, flash, abort, Blueprint, current_app
 from flask_login import current_user
 from homepage import login_required_author
 from homepage import db, login_manager
@@ -18,7 +18,7 @@ def blog():
     if tagged ==-1:
         # print('There', file=sys.stderr)
         posts = Post.query.order_by(
-            Post.date_posted.desc()).paginate(page=page, per_page=5)
+            Post.date_posted.desc()).paginate(page=page, per_page=current_app.config['POSTS_PER_PAGE'])
     else:
         # print('Here', file=sys.stderr)
         theTagRel = db.session.query(PostTags).filter(PostTags.tag_id == tagged).all()

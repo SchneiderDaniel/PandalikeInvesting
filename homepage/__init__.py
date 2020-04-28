@@ -10,6 +10,9 @@ from functools import wraps
 from flask_admin import Admin, AdminIndexView, expose
 from flask_admin.menu import  MenuLink
 from flask_migrate import Migrate
+from elasticsearch import Elasticsearch
+from flask_babel import Babel
+from flask import request
 
 
 fa = FontAwesome()
@@ -21,6 +24,7 @@ migrate = Migrate()
 login_manager = LoginManager()
 login_manager.login_view = 'users.login'
 login_manager.login_message_category = 'primary'
+babel = Babel()
 
 def login_required_author(role="ANY"):
     def wrapper(fn):
@@ -42,6 +46,7 @@ def user_has_role (the_current_user, role):
         if (the_user_role.name == role): 
             return True
     return False
+
 
 
 
@@ -70,9 +75,20 @@ def create_app(config_class=Config):
     mail.init_app(app)
     login_manager.init_app(app)
     migrate.init_app(app,db)
+    babel.init_app(app)
+
+    @babel.localeselector
+    def get_locale():
+        return request.accept_languages.best_match(app.config['LANGUAGES'])
+
+
 
     admin.init_app(app)
     admin.add_link(MenuLink(name='Go Back', category='', url='../'))
+
+    app.elasticsearch = Elasticsearch([app.config['ELASTICSEARCH_URL']]) \
+        if app.config['ELASTICSEARCH_URL'] else None
+
 
     print('Done creating the app',  file=sys.stderr)
     return app
