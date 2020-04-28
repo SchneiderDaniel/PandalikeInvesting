@@ -36,6 +36,7 @@
   
   .share-btn {
     background-color: #95a5a6;
+    font-size: 20px;
   }
   
   .share-btn:hover, .share-btn:active, .share-btn:visited {
@@ -67,6 +68,6 @@
     background-color: #005983;
   }
 
-@media all and (max-width: 500px) {
+@media all and (max-width: 780px) {
     .social-div { display: none; }
 }
