@@ -54,7 +54,7 @@
         <div class="col float-right">
             {% if prev_url %}
             <a href="{{ prev_url or '#' }}">
-                <span aria-hidden="true">&larr;</span>
+                <span aria-hidden="true"><i class="fas fa-long-arrow-alt-left"></i></span>
                 {{ ('Previous results') }}
             </a>
             {% endif %}
@@ -63,7 +63,7 @@
             {% if next_url %}
             <a href="{{ next_url or '#' }}">
                 {{ ('Next results') }}
-                <span aria-hidden="true"></span>&rarr;</span>
+                <span aria-hidden="true"></span><i class="fas fa-long-arrow-alt-right"></i></span>
             </a>
             {% endif %}
         </div>
