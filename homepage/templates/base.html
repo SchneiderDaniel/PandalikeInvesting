@@ -20,12 +20,13 @@
     <link rel="stylesheet" type="text/css" href={{ url_for('static', filename='css/tags.css') }}>
     <link rel="stylesheet" type="text/css" href={{ url_for('static', filename='css/blockquote.css') }}>
     <link rel="stylesheet" type="text/css" href={{ url_for('static', filename='css/arrowBoxes.css') }}>
+    <link rel="stylesheet" type="text/css" href={{ url_for('static', filename='css/social_share.css') }}>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
     <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.16/dist/summernote-bs4.min.css" rel="stylesheet">
     {{ fontawesome_html() }}
 
     {% if title %}
-    <title>Pandalike Investing - {{ title }}</title>
+    <title>{{ title }}</title>
     {% else %}
     <title>Pandalike Investing</title>
     {% endif %}
@@ -158,6 +159,12 @@
     {% endif %}
 
 
+   
+    <div class="social-share-floating-bar hidden-sm hidden-xs">
+        {% include 'social_share.html' %}
+    </div>
+
+
     <main role="main" class="container">
 
         <div class="row">
@@ -180,7 +187,17 @@
                 {% endif %}
                 {% endwith %}
                 {% block content %}{% endblock %}
+
+                <div class="social-share-btns-container">
+                    <div class="social-share-btns">
+                      {% include 'social_share_bottom.html' %}
+                    </div>
+                </div>
+
+
             </div>
+
+           
 
             {% if showSidebar %}
             <div class="col-md-4">
@@ -267,6 +284,9 @@
         You are banned. If you see this message, an Admin has banned your account from PandalikeInvesting.com. If you feel this is not appropriate or a bug, you can  &nbsp;&nbsp; <a href="{{ url_for( 'main.contact') }}" class="btn btn-primary btn-sm active" role="button" aria-pressed="true"><i class="fas fa-pen-alt"></i>&nbsp; Contact us</a> 
     </div>
     {% endif %}
+
+   
+
 
     <footer class="footer">
         <div class="container">
