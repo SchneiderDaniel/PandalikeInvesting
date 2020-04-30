@@ -5,7 +5,7 @@ from homepage import db, login_manager
 from homepage.models import Post, Comment, PostLikes, Tag, PostTags, CommentLikes, Discussion, Report
 from homepage.posts.forms import (PostForm, CommentForm, DiscussionForm, ReportForm)
 import sys
-from homepage.main.reading_time import estimate_reading_time
+from homepage.main.reading_time import estimate_reading_time, extract_text
 
 
 posts = Blueprint('posts', __name__)
@@ -159,7 +159,12 @@ def post(post_id):
     post = Post.query.get_or_404(post_id)
     comments = db.session.query(Comment).filter(Comment.pid == post_id).all()
     amount_comments = len(comments)
-    textlist = post.title, post.abstract, post.content
+    textCleaned = extract_text(post.content)
+    print('__________________', file=sys.stderr)
+    print(textCleaned, file=sys.stderr)
+    print('__________________', file=sys.stderr)
+    print(len(textCleaned), file=sys.stderr)
+    textlist = post.title, post.abstract, textCleaned
     time_to_read = estimate_reading_time(textlist) +1
     likesList = db.session.query(PostLikes).filter(PostLikes.post_id == post_id ).all()
     likes = len(likesList)

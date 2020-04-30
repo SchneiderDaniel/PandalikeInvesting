@@ -1,4 +1,4 @@
-import bs4
+from bs4 import BeautifulSoup
 import urllib, re
 
 WPM = 200
@@ -15,3 +15,15 @@ def count_words_in_text(text_list, word_length):
 def estimate_reading_time(text_list):
 	total_words = count_words_in_text(text_list, WORD_LENGTH)
 	return total_words/WPM
+
+
+def extract_text(text):
+	
+	soup = BeautifulSoup(text, 'html.parser')
+	texts = soup.findAll(text=True)
+
+	result =''
+
+	for text in texts:
+		result +=text
+	return result
