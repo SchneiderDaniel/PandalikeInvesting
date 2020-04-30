@@ -8,7 +8,8 @@ from datetime import datetime
 import random
 from flask import g
 from flask_babel import Babel, get_locale
-
+import urllib
+from markupsafe import Markup
 
 
 main = Blueprint('main', __name__)
@@ -134,6 +135,13 @@ def year():
 
     return dict(current_year = current_year) 
 
+@main.app_context_processor
+def urlAndTitleInject():
+
+    return dict(url = request.url, title ="Pandalike Investing") 
+
+
+
 
 @main.before_app_request
 def before_request():
@@ -158,3 +166,13 @@ def search():
         if page > 1 else None
     return render_template('search.html', title='Search', posts=posts.all(),
                            next_url=next_url, prev_url=prev_url)
+
+
+
+@main.app_template_filter('urlencode')
+def urlencode_filter(s):
+    if type(s) == 'Markup':
+        s = s.unescape()
+    s = s.encode('utf8')
+    s = urllib.parse.quote_plus(s)
+    return Markup(s)
