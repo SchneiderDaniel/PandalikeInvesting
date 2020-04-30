@@ -8,53 +8,69 @@
         <div class="row">
         <img class="rounded-circle article-img"
             src="{{ url_for('static', filename='/resources/img/profile_pics/' + post.author.image_file) }}">
-        <div class="article-metadata">
-            
-            <div class="row">
-                <div class="col-md-auto">
-                    <a class="mr-2"
-                        href="{{ url_for('users.user', username=post.author.username) }}">{{ post.author.username }}</a>
-                    <br />
-                    <small class="text-muted">posted on: {{ post.date_posted.strftime("%d %b, %Y") }}</small>
-                </div>
-                <div class="col-sm">
-                    {% if post.author == current_user %}
-                    <div>
-                        <a class="btn btn-secondary btn-sm mt-1 mb-1 "
-                            href="{{ url_for('posts.update_post', post_id = post.id) }}">Update</a>
-                        <button type="button" class="btn btn-danger btn-sm m-1" data-toggle="modal"
-                            data-target="#deleteModal">Delete</button>
+            <div class="article-metadata">
+                
+                <div class="row">
+                    <div class="col-md-auto">
+                        <a class="mr-2"
+                            href="{{ url_for('users.user', username=post.author.username) }}">{{ post.author.username }}</a>
+                        <br />
+                        <small class="text-muted">posted on: {{ post.date_posted.strftime("%d %b, %Y") }}</small>
                     </div>
-                    {% endif %}
-                </div>
-                <div class="col-md-auto">
-                    <small class="text-muted float-right">Time to Read: {{time_to_read}} min</small>
+                    <div class="col-sm">
+                        {% if post.author == current_user %}
+                        <div>
+                            <a class="btn btn-secondary btn-sm mt-1 mb-1 "
+                                href="{{ url_for('posts.update_post', post_id = post.id) }}">Update</a>
+                            <button type="button" class="btn btn-danger btn-sm m-1" data-toggle="modal"
+                                data-target="#deleteModal">Delete</button>
+                        </div>
+                        {% endif %}
+                    </div>
+                    <div class="col-md-auto">
+                        <small class="text-muted float-right">Time to Read: {{time_to_read}} min</small>
+
+                    </div>
+                    <div class="col-md-auto">
+                        <small class="text-muted float-right"><a href="#comment_button"> Comments
+                                ({{amount_comments}})</a></small>
+                    </div>
 
                 </div>
-                <div class="col-md-auto">
-                    <small class="text-muted float-right"><a href="#comment_button"> Comments
-                            ({{amount_comments}})</a></small>
-                </div>
-
             </div>
+            <div class="w-100">
+            {% for tag in theTags %}
+            <a class="badge badge-pill badge-primary" href="{{ url_for('posts.blog', page=1, tagged = tag.id) }}">
+                {{tag.name}}
+            </a>
+            {% endfor %}
+            </div>
+
         </div>
-        </div>
-        {% for tag in theTags %}
-        <a class="badge badge-pill badge-primary" href="{{ url_for('posts.blog', page=1, tagged = tag.id) }}">
-            {{tag.name}}
-        </a>
-        {% endfor %}
+       
         <br>
         <br>
+
+        <div class="row">
         <h2 class="article-title">{{ post.title }}</h2>
+        </div>
         <br>
+        <div class="row">
         <p class="article-abstract"> <b>Abstract:</b> {{ post.abstract }}</p>
+        </div>
+        <div class="row">
         <p class="article-content">{{ post.content|safe }}</p>
-       
+        </div>
+        
+        <div class="w-100">
             <a class="btn btn-icon float-right btn-md" href="{{ url_for('posts.like_post', post_id = post.id) }}"><i class="fas fa-thumbs-up"></i> {{likes}}</a> 
-       
+        </div>    
+        
+            
+        
 
     </div>
+    
 </article>
 {% if current_user.is_authenticated %}
 

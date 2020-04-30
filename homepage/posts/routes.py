@@ -160,10 +160,6 @@ def post(post_id):
     comments = db.session.query(Comment).filter(Comment.pid == post_id).all()
     amount_comments = len(comments)
     textCleaned = extract_text(post.content)
-    print('__________________', file=sys.stderr)
-    print(textCleaned, file=sys.stderr)
-    print('__________________', file=sys.stderr)
-    print(len(textCleaned), file=sys.stderr)
     textlist = post.title, post.abstract, textCleaned
     time_to_read = estimate_reading_time(textlist) +1
     likesList = db.session.query(PostLikes).filter(PostLikes.post_id == post_id ).all()
