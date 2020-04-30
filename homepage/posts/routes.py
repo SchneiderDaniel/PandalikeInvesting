@@ -37,7 +37,7 @@ def blog():
             tagsPerPost.append(tagToAdd)
         allTags.append(tagsPerPost)
 
-    return render_template('blog.html', title='Blog', posts=posts, allTags = allTags, tagged=tagged)
+    return render_template('blog.html', posts=posts, allTags = allTags, tagged=tagged, title='Pandalike Investing - Blog')
 
 
 @posts.route('/new_post', methods=['GET', 'POST'])
@@ -68,7 +68,7 @@ def new_post():
         # print('Rdy', file=sys.stderr)
         flash('Your post has been created!', 'success')
         return redirect(url_for('posts.blog'))
-    return render_template('new_post.html', title='New post', form=form, legend='New Post')
+    return render_template('new_post.html', title='Pandalike Investing - New Post', form=form, legend='New Post')
 
 @posts.route('/post/<int:post_id>/new_comment', methods=['GET', 'POST'])
 @login_required_author()
@@ -81,7 +81,7 @@ def new_comment(post_id):
         flash('Your comment has been posted!', 'success')
         meTo = url_for('posts.post', post_id=post_id)+ '#comment_button'
         return redirect(meTo)
-    return render_template('new_comment.html', title='New Comment', form=form, legend='New Comment')
+    return render_template('new_comment.html', title='Pandalike Investing - New Comment', form=form, legend='New Comment')
 
 
 
@@ -101,7 +101,7 @@ def update_comment(post_id,comment_id ):
         return (redirect(url_for('posts.post', post_id=post.id)))
     elif request.method == 'GET':
         form.content.data = comment.content
-    return render_template('new_comment.html', title='Update Comment', form=form, legend='Update Comment')
+    return render_template('new_comment.html', title='Pandalike Investing - Update Comment', form=form, legend='Update Comment')
 
 @posts.route('/post/<int:post_id>/delete_comment/<int:comment_id>', methods=['POST'])
 @login_required_author()
@@ -151,7 +151,7 @@ def update_post(post_id):
             tagsText = tagsText + toAdd + ',' 
         form.tags.data = tagsText
        
-    return render_template('new_post.html', title='Update Post', form=form, legend='Update Post')
+    return render_template('new_post.html', title='Pandalike Investing - Update Post', form=form, legend='Update Post')
 
 
 @posts.route('/post/<int:post_id>')
@@ -251,7 +251,7 @@ def discussion(post_id, comment_id):
     # print('Comment ID:', file=sys.stderr)
     # print(comment_id, file=sys.stderr)
 
-    return render_template('discussion.html', comment = comment, post=post, form = form, discussions=discussions, title='Discuss...')
+    return render_template('discussion.html', comment = comment, post=post, form = form, discussions=discussions, title='Pandalike Investing - Discuss...')
 
 
 
@@ -268,4 +268,4 @@ def report(post_id, comment_id):
         flash('The comment is reported. If reasoned, we will delete it!', 'success')
         return redirect(url_for('posts.post', post_id=post.id))
 
-    return render_template('report.html', comment = comment, post=post, form = form, title='Report')
+    return render_template('report.html', comment = comment, post=post, form = form, title='Pandalike Investing - Report Comment')

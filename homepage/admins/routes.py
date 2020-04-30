@@ -30,7 +30,7 @@ def banUser():
         return redirect(url_for('admins.banUser'))
 
 
-    return render_template('banUser.html', showSidebar = False, form = form)
+    return render_template('banUser.html', showSidebar = False, form = form, title='Pandalike Investing - Ban User')
 
 @login_required_author('admin')
 @admins.route('/send_newsletter', methods=['GET','POST'])
@@ -65,7 +65,7 @@ def send_newsletter():
 
         flash('First you need to confirm the newsletter', 'info')
         return redirect(url_for('admins.confirm_newsletter',nl_id=nl.id))
-    return render_template('newsletter.html', showSidebar = False)
+    return render_template('newsletter.html', showSidebar = False, title='Pandalike Investing - Send Newsletter')
 
 
 @login_required_author('admin')
@@ -80,7 +80,7 @@ def confirm_newsletter(nl_id):
         flash('The newsletter has been sent out!', 'success')
         return (redirect(url_for('main.index')))
     
-    return render_template('confirm_newsletter.html' , nl_content=nl.content, nl_title = nl.title, showSidebar = False )
+    return render_template('confirm_newsletter.html' , nl_content=nl.content, nl_title = nl.title, showSidebar = False, title='Pandalike Investing - Confirm Newsletter' )
 
 
 @login_required_author('admin')
@@ -93,9 +93,9 @@ def report_Dashboard():
         comment = Comment.query.get_or_404(r.cid)
         comments.append(comment)
     
-    return render_template('reportDash.html' , showSidebar = False, reports=reports, comments = comments )
+    return render_template('reportDash.html' , showSidebar = False, reports=reports, comments = comments, title='Pandalike Investing - Dashboard' )
 
 @login_required_author('admin')
 @admins.route('/testPage')
 def testPage():
-    return render_template('test.html', title='Test Page')
+    return render_template('test.html', title='Pandalike Investing - Test Page')

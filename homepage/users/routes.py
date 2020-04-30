@@ -30,7 +30,7 @@ def register():
             f'Account created for {register_form.email.data}! Plz check your mails for activating your account.', 'success')
         return redirect(url_for('users.login'))
 
-    return render_template('register.html', register_form=register_form, title='Register')
+    return render_template('register.html', register_form=register_form, title='Pandalike Investing - Register')
 
 
 @users.route('/login', methods=['GET', 'POST'])
@@ -53,7 +53,7 @@ def login():
         else:
             flash('Login Unsuccessful. Please check mail and password', 'danger')
 
-    return render_template('login.html', login_form=login_form, title='Login')
+    return render_template('login.html', login_form=login_form, title='Pandalike Investing - Login')
 
 
 @users.route('/logout')
@@ -84,7 +84,7 @@ def account():
     user = User.query.filter_by(id =current_user.id).first()
     getsNewsletter = user.newsletter
 
-    return render_template('account.html', title='Account', image_file=image_file, updateAccount_form=updateAccount_form, newsletter=getsNewsletter)
+    return render_template('account.html', title='Pandalike Investing - Account', image_file=image_file, updateAccount_form=updateAccount_form, newsletter=getsNewsletter)
 
 
 @users.route('/user/<string:username>')
@@ -99,7 +99,7 @@ def user(username):
 
     comments = db.session.query(Comment).filter(Comment.uid == user.id ).order_by(Comment.date_posted.desc()).limit(25).all()
 
-    return render_template('user.html', title='Blog', posts=posts, user=user, image_file=image_file, comments = comments)
+    return render_template('user.html', title='Pandalike Investing - '+ username , posts=posts, user=user, image_file=image_file, comments = comments)
 
 
 @users.route('/reset_password', methods=['GET', 'POST'])
@@ -112,7 +112,7 @@ def reset_request():
         sendResetEMail(user)
         flash('An E-Mail has been send with instructions to reset your password', 'info')
         return redirect(url_for('users.login'))
-    return render_template('reset_request.html', title='Reset Password', form=form)
+    return render_template('reset_request.html', title='Pandalike Investing - Reset Password', form=form)
 
 
 @users.route('/reset_password/<token>', methods=['GET', 'POST'])
@@ -132,7 +132,7 @@ def reset_token(token):
         db.session.commit()
         flash(f'The password has been reset! You are now able to login', 'success')
         return redirect(url_for('users.login'))
-    return render_template('reset_token.html', title='Reset Password', form=form)
+    return render_template('reset_token.html', title='Pandalike Investing - Reset Password', form=form)
 
 
 @users.route('/activate/<token>', methods=['GET'])
@@ -169,7 +169,7 @@ def activate_account():
         flash(f'The activation mail was send out again', 'info')
         return redirect(url_for('users.login'))
 
-    return render_template('activate_account.html', title='Activate Account', form=form)
+    return render_template('activate_account.html', title='Pandalike Investing - Activate Account', form=form)
 
 
 @users.route('/newsletter')

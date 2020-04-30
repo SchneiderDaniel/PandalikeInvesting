@@ -50,30 +50,30 @@ def favicon():
 
 @main.route('/terms')
 def terms():
-    return render_template('terms.html', title='Terms &amp; Conditions')
+    return render_template('terms.html', title='Pandalike Investing - Terms &amp; Conditions')
 
 @main.route('/privacy')
 def privacy():
-    return render_template('privacy.html', title='Privacy Policy')
+    return render_template('privacy.html', title='Pandalike Investing - Privacy Policy')
 
 @main.route('/legal')
 def legal_notice():
-    return render_template('legal_notice.html', title='Impressum - Legal Notice')
+    return render_template('legal_notice.html', title='Pandalike Investing - Impressum - Legal Notice')
 
 
 @main.route('/about')
 def about():
-    return render_template('about.html', title='About Me', showSidebar = False)
+    return render_template('about.html', title='Pandalike Investing - About Me', showSidebar = False)
 
 
 @main.route('/pricing')
 def pricing():
-    return render_template('pricing.html', title='Pricing')
+    return render_template('pricing.html', title='Pandalike Investing - Pricing')
 
 
 @main.route('/correlation')
 def correlation():
-    return render_template('correlation.html', title='Correlation')
+    return render_template('correlation.html', title='Pandalike Investing - Correlation')
 
 
 @main.route('/contact', methods=['GET', 'POST'])
@@ -84,7 +84,7 @@ def contact():
             f'Thanks {contact_form.name.data}, we have received your meessage. We will respond soon!', 'success')
         return redirect(url_for('main.index'))
 
-    return render_template('contact.html', contact_form=contact_form, title='Contact Us', userIsBanned = False, showSidebar = False)
+    return render_template('contact.html', contact_form=contact_form, title='Pandalike Investing - Contact Us', userIsBanned = False, showSidebar = False)
 
 
 @main.route('/backtesting', methods=['GET', 'POST'])
@@ -92,9 +92,9 @@ def contact():
 def backtesting():
     general_form = BT_GeneralForm()
     if request.method == 'POST':
-        return render_template('backtesting.html')
+        return render_template('backtesting.html', title='Pandalike Investing - Backtesting')
     else:
-        return render_template('backtesting.html', general_form=general_form, title='Backtesting')
+        return render_template('backtesting.html', general_form=general_form, title='Pandalike Investing - Backtesting')
 
 
 @main.app_context_processor
@@ -141,8 +141,6 @@ def urlAndTitleInject():
     return dict(url = request.url, title ="Pandalike Investing") 
 
 
-
-
 @main.before_app_request
 def before_request():
     if current_user.is_authenticated:
@@ -164,7 +162,7 @@ def search():
         if total > page * current_app.config['POSTS_PER_PAGE'] else None
     prev_url = url_for('main.search', q=g.search_form.q.data, page=page - 1) \
         if page > 1 else None
-    return render_template('search.html', title='Search', posts=posts.all(),
+    return render_template('search.html', title='Pandalike Investing - Search', posts=posts.all(),
                            next_url=next_url, prev_url=prev_url)
 
 
