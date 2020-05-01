@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% from "_formhelpers.html" import render_field, render_recaptcha %}
+
+
+{% block content %}
+
+
+<br>
+<div class="content-section">
+
+    <br>
+    <legend class="border-bottom mb-4">Correlation Matrix </b></legend>
+
+    
+    <table class="table table table-hover">
+        <thead>
+            <tr>
+                <th scope="col"></th>
+                {% for ti in tickers %}
+                <th scope="col">{{ti}}</th>
+                {%endfor%}
+
+
+            </tr>
+        </thead>
+        <tbody></tbody>
+        {% for i in range(0,tickers|length) %}
+        <tr>
+            <th scope="row">{{tickers[i]}}</th>
+            
+            {% for j in range(0,tickers|length) %}
+            <!-- <td>{{j}}</td> -->
+            <td>{{matrix[i][j]}}</td>
+
+            {%endfor%}
+
+
+        </tr>
+
+        {%endfor%}
+        </tbody>
+    </table>
+
+
+</div>
+
+
+
+{% endblock %}

@@ -35,6 +35,6 @@ def getCorrelationDiagram(ticker1, ticker2):
 
 def getCorrelationMatrix(tickers):
     
-    result = [[1.0,0.1,0.25],[0.3,1.0,0.2],[0,6,0.5,1.0] ]
+    result = [[1.0,0.1,0.25,0.1],[0.3,1.0,0.2,0.1],[0.6,0.5,1.0,0.1],[0.6,0.5,0.4,1.0] ]
     
     return result

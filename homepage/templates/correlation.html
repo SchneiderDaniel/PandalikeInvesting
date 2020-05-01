@@ -11,12 +11,33 @@
     <br>
     <legend class="border-bottom mb-4">Compute Portfolio Correlation </b></legend>
 
-    
+    <form method="POST">
+        {{ form.hidden_tag() }}
+        <d1>
+            <br>
+            {{ render_field(form.portfolios, class='form-control') }}
+        </d1>
+        <br>
+        {{render_recaptcha(form.recaptcha)}}
 
-    
+        <br>
+        <div class="form-group">
+            {{ form.submit(class="btn btn-outline-info") }}
+        </div>
+    </form>
+
+
 
 
 </div>
 
+<br>
+<div class="content-section">
+
+    <br>
+    <legend class="border-bottom mb-4">Infos about the result </b></legend>
+
+
+</div>
 
 {% endblock %}

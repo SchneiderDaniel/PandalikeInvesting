@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm, RecaptchaField
-from wtforms import StringField, SubmitField, TextAreaField, RadioField, DecimalField
+from wtforms import StringField, SubmitField, TextAreaField, RadioField, DecimalField, SelectField
 from wtforms.validators import DataRequired, Length, Email
 
 
@@ -18,3 +18,9 @@ class BT_GeneralForm(FlaskForm):
         'Relative (%):', places=2, validators=[DataRequired()])
     recaptcha = RecaptchaField()
     simulate = SubmitField('Simulate')
+
+
+class CorrelationMatrixForm(FlaskForm):
+    portfolios = SelectField('Choose a Portfolio', coerce=int)
+    recaptcha = RecaptchaField()
+    submit = SubmitField('Compute')
