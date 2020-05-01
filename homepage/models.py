@@ -205,5 +205,19 @@ class Portfolio(db.Model):
     name = db.Column(db.Text, nullable=False)
     numberPositions = db.Column(db.Integer, nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable= False)
+    positions = db.relationship('Position', backref='portfolio', lazy=True)
     def __repr__(self):
         return f"Portfolio('{self.name}', Size: '{self.numberPositions}')"
+
+
+class Position(db.Model):
+    __tablename__ = 'positions'
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.Text, nullable=False, default = "Empty")
+    ticker = db.Column(db.Text, nullable=False, default = "Empty")
+    percent =  db.Column(db.Float, nullable=False, default = "0.0")
+    port_id = db.Column(db.Integer, db.ForeignKey('portfolios.id'), nullable= False)
+    
+   
+    def __repr__(self):
+        return f"Position('{self.name}', Size: '{self.percent}')"

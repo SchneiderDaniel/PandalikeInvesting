@@ -3,7 +3,7 @@ from homepage import login_required_author, db
 from flask_login import login_user, current_user, logout_user
 from flask import request
 from homepage.portfolios.forms import CreatePortfolioForm
-from homepage.models import Portfolio
+from homepage.models import Portfolio, Position
 
 
 portfolios = Blueprint('portfolios', __name__)
@@ -15,9 +15,15 @@ def portfolio():
     form = CreatePortfolioForm()
     if form.validate_on_submit():
 
-        portfolio = Portfolio(name=form.name.data, numberPositions=form.numberPositions.data, user_id = current_user.id)
+        portfolio = Portfolio(name=form.name.data, numberPositions=form.numberPositions.data, user_id=current_user.id)
         
         db.session.add(portfolio)
+        db.session.commit()
+
+        for i in range(0,portfolio.numberPositions):
+            position = Position(port_id=portfolio.id)
+            db.session.add(position)
+
         db.session.commit()
 
         flash('Your portfolio has been created!', 'success')
@@ -35,4 +41,8 @@ def addPosition():
 @login_required_author()
 @portfolios.route('/portfolio/overview/<int:portfolio_id>',  methods=['GET', 'POST'])
 def overview(portfolio_id):
-    return render_template('portfolio_Overview.html', title='Pandalike Investing - Portfolio Overview')
+
+    portfolio = Portfolio.query.filter_by(id=portfolio_id).first_or_404()
+    positions = db.session.query(Position).filter(Position.port_id == portfolio_id).all()
+
+    return render_template('portfolio_Overview.html', title='Pandalike Investing - Portfolio Overview', portfolio=portfolio, positions = positions)

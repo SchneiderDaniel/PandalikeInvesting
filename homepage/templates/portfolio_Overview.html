@@ -2,7 +2,41 @@
 
 
 {% block content %}
-Portfolio Overview
+
+
+<br>
+<div class="content-section">
+
+    <br>
+    <legend class="border-bottom mb-4">Portfolio Overview: <b>{{portfolio.name}} </b></legend>
+
+
+    <table class="table table table-hover">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Name</th>
+                <th scope="col">Ticker</th>
+                <th scope="col">Percent</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+        {% for i in range(0,positions|length) %}
+        <tr>
+            <th scope="row">{{i}}</th>
+            <td>{{positions[i].name}}</td>
+            <td>{{positions[i].ticker}}</td>
+            <td>{{positions[i].percent}}%</td>
+            <td><a class="btn btn-outline-info float-right btn-sm" href="">Edit</a></td>
+        </tr>
+
+        {%endfor%}
+        </tbody>
+    </table>
+
+
+</div>
 
 
 {% endblock %}
