@@ -1,5 +1,5 @@
 from flask import render_template, request, redirect, url_for, send_from_directory, flash, Blueprint, current_app
-from homepage.main.forms import (ContactForm, BT_GeneralForm, SearchForm)
+from homepage.main.forms import (ContactForm, SearchForm)
 from homepage import login_required_author, db
 import os
 from homepage.models import Post, Tag, PostTags, User
@@ -71,11 +71,6 @@ def pricing():
     return render_template('pricing.html', title='Pandalike Investing - Pricing')
 
 
-@main.route('/correlation')
-def correlation():
-    return render_template('correlation.html', title='Pandalike Investing - Correlation')
-
-
 @main.route('/contact', methods=['GET', 'POST'])
 def contact():
     contact_form = ContactForm()
@@ -85,17 +80,6 @@ def contact():
         return redirect(url_for('main.index'))
 
     return render_template('contact.html', contact_form=contact_form, title='Pandalike Investing - Contact Us', userIsBanned = False, showSidebar = False)
-
-
-@main.route('/backtesting', methods=['GET', 'POST'])
-@login_required_author(role="admin")
-def backtesting():
-    general_form = BT_GeneralForm()
-    if request.method == 'POST':
-        return render_template('backtesting.html', title='Pandalike Investing - Backtesting')
-    else:
-        return render_template('backtesting.html', general_form=general_form, title='Pandalike Investing - Backtesting')
-
 
 @main.app_context_processor
 def inject_template_scope():

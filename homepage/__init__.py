@@ -61,13 +61,16 @@ def create_app(config_class=Config):
     from homepage.posts.routes import posts
     from homepage.main.routes import main
     from homepage.admins.routes import admins
+    from homepage.tools.routes import tools
     from homepage.errors.handlers import errors
+    
 
     app.register_blueprint(users)
     app.register_blueprint(posts)
     app.register_blueprint(main)
     app.register_blueprint(errors)
     app.register_blueprint(admins)
+    app.register_blueprint(tools)
 
     fa.init_app(app)
     db.init_app(app)
@@ -80,8 +83,6 @@ def create_app(config_class=Config):
     @babel.localeselector
     def get_locale():
         return request.accept_languages.best_match(app.config['LANGUAGES'])
-
-
 
     admin.init_app(app)
     admin.add_link(MenuLink(name='Go Back', category='', url='../'))
