@@ -38,9 +38,11 @@
     <header class="site-header">
         <nav class="navbar navbar-default navbar-expand-lg navbar-light">
             <div class="navbar-header d-flex col">
-                <a class="navbar-brand" href="{{ url_for( 'main.index') }}">
+                
                     <span><img src="{{ url_for('static', filename='resources/img/logo.png') }}" width="58"
-                            height="60"></span>
+                        height="60"></span>
+                
+                <a class="navbar-brand" href="{{ url_for( 'main.index') }}">       
                     &nbsp; Pandalike<b> Investing</b>
                 </a>
                 <button type="button" data-target="#navbarCollapse" data-toggle="collapse"

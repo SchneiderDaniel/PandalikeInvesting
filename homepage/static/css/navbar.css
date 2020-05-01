@@ -30,6 +30,9 @@
     color: #00b0f0;		
 }
 
+.navbar-brand {
+    padding-top: 15px;
+}
 .navbar .form-inline {
     display: inline-block;
     padding-right:15px;
