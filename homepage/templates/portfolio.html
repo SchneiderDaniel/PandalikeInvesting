@@ -1,8 +1,33 @@
 {% extends 'base.html' %}
-
+{% from "_formhelpers.html" import render_field, render_recaptcha %}
 
 {% block content %}
-Portfolio
+<br>
+<div class="content-section">
 
+    <br>
+    <legend class="border-bottom mb-4">Create Portfolio </legend>
+    <form method="POST" action="" class="login_form" role="login_form">
+        {{ form.hidden_tag() }}
+        <d1>
+            <br>
+            {{ render_field(form.name, class='form-control', placeholder='Enter the name of your portfolio') }}
+            {{ render_field(form.numberPositions, class='form-control', placeholder='Enter the number of positions') }}
+        </d1>
+        <br>
+        {{render_recaptcha(form.recaptcha)}}
+
+        <br>
+        <div class="form-group">
+            {{ form.submit(class="btn btn-outline-info") }}
+        </div>
+</div>
+
+<div class="content-section">
+
+    <br>
+    <legend class="border-bottom mb-4">Your Portfolios </legend>
+
+</div>  
 
 {% endblock %}
