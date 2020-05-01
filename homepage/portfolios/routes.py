@@ -4,7 +4,10 @@ from flask_login import login_user, current_user, logout_user
 from flask import request
 from homepage.portfolios.forms import CreatePortfolioForm, EditPositionForm
 from homepage.models import Portfolio, Position
+import yfinance as yf
+import sys
 
+from homepage.stockinterface import getNameToTicker
 
 portfolios = Blueprint('portfolios', __name__)
 
@@ -44,12 +47,11 @@ def editPosition(portfolio_id,position_id):
             abort(403)
     position = Position.query.filter_by(id=position_id).first_or_404()
 
-    if form.validate_on_submit():
-        position.name = form.name.data
+    if form.validate_on_submit():  
+        position.name = getNameToTicker(form.ticker.data)
         position.ticker = form.ticker.data
         position.percent = form.percent.data 
         db.session.commit()
-
 
         flash('Your position has been updated!', 'success')
         return redirect(url_for('portfolios.overview', portfolio_id=portfolio_id))

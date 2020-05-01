@@ -177,9 +177,9 @@ def activate_account():
 def newsletter():
     user = User.query.filter_by(id =current_user.id).first()
     getsNewsletter = user.newsletter
-    print('POSTI!', file=sys.stderr)
-    print(user, file=sys.stderr)
-    print(getsNewsletter, file=sys.stderr)
+    # print('POSTI!', file=sys.stderr)
+    # print(user, file=sys.stderr)
+    # print(getsNewsletter, file=sys.stderr)
 
     if getsNewsletter==True:
         flash('Your account already receives the newsletter', 'info')

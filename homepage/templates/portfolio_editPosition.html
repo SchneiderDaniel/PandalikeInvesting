@@ -12,8 +12,11 @@
         <d1>
             <br>
             {{ render_field(form.name, class='form-control', readonly=true) }}
-            {{ render_field(form.ticker, class='form-control') }}
+            
             {{ render_field(form.percent, class='form-control') }}
+            {{ render_field(form.ticker, class='form-control') }}
+            <p class='text-muted'>Where do I get the ticker/symbol for my asset? <a href="https://finance.yahoo.com" target="_blank">Click Me</a> </p> 
+            
         </d1>
         <br>
         {{render_recaptcha(form.recaptcha)}}

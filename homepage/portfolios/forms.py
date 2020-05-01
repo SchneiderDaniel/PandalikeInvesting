@@ -1,11 +1,13 @@
 from flask_wtf import FlaskForm, RecaptchaField
 from wtforms import StringField, SubmitField, TextAreaField, RadioField, DecimalField, IntegerField
-from wtforms.validators import DataRequired, Length, Email, NumberRange, InputRequired 
+from wtforms.validators import DataRequired, Length, Email, NumberRange, InputRequired, ValidationError
 from wtforms_components import read_only
-
 from flask import render_template, Blueprint
 from homepage import login_required_author, db
 from flask import request
+from homepage.stockinterface import isTickerValid
+
+import sys
 
 
 class CreatePortfolioForm(FlaskForm):
@@ -17,7 +19,14 @@ class CreatePortfolioForm(FlaskForm):
 
 class EditPositionForm(FlaskForm):
     name = StringField('Name')
-    ticker = StringField('Ticker', validators=[DataRequired()])
+    ticker = StringField('Ticker/Symbol', validators=[InputRequired()])
     percent = DecimalField(' % of Portfolio', validators=[InputRequired(),NumberRange(min=0,  max=100, message=('Percent musst be in 0,100.'))] )
     recaptcha = RecaptchaField()
     submit = SubmitField('Save')
+
+
+    def validate_ticker(form, field):
+        if not isTickerValid(field.data): raise ValidationError('Ticker invalid or problems getting data from API')
+
+        
+            
