@@ -2,7 +2,7 @@ import  sys
 
 from flask_admin.contrib.sqla import ModelView
 from homepage import admin, db
-from homepage.models import User, Post, Comment, Discussion, Report, Newsletter, Role, Tag, UserRoles, PostLikes, PostTags, CommentLikes
+from homepage.models import User, Post, Comment, Discussion, Report, Newsletter, Role, Tag, UserRoles, PostLikes, PostTags, CommentLikes, Portfolio
 from flask_admin import Admin, BaseView, expose
 from flask_login import current_user
 from homepage import login_manager, login_required_author 
@@ -33,3 +33,4 @@ admin.add_view(MyAdminView(UserRoles, db.session))
 admin.add_view(MyAdminView(PostLikes, db.session))
 admin.add_view(MyAdminView(PostTags, db.session))
 admin.add_view(MyAdminView(CommentLikes, db.session))
+admin.add_view(MyAdminView(Portfolio, db.session))

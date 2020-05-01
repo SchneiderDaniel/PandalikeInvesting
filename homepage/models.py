@@ -63,6 +63,7 @@ class User(db.Model, UserMixin):
     password = db.Column(db.String(60), nullable=False)
     roles = db.relationship('Role', secondary='user_roles')
     posts = db.relationship('Post', backref='author', lazy=True)
+    portfolios = db.relationship('Portfolio', backref='creator', lazy=True)
     comments_ = db.relationship('Comment', backref='author_comment', lazy=True)
     discussions_ = db.relationship('Discussion', backref='author_discussion', lazy=True)
     newsletter = db.Column(db.Boolean(), nullable=False, default = False)
@@ -171,7 +172,7 @@ class UserRoles(db.Model):
 
 class PostLikes(db.Model):
     __tablename__ = 'post_likes'
-    id = db.Column(db.Integer(), primary_key=True)#
+    id = db.Column(db.Integer(), primary_key=True)
     user_id = db.Column(db.Integer(), db.ForeignKey('users.id', ondelete='CASCADE'))
     post_id = db.Column(db.Integer(), db.ForeignKey('posts.id', ondelete='CASCADE'))
 
@@ -180,7 +181,7 @@ class PostLikes(db.Model):
 
 class PostTags(db.Model):
     __tablename__ = 'post_tags'
-    id = db.Column(db.Integer(), primary_key=True)#
+    id = db.Column(db.Integer(), primary_key=True)
     post_id = db.Column(db.Integer(), db.ForeignKey('posts.id', ondelete='CASCADE'))
     tag_id = db.Column(db.Integer(), db.ForeignKey('theTags.id', ondelete='CASCADE'))
 
@@ -189,7 +190,7 @@ class PostTags(db.Model):
 
 class CommentLikes(db.Model):
     __tablename__ = 'comment_likes'
-    id = db.Column(db.Integer(), primary_key=True)#
+    id = db.Column(db.Integer(), primary_key=True)
     user_id = db.Column(db.Integer(), db.ForeignKey('users.id', ondelete='CASCADE'))
     comment_id = db.Column(db.Integer(), db.ForeignKey('comments.id', ondelete='CASCADE'))
 
@@ -203,5 +204,6 @@ class Portfolio(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.Text, nullable=False)
     numberPositions = db.Column(db.Integer, nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable= False)
     def __repr__(self):
         return f"Portfolio('{self.name}', Size: '{self.numberPositions}')"

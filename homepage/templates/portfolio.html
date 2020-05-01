@@ -28,6 +28,28 @@
     <br>
     <legend class="border-bottom mb-4">Your Portfolios </legend>
 
+    {% for i in range(0,portfolios|length)%}
+
+
+    <div class="container">
+        <div class="row">
+          <div class="col-md">
+            {{portfolios[i].name}}
+          </div>
+          <div class="col-sm">
+             {{portfolios[i].numberPositions}} Positions
+          </div>
+          <div class="col-sm">
+            <a class="btn btn-outline-info float-right btn-sm" href="{{ url_for('portfolios.overview', portfolio_id=portfolios[i].id) }}">Details</a>
+          </div>
+        </div>
+      </div>
+      <br>
+
+
+
+    {%endfor%}
+
 </div>  
 
 {% endblock %}
