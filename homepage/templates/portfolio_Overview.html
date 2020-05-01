@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-
+{% from "_formhelpers.html" import render_field, render_recaptcha %}
 
 {% block content %}
 
@@ -28,7 +28,7 @@
             <td>{{positions[i].name}}</td>
             <td>{{positions[i].ticker}}</td>
             <td>{{positions[i].percent}}%</td>
-            <td><a class="btn btn-outline-info float-right btn-sm" href="">Edit</a></td>
+            <td><a class="btn btn-outline-info float-right btn-sm" href="{{ url_for('portfolios.editPosition', portfolio_id=portfolio.id, position_id=positions[i].id) }}">Edit</a></td>
         </tr>
 
         {%endfor%}

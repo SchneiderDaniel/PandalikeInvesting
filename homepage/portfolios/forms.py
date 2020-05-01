@@ -1,6 +1,7 @@
 from flask_wtf import FlaskForm, RecaptchaField
 from wtforms import StringField, SubmitField, TextAreaField, RadioField, DecimalField, IntegerField
-from wtforms.validators import DataRequired, Length, Email, NumberRange
+from wtforms.validators import DataRequired, Length, Email, NumberRange, InputRequired 
+from wtforms_components import read_only
 
 from flask import render_template, Blueprint
 from homepage import login_required_author, db
@@ -12,3 +13,11 @@ class CreatePortfolioForm(FlaskForm):
     numberPositions = IntegerField('Number of Positions', validators=[NumberRange(min=1,  max=100, message=('You can only create portfolios with 1 to 100 positions.'))] )
     recaptcha = RecaptchaField()
     submit = SubmitField('Create')
+
+
+class EditPositionForm(FlaskForm):
+    name = StringField('Name')
+    ticker = StringField('Ticker', validators=[DataRequired()])
+    percent = DecimalField(' % of Portfolio', validators=[InputRequired(),NumberRange(min=0,  max=100, message=('Percent musst be in 0,100.'))] )
+    recaptcha = RecaptchaField()
+    submit = SubmitField('Save')
