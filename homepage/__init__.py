@@ -62,6 +62,7 @@ def create_app(config_class=Config):
     from homepage.main.routes import main
     from homepage.admins.routes import admins
     from homepage.tools.routes import tools
+    from homepage.portfolios.routes import portfolios
     from homepage.errors.handlers import errors
     
 
@@ -71,6 +72,7 @@ def create_app(config_class=Config):
     app.register_blueprint(errors)
     app.register_blueprint(admins)
     app.register_blueprint(tools)
+    app.register_blueprint(portfolios)
 
     fa.init_app(app)
     db.init_app(app)
