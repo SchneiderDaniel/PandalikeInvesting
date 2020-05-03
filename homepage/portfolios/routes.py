@@ -6,13 +6,15 @@ from homepage.portfolios.forms import CreatePortfolioForm, EditPositionForm
 from homepage.models import Portfolio, Position
 import yfinance as yf
 import sys
+from homepage.stockinterface import updateStockData
 
 from homepage.stockinterface import getNameToTicker
 
 portfolios = Blueprint('portfolios', __name__)
 
-@login_required_author()
+
 @portfolios.route('/portfolio/home', methods=['GET', 'POST'])
+@login_required_author()
 def portfolio():
 
     form = CreatePortfolioForm()
@@ -25,7 +27,11 @@ def portfolio():
 
         for i in range(0,portfolio.numberPositions):
             position = Position(port_id=portfolio.id)
+
             db.session.add(position)
+
+
+        
 
         db.session.commit()
 
@@ -36,8 +42,9 @@ def portfolio():
 
     return render_template('portfolio.html', title='Pandalike Investing - Portfolio', form = form, portfolios=portfolios)
 
-@login_required_author()
+
 @portfolios.route('/portfolio/edit_position/<int:portfolio_id>/<int:position_id>', methods=['GET', 'POST'])
+@login_required_author()
 def editPosition(portfolio_id,position_id):
 
     form = EditPositionForm()
@@ -52,6 +59,7 @@ def editPosition(portfolio_id,position_id):
         position.ticker = form.ticker.data
         position.percent = form.percent.data 
         db.session.commit()
+        updateStockData(position.ticker)
 
         flash('Your position has been updated!', 'success')
         return redirect(url_for('portfolios.overview', portfolio_id=portfolio_id))
@@ -64,8 +72,9 @@ def editPosition(portfolio_id,position_id):
 
     return render_template('portfolio_editPosition.html', title='Pandalike Investing - Portfolio Edit Position', portfolio=portfolio, position=position, form=form)
 
-@login_required_author()
+
 @portfolios.route('/portfolio/overview/<int:portfolio_id>',  methods=['GET', 'POST'])
+@login_required_author()
 def overview(portfolio_id):
 
     portfolio = Portfolio.query.filter_by(id=portfolio_id).first_or_404()
