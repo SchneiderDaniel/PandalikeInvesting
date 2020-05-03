@@ -17,21 +17,30 @@ df = web.DataReader('AAPL', 'yahoo', start, end)
 # df3 = web.DataReader('AAPL', 'yahoo', start, end)
 
 
+filterStart = '2018-04-27'
+filterEnd = '2020-11-19'
 
-print('XXXXXXX')
-print(df.index[-1])
-endNow = dt.datetime.now()
+mask = (df.index > filterStart) & (df.index <= filterEnd)
 
-df2 = web.DataReader('AAPL', 'yahoo', df.index[-1], endNow)
+df = df.loc[mask]
+
+
+print(df)
+
+# print('XXXXXXX')
+# print(df.index[-1])
+# endNow = dt.datetime.now()
+
+# df2 = web.DataReader('AAPL', 'yahoo', df.index[-1], endNow)
 # df2FirstRowRemoved = df2.iloc[1:]
 
 # print(df)
 # print(df2FirstRowRemoved)
-print('XXXXXXX')
-df = df.append(df2.iloc[1:])
+# print('XXXXXXX')
+# df = df.append(df2.iloc[1:])
 
-print('XXXXXXX')
-print(df)
+# print('XXXXXXX')
+# print(df)
 
 
 

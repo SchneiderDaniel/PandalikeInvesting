@@ -3,3 +3,4 @@ __pycache__
 .pytest_cache
 homepage/__pycache__
 homepage/static/resources/private
+homepage/static/resources/stockdata

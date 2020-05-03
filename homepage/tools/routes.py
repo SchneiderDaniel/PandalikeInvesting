@@ -7,6 +7,7 @@ from homepage.models import Portfolio, Position
 from flask_login import login_user, current_user, logout_user
 import sys
 from homepage.stockinterface import getCorrelationMatrix
+import numpy as np
 
 tools = Blueprint('tools', __name__)
 
@@ -52,9 +53,12 @@ def correlationResult(portfolio_id):
 
 
     matrix = getCorrelationMatrix(tickers)
-    print('Matrix',  file=sys.stderr)
-    print(matrix,  file=sys.stderr)
+    # matrix[0]= matrix[0].round(5)
+    # print('Matrix',  file=sys.stderr)
+    # print(matrix,  file=sys.stderr)
+    # # print(res,  file=sys.stderr)
 
+    
     return render_template('correlationResult.html', title='Pandalike Investing - Correlation Result', matrix = matrix, tickers = tickers)
 
 

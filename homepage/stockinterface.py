@@ -48,16 +48,46 @@ def getCorrelationDiagram(ticker1, ticker2):
 
 
 
-    
+
     
     return result
 
-def getCorrelationMatrix(tickers):
+def getCorrelationMatrix(tickers, filterStart = dt.datetime(1971,1,1), filterEnd = dt.datetime.now()  ):
     
-    result = [[1.0,0.1,0.25,0.1],[0.3,1.0,0.2,0.1],[0.6,0.5,1.0,0.1],[0.6,0.5,0.4,1.0] ]
+    # result = [[1.0,0.1,0.25,0.1],[0.3,1.0,0.2,0.1],[0.6,0.5,1.0,0.1],[0.6,0.5,0.4,1.0] ]
     
-    return result
+    dfList = []
 
+    for tick in tickers:
+        stockdataPath = os.path.join(current_app.root_path, 'static/resources/stockdata/' + tick + '.pkl')
+        dfToAdd = pd.read_pickle(stockdataPath)    
+        dfReduce= dfToAdd.drop(dfToAdd.columns.difference(['Adj Close']), 1)
+        print(tick)
+        print(dfReduce)
+        
+        dfList.append(dfReduce)
+
+
+    merge = dfList[0]
+    for i in range (1,len(dfList)):
+        merge = pd.merge(merge,dfList[i],how='inner', left_index=True, right_index=True)
+
+    # mask = (merge.index > filterStart) & (merge.index <= filterEnd)
+
+    # merge = merge.loc[mask]
+
+    # print(merge)
+    # print(merge.index[0])
+    # print(merge.index[-1])
+
+    evaluatedFrom = merge.index[0].strftime('%d. %B %Y')
+    evaluatedTo = merge.index[-1].strftime('%d. %B %Y')
+
+    result = merge.corr().values
+
+    result= result.round(5)
+
+    return result, evaluatedFrom, evaluatedTo
 
 def updateStockData(ticker):
 
