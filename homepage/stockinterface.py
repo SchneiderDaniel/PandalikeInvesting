@@ -24,7 +24,7 @@ def getNameToTicker(ticker):
     companyName = ""
     try:
         aTicker = yf.Ticker(ticker)
-        companyName = aTicker.info['shortName']
+        companyName = aTicker.info['longName']
         # print('_____________',  file=sys.stderr)
         # print(str(aTicker.info),  file=sys.stderr)
     except:
@@ -59,11 +59,12 @@ def getCorrelationMatrix(tickers, filterStart = dt.datetime(1971,1,1), filterEnd
     dfList = []
 
     for tick in tickers:
+        updateStockData(tick)
         stockdataPath = os.path.join(current_app.root_path, 'static/resources/stockdata/' + tick + '.pkl')
         dfToAdd = pd.read_pickle(stockdataPath)    
         dfReduce= dfToAdd.drop(dfToAdd.columns.difference(['Adj Close']), 1)
-        print(tick)
-        print(dfReduce)
+        # print(tick)
+        # print(dfReduce)
         
         dfList.append(dfReduce)
 
@@ -85,7 +86,7 @@ def getCorrelationMatrix(tickers, filterStart = dt.datetime(1971,1,1), filterEnd
 
     result = merge.corr().values
 
-    result= result.round(5)
+    result= result.round(4)
 
     return result, evaluatedFrom, evaluatedTo
 

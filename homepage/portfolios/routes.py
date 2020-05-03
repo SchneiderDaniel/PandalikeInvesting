@@ -59,7 +59,7 @@ def editPosition(portfolio_id,position_id):
         position.ticker = form.ticker.data
         position.percent = form.percent.data 
         db.session.commit()
-        updateStockData(position.ticker)
+        # updateStockData(position.ticker)
 
         flash('Your position has been updated!', 'success')
         return redirect(url_for('portfolios.overview', portfolio_id=portfolio_id))
