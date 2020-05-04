@@ -128,7 +128,7 @@ def saveStockDataFromScratch(ticker):
     print(stockdataPath,  file=sys.stderr)
 
     df.to_pickle(stockdataPath)
-    # df.to_csv(stockdataPathCSV)
+    df.to_csv(stockdataPathCSV)
 
     
 
@@ -137,8 +137,7 @@ def saveStockDataAlreadyExisting(ticker):
     stockdataPathCSV = os.path.join(current_app.root_path, 'static/resources/stockdata/' + ticker + '.csv')
     df = pd.read_pickle(stockdataPath)
 
-    # print('OLD',  file=sys.stderr)
-    # print(df,  file=sys.stderr)
+
 
     
     lastRecord = df.index[-1]
@@ -155,7 +154,7 @@ def saveStockDataAlreadyExisting(ticker):
     # print (duration)
 
 
-    if (duration.days>2):
+    if (duration.days>4):
 
 
         df2 = web.DataReader(ticker, 'yahoo', df.index[-1], endNow)
@@ -163,10 +162,12 @@ def saveStockDataAlreadyExisting(ticker):
     
         df2.drop(df.index[-1],inplace=True)
 
-        # print('Add',  file=sys.stderr)
-        # print(df2,  file=sys.stderr)
-        
-        df = df.append(df2.iloc[1:])
+        print('Update stock DATA!!!!!')
+        print('OLD',  file=sys.stderr)
+        print(df,  file=sys.stderr)
+        print('Add',  file=sys.stderr)
+        print(df2,  file=sys.stderr)
+        df = df.append(df2)
 
     df.to_pickle(stockdataPath)
     # df.to_csv(stockdataPathCSV)

@@ -16,6 +16,7 @@
         <d1>
             <br>
             {{ render_field(form.portfolios, class='form-control') }}
+            <p class='text-muted'>You don't have a portfolio? <a href="{{ url_for( 'portfolios.portfolio') }}">Click Me</a></p>
             <h5 class='text-muted border-bottom mb-4' >Optional:</h5>
             {{ render_field(form.startField, class='form-control') }}
             {{ render_field(form.endField, class='form-control') }}
