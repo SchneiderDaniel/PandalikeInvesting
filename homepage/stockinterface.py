@@ -56,6 +56,11 @@ def getCorrelationMatrix(tickers, filterStart = dt.datetime(1971,1,1), filterEnd
     
     # result = [[1.0,0.1,0.25,0.1],[0.3,1.0,0.2,0.1],[0.6,0.5,1.0,0.1],[0.6,0.5,0.4,1.0] ]
     
+    # print('Compute Correlation for',  file=sys.stderr)
+    # print(filterStart,  file=sys.stderr)
+    # print(filterEnd,  file=sys.stderr)
+
+
     dfList = []
 
     for tick in tickers:
@@ -73,19 +78,29 @@ def getCorrelationMatrix(tickers, filterStart = dt.datetime(1971,1,1), filterEnd
     for i in range (1,len(dfList)):
         merge = pd.merge(merge,dfList[i],how='inner', left_index=True, right_index=True)
 
-    # mask = (merge.index > filterStart) & (merge.index <= filterEnd)
+    mask = (merge.index > pd.to_datetime(filterStart)) & (merge.index <= pd.to_datetime(filterEnd))
 
-    # merge = merge.loc[mask]
+    merge = merge.loc[mask]
+
+    # print('Date Convert:')
+    # print (pd.to_datetime(filterStart))
 
     # print(merge)
     # print(merge.index[0])
     # print(merge.index[-1])
 
-    evaluatedFrom = merge.index[0].strftime('%d. %B %Y')
-    evaluatedTo = merge.index[-1].strftime('%d. %B %Y')
+    
+    
+    if not merge.empty:
+        evaluatedFrom = merge.index[0].strftime('%d. %B %Y')
+        evaluatedTo = merge.index[-1].strftime('%d. %B %Y')
+    else:
+        evaluatedFrom = filterStart.strftime('%d. %B %Y')
+        evaluatedTo = filterEnd.strftime('%d. %B %Y')
+
+    
 
     result = merge.corr().values
-
     result= result.round(4)
 
     return result, evaluatedFrom, evaluatedTo
@@ -122,9 +137,36 @@ def saveStockDataAlreadyExisting(ticker):
     stockdataPathCSV = os.path.join(current_app.root_path, 'static/resources/stockdata/' + ticker + '.csv')
     df = pd.read_pickle(stockdataPath)
 
+    # print('OLD',  file=sys.stderr)
+    # print(df,  file=sys.stderr)
+
+    
+    lastRecord = df.index[-1]
     endNow = dt.datetime.now()
-    df2 = web.DataReader(ticker, 'yahoo', df.index[-1], endNow)
-    df = df.append(df2.iloc[1:])
+
+    duration = endNow-lastRecord
+
+    # print('lastRecord')
+    # print (lastRecord)
+    # print('endNow')
+    # print (endNow)
+
+    # print('Duration')
+    # print (duration)
+
+
+    if (duration.days>2):
+
+
+        df2 = web.DataReader(ticker, 'yahoo', df.index[-1], endNow)
+
+    
+        df2.drop(df.index[-1],inplace=True)
+
+        # print('Add',  file=sys.stderr)
+        # print(df2,  file=sys.stderr)
+        
+        df = df.append(df2.iloc[1:])
 
     df.to_pickle(stockdataPath)
     # df.to_csv(stockdataPathCSV)

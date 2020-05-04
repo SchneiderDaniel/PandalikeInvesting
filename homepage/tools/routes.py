@@ -8,6 +8,8 @@ from flask_login import login_user, current_user, logout_user
 import sys
 from homepage.stockinterface import getCorrelationMatrix
 import numpy as np
+import datetime as dt 
+from homepage.utils import is_FormDataField_filled
 
 tools = Blueprint('tools', __name__)
 
@@ -25,10 +27,24 @@ def correlation():
     if form.validate_on_submit():
         choosenPortfolioID = form.portfolios.data
 
+        
+
+        start = dt.datetime(1971,1,1)
+        end = dt.datetime.now()
+
+        if is_FormDataField_filled(form.startField.data) and is_FormDataField_filled(form.endField.data):
+            start = form.startField.data
+            end = form.endField.data
       
+            
+      
+        # print ('Start  and End', file=sys.stderr )
+        # print (start, file=sys.stderr )
+        # print (end, file=sys.stderr )
+        
 
         flash('We have computed the Correlation Matrix for you!', 'success')
-        return redirect(url_for('tools.correlationResult', portfolio_id=choosenPortfolioID ))
+        return redirect(url_for('tools.correlationResult', portfolio_id=choosenPortfolioID, start = start, end=end ))
 
 
     if selectedPortfolio >-1:
@@ -38,28 +54,39 @@ def correlation():
     return render_template('correlation.html', title='Pandalike Investing - Correlation',form=form, selectedPortfolio=selectedPortfolio)
 
 
-@tools.route('/correlation/result/<int:portfolio_id>', methods=['GET'])
-def correlationResult(portfolio_id):
+@tools.route('/correlation/result/<int:portfolio_id>/<date:start>/<date:end>', methods=['GET'])
+def correlationResult(portfolio_id, start,end):
 
 
     tickers = [] 
+    companyNames = []
 
     positions = db.session.query(Position).filter(Position.port_id == portfolio_id).all()
     for p in positions:
         tickers.append(p.ticker)
+        companyNames.append(p.name)
+    
+    matrixMax = getCorrelationMatrix(tickers)
 
-    print('Tickers',  file=sys.stderr)
-    print(tickers,  file=sys.stderr)
+    showCustomMatrix = True
+
+    if start == dt.datetime(1971,1,1):
+        showCustomMatrix = False
+
+    if not showCustomMatrix:
+        matrixCustom = matrixMax
+    else:
+        matrixCustom = getCorrelationMatrix(tickers,start,end)
 
 
-    matrix = getCorrelationMatrix(tickers)
+
     # matrix[0]= matrix[0].round(5)
     # print('Matrix',  file=sys.stderr)
     # print(matrix,  file=sys.stderr)
     # # print(res,  file=sys.stderr)
 
     
-    return render_template('correlationResult.html', title='Pandalike Investing - Correlation Result', matrix = matrix, tickers = tickers)
+    return render_template('correlationResult.html', title='Pandalike Investing - Correlation Result', matrixMax = matrixMax, matrixCustom=matrixCustom, tickers = tickers, companyNames=companyNames, showCustomMatrix=showCustomMatrix)
 
 
 

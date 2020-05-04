@@ -25,3 +25,7 @@ $(document).ready(function(){
     $("img").addClass("img-responsive");
 
 });
+
+$(function () {
+    $('[data-toggle="tooltip"]').tooltip()
+  })

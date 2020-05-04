@@ -13,6 +13,8 @@ from flask_migrate import Migrate
 from elasticsearch import Elasticsearch
 from flask_babel import Babel
 from flask import request
+from datetime import datetime
+from werkzeug.routing import BaseConverter, ValidationError
 
 
 fa = FontAwesome()
@@ -47,6 +49,20 @@ def user_has_role (the_current_user, role):
             return True
     return False
 
+# https://stackoverflow.com/questions/31669864/date-in-flask-url
+class DateConverter(BaseConverter):
+    """Extracts a ISO8601 date from the path and validates it."""
+
+    regex = r'\d{4}-\d{2}-\d{2}'
+
+    def to_python(self, value):
+        try:
+            return datetime.strptime(value, '%Y-%m-%d').date()
+        except ValueError:
+            raise ValidationError()
+
+    def to_url(self, value):
+        return value.strftime('%Y-%m-%d')
 
 
 
@@ -54,6 +70,8 @@ def create_app(config_class=Config):
     print('Start creating the app',  file=sys.stderr)
     app = Flask(__name__)
     app.config.from_object(Config)
+
+    app.url_map.converters['date'] = DateConverter
 
     app.jinja_env.globals.update(user_has_role=user_has_role)
 
@@ -92,6 +110,9 @@ def create_app(config_class=Config):
     app.elasticsearch = Elasticsearch([app.config['ELASTICSEARCH_URL']]) \
         if app.config['ELASTICSEARCH_URL'] else None
 
+
+
+    
 
     print('Done creating the app',  file=sys.stderr)
     return app

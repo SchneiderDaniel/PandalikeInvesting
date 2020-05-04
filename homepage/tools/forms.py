@@ -1,6 +1,7 @@
 from flask_wtf import FlaskForm, RecaptchaField
 from wtforms import StringField, SubmitField, TextAreaField, RadioField, DecimalField, SelectField
-from wtforms.validators import DataRequired, Length, Email
+from wtforms.validators import DataRequired, Length, Email, Optional
+from wtforms.fields.html5 import DateField
 
 
 
@@ -22,5 +23,7 @@ class BT_GeneralForm(FlaskForm):
 
 class CorrelationMatrixForm(FlaskForm):
     portfolios = SelectField('Choose a Portfolio', coerce=int)
+    startField = DateField('From', format='%Y-%m-%d',validators=[Optional()])
+    endField = DateField('To', format='%Y-%m-%d',validators=[Optional()])
     recaptcha = RecaptchaField()
     submit = SubmitField('Compute')
