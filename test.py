@@ -5,24 +5,28 @@ import  pandas  as pd
 import pandas_datareader.data as web
  
 
-style.use('ggplot')
+# style.use('ggplot')
 # start = dt.datetime(1971,1,1)
 # end = dt.datetime.now()
 
-start = dt.datetime(2019,1,1)
+start = dt.datetime(2018,1,1)
 end = dt.datetime(2020,1,1)
 
-df = web.DataReader('AAPL', 'yahoo', start, end)
+df = web.DataReader('SKT', 'yahoo', start, end)
 # df2 = web.DataReader('MSFT', 'yahoo', start, end)
 # df3 = web.DataReader('AAPL', 'yahoo', start, end)
 
 
-filterStart = '2018-04-27'
-filterEnd = '2020-11-19'
+# filterStart = '2018-04-27'
+# filterEnd = '2020-11-19'
 
-mask = (df.index > filterStart) & (df.index <= filterEnd)
+# mask = (df.index > filterStart) & (df.index <= filterEnd)
 
-df = df.loc[mask]
+# df = df.loc[mask]
+
+# mask = df.index.is_month_start 
+# df = df.loc[mask]
+df=df[~df.index.strftime('%Y-%m').duplicated()].copy()
 
 
 print(df)

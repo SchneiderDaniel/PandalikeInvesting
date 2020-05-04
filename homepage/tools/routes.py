@@ -67,7 +67,7 @@ def correlationResult(portfolio_id, start,end):
         companyNames.append(p.name)
     
     matrixMax = getCorrelationMatrix(tickers)
-
+    matrixMaxMonthly = getCorrelationMatrix(tickers,daily=False)
 
     
 
@@ -76,9 +76,11 @@ def correlationResult(portfolio_id, start,end):
 
     if not showCustomMatrix:
         matrixCustom = matrixMax
+        matrixCustomMonthly = matrixMax
     else:
         matrixCustom = getCorrelationMatrix(tickers,start,end)
-
+        matrixCustomMonthly = getCorrelationMatrix(tickers,start,end,daily=False)
+        
     
 
     # matrix[0]= matrix[0].round(5)
@@ -87,7 +89,7 @@ def correlationResult(portfolio_id, start,end):
     # # print(res,  file=sys.stderr)
 
     
-    return render_template('correlationResult.html', title='Pandalike Investing - Correlation Result', matrixMax = matrixMax, matrixCustom=matrixCustom, tickers = tickers, companyNames=companyNames, showCustomMatrix=showCustomMatrix)
+    return render_template('correlationResult.html', title='Pandalike Investing - Correlation Result', matrixMax = matrixMax, matrixMaxMonthly=matrixMaxMonthly, matrixCustom=matrixCustom, matrixCustomMonthly=matrixCustomMonthly, tickers = tickers, companyNames=companyNames, showCustomMatrix=showCustomMatrix)
 
 
 

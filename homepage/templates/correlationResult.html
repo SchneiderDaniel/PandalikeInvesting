@@ -11,73 +11,138 @@
     <br>
     <legend class="border-bottom mb-4">Correlation Matrix Results </b></legend>
 
-    
-    <table class="table table-bordered">
-        <h5>Maximum available data:</h5>
-        <p class='text-muted'>Evaluated from: {{matrixMax[1]}} to {{matrixMax[2]}}. </p>
-        <thead>
+    <div class="table-responsive"> 
+        <table class="table table-bordered">
+            <h5>Maximum timeframe:</h5>
+            <p class='text-muted'>Evaluated from: {{matrixMax[1]}} to {{matrixMax[2]}}. </p>
+            <thead>
+                <tr>
+                    <th scope="col" data-toggle="tooltip" data-placement="top" title="Asset value taken daily"><b>Daily</b></th>
+                    {% for i in range(0,tickers|length) %}
+                    <th scope="col" data-toggle="tooltip" data-placement="top" title="{{companyNames[i]}}">{{tickers[i]}}<sup>&nbsp;<i class="fas fa-info " style="color:#00b0f0"> </i></sup> </th>
+                    {%endfor%}
+                    <!-- {{companyNames[i]}} -->
+
+                </tr>
+            </thead>
+            <tbody></tbody>
+            {% for i in range(0,tickers|length) %}
             <tr>
-                <th scope="col" ></th>
-                {% for i in range(0,tickers|length) %}
-                <th scope="col" data-toggle="tooltip" data-placement="top" title="{{companyNames[i]}}">{{tickers[i]}}<sup>&nbsp;<i class="fas fa-info " style="color:#00b0f0"> </i></sup> </th>
+                <th scope="row" data-toggle="tooltip" data-placement="top" title="{{companyNames[i]}}">{{tickers[i]}}<sup>&nbsp;<i class="fas fa-info " style="color:#00b0f0"> </i></sup></th>
+                
+                {% for j in range(0,tickers|length) %}
+                <!-- <td>{{j}}</td> -->
+                <td>{{matrixMax[0][i][j]}}</td>
+
                 {%endfor%}
-                <!-- {{companyNames[i]}} -->
+
 
             </tr>
-        </thead>
-        <tbody></tbody>
-        {% for i in range(0,tickers|length) %}
-        <tr>
-            <th scope="row" data-toggle="tooltip" data-placement="top" title="{{companyNames[i]}}">{{tickers[i]}}<sup>&nbsp;<i class="fas fa-info " style="color:#00b0f0"> </i></sup></th>
-            
-            {% for j in range(0,tickers|length) %}
-            <!-- <td>{{j}}</td> -->
-            <td>{{matrixMax[0][i][j]}}</td>
 
             {%endfor%}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th scope="col" data-toggle="tooltip" data-placement="top" title="Asset value taken at the first trading day per month" ><b>Monthly</b></th>
+                    {% for i in range(0,tickers|length) %}
+                    <th scope="col" data-toggle="tooltip" data-placement="top" title="{{companyNames[i]}}">{{tickers[i]}}<sup>&nbsp;<i class="fas fa-info " style="color:#00b0f0"> </i></sup> </th>
+                    {%endfor%}
+                    <!-- {{companyNames[i]}} -->
+
+                </tr>
+            </thead>
+            <tbody></tbody>
+            {% for i in range(0,tickers|length) %}
+            <tr>
+                <th scope="row" data-toggle="tooltip" data-placement="top" title="{{companyNames[i]}}">{{tickers[i]}}<sup>&nbsp;<i class="fas fa-info " style="color:#00b0f0"> </i></sup></th>
+                
+                {% for j in range(0,tickers|length) %}
+                <!-- <td>{{j}}</td> -->
+                <td>{{matrixMaxMonthly[0][i][j]}}</td>
+
+                {%endfor%}
 
 
-        </tr>
+            </tr>
 
-        {%endfor%}
-        </tbody>
-    </table>
-
+            {%endfor%}
+            </tbody>
+        </table>
+    </div>
 
 
     {% if showCustomMatrix %}
-    <table class="table table-bordered">
-        <h5>Selected Timeframe data:</h5>
-        <p class='text-muted'>Evaluated from: {{matrixCustom[1]}} to {{matrixCustom[2]}}. </p>
-        <thead>
+    <hr/>
+    <div class="table-responsive">
+        <table class="table table-bordered">
+            <h5>Selected timeframe:</h5>
+            <p class='text-muted'>Evaluated from: {{matrixCustom[1]}} to {{matrixCustom[2]}}. </p>
+            <thead>
+                <tr>
+                    <th scope="col" data-toggle="tooltip" data-placement="top" title="Asset value taken daily"  ><b>Daily</b></th>
+                    {% for i in range(0,tickers|length) %}
+                    <th scope="col" data-toggle="tooltip" data-placement="top" title="{{companyNames[i]}}">{{tickers[i]}}<sup>&nbsp;<i class="fas fa-info " style="color:#00b0f0"> </i></sup> </th>
+                    {%endfor%}
+                    <!-- {{companyNames[i]}} -->
+
+                </tr>
+            </thead>
+            <tbody></tbody>
+            {% for i in range(0,tickers|length) %}
             <tr>
-                <th scope="col" ></th>
-                {% for i in range(0,tickers|length) %}
-                <th scope="col" data-toggle="tooltip" data-placement="top" title="{{companyNames[i]}}">{{tickers[i]}}<sup>&nbsp;<i class="fas fa-info " style="color:#00b0f0"> </i></sup> </th>
+                <th scope="row" data-toggle="tooltip" data-placement="top" title="{{companyNames[i]}}">{{tickers[i]}}<sup>&nbsp;<i class="fas fa-info " style="color:#00b0f0"> </i></sup></th>
+                
+                {% for j in range(0,tickers|length) %}
+                <!-- <td>{{j}}</td> -->
+                <td>{{matrixCustom[0][i][j]}}</td>
+
                 {%endfor%}
-                <!-- {{companyNames[i]}} -->
+
 
             </tr>
-        </thead>
-        <tbody></tbody>
-        {% for i in range(0,tickers|length) %}
-        <tr>
-            <th scope="row" data-toggle="tooltip" data-placement="top" title="{{companyNames[i]}}">{{tickers[i]}}<sup>&nbsp;<i class="fas fa-info " style="color:#00b0f0"> </i></sup></th>
-            
-            {% for j in range(0,tickers|length) %}
-            <!-- <td>{{j}}</td> -->
-            <td>{{matrixCustom[0][i][j]}}</td>
 
             {%endfor%}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th scope="col" data-toggle="tooltip" data-placement="top" title="Asset value taken at the first trading day per month" ><b>Monthly</b></th>
+                    {% for i in range(0,tickers|length) %}
+                    <th scope="col" data-toggle="tooltip" data-placement="top" title="{{companyNames[i]}}">{{tickers[i]}}<sup>&nbsp;<i class="fas fa-info " style="color:#00b0f0"> </i></sup> </th>
+                    {%endfor%}
+                    <!-- {{companyNames[i]}} -->
+
+                </tr>
+            </thead>
+            <tbody></tbody>
+            {% for i in range(0,tickers|length) %}
+            <tr>
+                <th scope="row" data-toggle="tooltip" data-placement="top" title="{{companyNames[i]}}">{{tickers[i]}}<sup>&nbsp;<i class="fas fa-info " style="color:#00b0f0"> </i></sup></th>
+                
+                {% for j in range(0,tickers|length) %}
+                <!-- <td>{{j}}</td> -->
+                <td>{{matrixCustomMonthly[0][i][j]}}</td>
+
+                {%endfor%}
 
 
-        </tr>
+            </tr>
 
-        {%endfor%}
-        </tbody>
-    </table>
+            {%endfor%}
+            </tbody>
+        </table>
+    </div>
     {% endif %}
-
+    
 </div>
 
 

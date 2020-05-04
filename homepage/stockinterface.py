@@ -52,7 +52,7 @@ def getCorrelationDiagram(ticker1, ticker2):
     
     return result
 
-def getCorrelationMatrix(tickers, filterStart = dt.datetime(1971,1,1), filterEnd = dt.datetime.now()  ):
+def getCorrelationMatrix(tickers, filterStart = dt.datetime(1971,1,1), filterEnd = dt.datetime.now(), daily=True  ):
     
     # result = [[1.0,0.1,0.25,0.1],[0.3,1.0,0.2,0.1],[0.6,0.5,1.0,0.1],[0.6,0.5,0.4,1.0] ]
     
@@ -70,6 +70,15 @@ def getCorrelationMatrix(tickers, filterStart = dt.datetime(1971,1,1), filterEnd
         dfReduce= dfToAdd.drop(dfToAdd.columns.difference(['Adj Close']), 1)
         # print(tick)
         # print(dfReduce)
+
+        if not daily:
+            # mask = dfReduce.index.is_month_start 
+            # dfReduce = dfReduce.loc[mask]
+
+
+            # https://stackoverflow.com/questions/60590945/extract-first-day-of-month-in-dataframe
+            dfReduce=dfReduce[~dfReduce.index.strftime('%Y-%m').duplicated()].copy()
+
         
         dfList.append(dfReduce)
 
@@ -81,6 +90,8 @@ def getCorrelationMatrix(tickers, filterStart = dt.datetime(1971,1,1), filterEnd
     mask = (merge.index > pd.to_datetime(filterStart)) & (merge.index <= pd.to_datetime(filterEnd))
 
     merge = merge.loc[mask]
+
+    
 
     # print('Date Convert:')
     # print (pd.to_datetime(filterStart))
