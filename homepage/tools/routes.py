@@ -68,17 +68,18 @@ def correlationResult(portfolio_id, start,end):
     
     matrixMax = getCorrelationMatrix(tickers)
 
-    showCustomMatrix = True
 
-    if start == dt.datetime(1971,1,1):
-        showCustomMatrix = False
+    
+
+    showCustomMatrix = (start != dt.date(1971,1,1))
+ 
 
     if not showCustomMatrix:
         matrixCustom = matrixMax
     else:
         matrixCustom = getCorrelationMatrix(tickers,start,end)
 
-
+    
 
     # matrix[0]= matrix[0].round(5)
     # print('Matrix',  file=sys.stderr)

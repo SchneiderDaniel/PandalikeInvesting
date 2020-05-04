@@ -109,10 +109,10 @@ def updateStockData(ticker):
 
     stockdataPath = os.path.join(current_app.root_path, 'static/resources/stockdata/' + ticker + '.pkl')
     if (os.path.exists(stockdataPath)):
-        print('Stock already saved. Update...',  file=sys.stderr)
+        # print('Stock already saved. Update...',  file=sys.stderr)
         saveStockDataAlreadyExisting(ticker)
     else:
-        print('Start saving stock from Scratch',  file=sys.stderr)
+        # print('Start saving stock from Scratch',  file=sys.stderr)
         saveStockDataFromScratch(ticker)
 
     

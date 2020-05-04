@@ -45,7 +45,7 @@
 
 
 
-
+    {% if showCustomMatrix %}
     <table class="table table-bordered">
         <h5>Selected Timeframe data:</h5>
         <p class='text-muted'>Evaluated from: {{matrixCustom[1]}} to {{matrixCustom[2]}}. </p>
@@ -76,7 +76,7 @@
         {%endfor%}
         </tbody>
     </table>
-
+    {% endif %}
 
 </div>
 
