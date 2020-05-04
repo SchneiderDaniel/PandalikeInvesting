@@ -52,6 +52,16 @@ def getCorrelationDiagram(ticker1, ticker2):
     
     return result
 
+
+
+def getPortfolioCorrelation(positions, ticker, filterStart = dt.datetime(1971,1,1), filterEnd = dt.datetime.now(), daily=True):
+
+    
+
+
+    pass
+
+
 def getCorrelationMatrix(tickers, filterStart = dt.datetime(1971,1,1), filterEnd = dt.datetime.now(), daily=True  ):
     
     # result = [[1.0,0.1,0.25,0.1],[0.3,1.0,0.2,0.1],[0.6,0.5,1.0,0.1],[0.6,0.5,0.4,1.0] ]
