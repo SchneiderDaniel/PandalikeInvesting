@@ -56,10 +56,137 @@ def getCorrelationDiagram(ticker1, ticker2):
 
 def getPortfolioCorrelation(positions, ticker, filterStart = dt.datetime(1971,1,1), filterEnd = dt.datetime.now(), daily=True):
 
+    dfList = []
+
+    for p in positions:
+        updateStockData(p.ticker)
+        stockdataPath = os.path.join(current_app.root_path, 'static/resources/stockdata/' + p.ticker + '.pkl')
+        dfToAdd = pd.read_pickle(stockdataPath)
+        dfToAdd.drop(dfToAdd.columns.difference(['Adj Close']), 1, inplace=True)
+        # print(p.ticker + ' df')
+        # print(dfToAdd)
+
+        # if not daily:
+        #     # https://stackoverflow.com/questions/60590945/extract-first-day-of-month-in-dataframe
+        #     dfToAdd=dfToAdd[~dfToAdd.index.strftime('%Y-%m').duplicated()].copy()
+
+        # dfToAdd['adj_return']=(dfToAdd['Adj Close']/ dfToAdd['Adj Close'].shift(1)) -1
+        # dfToAdd.dropna(inplace=True)
+        # dfToAdd.drop(dfToAdd.columns.difference(['adj_return']), 1, inplace=True)
+        # dfToAdd['adj_return'] = (0.01*p.percent)*dfToAdd['adj_return']
+
+        # print(p.ticker + ' df weighted')
+        # print(dfToAdd)
+        
+        dfList.append(dfToAdd)
+
+
+    merge = dfList[0]
+    for i in range (1,len(dfList)):
+        merge  = pd.merge(merge,dfList[i], how='inner', left_index=True, right_index=True) 
+
+    # print('Merge')    
+    # print(merge)
+
+   
+
+
+
+
+    updateStockData(ticker)
+    stockdataPathBench = os.path.join(current_app.root_path, 'static/resources/stockdata/' + ticker + '.pkl')
+    dfBench = pd.read_pickle(stockdataPathBench)
+    dfBench.drop(dfBench.columns.difference(['Adj Close']), 1, inplace=True)
+
+    dfBench.columns = ['Benchmark']
+
+    # print('dfBench: ' + ticker )    
+    # print(dfBench)
+
+    # if not daily:
+    #         # https://stackoverflow.com/questions/60590945/extract-first-day-of-month-in-dataframe
+    #         dfBench=dfBench[~dfBench.index.strftime('%Y-%m').duplicated()].copy()
+
+
+    merge  = pd.merge(merge,dfBench, how='inner', left_index=True, right_index=True) 
+
+    if not daily:
+            # https://stackoverflow.com/questions/60590945/extract-first-day-of-month-in-dataframe
+            merge=merge[~merge.index.strftime('%Y-%m').duplicated()].copy()
+
+    mask = (merge.index > pd.to_datetime(filterStart)) & (merge.index <= pd.to_datetime(filterEnd))
+    merge = merge.loc[mask]
+
+    # print('Merge wiith Bench')
+    # print(merge)
+
+
+    # merge = merge.apply(lambda x: x/x.shift(1)-1)
+    # merge.dropna(inplace=True)
+
+    for i in range(len(positions)+1):
+        merge[merge.columns[i]] = merge[merge.columns[i]]/merge[merge.columns[i]][0]
+
+    # print('Merge')    
+    # print(merge)
+
+
+    for i in range(len(positions)):
+        merge[merge.columns[i]] = (0.01*positions[i].percent)*merge[merge.columns[i]]
+
+
+    merge['Portfolio'] = merge.drop('Benchmark', axis=1).sum(axis=1)
+
+    merge.drop(merge.columns.difference(['Portfolio', 'Benchmark']), 1, inplace=True)
+
+    # print('Merge2 after sum')    
+    # print(merge)
     
 
+            
+    # merge['portfolio'] = merge.sum(axis=1)
+    # merge.drop(merge.columns.difference(['portfolio']), 1, inplace=True)
 
-    pass
+
+    # print( ' df merge summed')
+    # print(merge)
+
+    
+
+    # dfBench['adj_return']=(dfBench['Adj Close']/ dfBench['Adj Close'].shift(1)) -1
+    # dfBench.dropna(inplace=True)
+    # dfBench.drop(dfBench.columns.difference(['adj_return']), 1, inplace=True)
+
+
+    # print( ' df bench summed')
+    # print(dfBench)
+
+    # merge = pd.merge(merge,dfBench,how='inner', left_index=True, right_index=True)
+
+    
+    
+    if not merge.empty:
+        evaluatedFrom = merge.index[0].strftime('%d. %B %Y')
+        evaluatedTo = merge.index[-1].strftime('%d. %B %Y')
+    else:
+        evaluatedFrom = filterStart.strftime('%d. %B %Y')
+        evaluatedTo = filterEnd.strftime('%d. %B %Y')
+
+
+    # print( ' df merge corr')
+    # print(merge)
+
+
+    result = merge.corr().values
+    result= result.round(4)
+
+    # print('Result')
+    # print (result)
+
+    return result[0][1], evaluatedFrom, evaluatedTo
+
+
+  
 
 
 def getCorrelationMatrix(tickers, filterStart = dt.datetime(1971,1,1), filterEnd = dt.datetime.now(), daily=True  ):
@@ -149,7 +276,7 @@ def saveStockDataFromScratch(ticker):
     print(stockdataPath,  file=sys.stderr)
 
     df.to_pickle(stockdataPath)
-    df.to_csv(stockdataPathCSV)
+    # df.to_csv(stockdataPathCSV)
 
     
 

@@ -9,15 +9,17 @@
 <div class="content-section">
 
     <br>
-    <legend class="border-bottom mb-4">Correlation Matrix Results </b></legend>
+    <legend class="border-bottom mb-4">Correlation Results </b></legend>
 
     <div class="table-responsive"> 
         <table class="table table-bordered">
-            <h5>Maximum timeframe:</h5>
-            <p class='text-muted'>Evaluated from: {{matrixMax[1]}} to {{matrixMax[2]}}. </p>
+            <h4 class='text-center'>Maximum timeframe:</h4>
+            <h5><b>Daily</b></h5>
+            <h3><b_black> Matrix</b_black></h3>
+            <p class='text-muted'>Evaluated from: {{matrixMax[1]}} to {{matrixMax[2]}}. </p>   
             <thead>
                 <tr>
-                    <th scope="col" data-toggle="tooltip" data-placement="top" title="Asset value taken daily"><b>Daily</b></th>
+                    <th scope="col" data-toggle="tooltip" data-placement="top" title="Asset value taken daily"></th>
                     {% for i in range(0,tickers|length) %}
                     <th scope="col" data-toggle="tooltip" data-placement="top" title="{{companyNames[i]}}">{{tickers[i]}}<sup>&nbsp;<i class="fas fa-info " style="color:#00b0f0"> </i></sup> </th>
                     {%endfor%}
@@ -41,14 +43,56 @@
 
             {%endfor%}
             </tbody>
+            
+            
+        </table>
+        <h3><b_black> Portfolio</b_black></h3>
+        <table class="table table-dark">
+            <thead>
+              <tr>
+                <th scope="col">Benchmark</th>
+                <th scope="col">Correlation</th>
+                <th scope="col">From</th>
+                <th scope="col">To</th>
+                
+         
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td scope="row">MSCI World</td>
+                <td>{{pfResults[0][0]}}</td>
+                <td>{{pfResults[0][1]}}</td>
+                <td>{{pfResults[0][2]}}</td>
+        
+              </tr>
+              <tr>
+                <td scope="row">S&P 500 </td>
+                <td>{{pfResults[4][0]}}</td>
+                <td>{{pfResults[4][1]}}</td>
+                <td>{{pfResults[4][2]}}</td>
+        
+              </tr>
+              <tr>
+                <td scope="row">Euro Stoxx 600</td>
+                <td>{{pfResults[8][0]}}</td>
+                <td>{{pfResults[8][1]}}</td> 
+                <td>{{pfResults[8][2]}}</td>           
+              </tr>
+            </tbody>
         </table>
     </div>
 
+    <div class="col-xs-12" style="height:50px;"></div>
+
     <div class="table-responsive">
+        <h5><b>Monthly</b></h5>
+        <h3><b_black> Matrix</b_black></h3>
+        <p class='text-muted'>Evaluated from: {{matrixMax[1]}} to {{matrixMax[2]}}. </p> 
         <table class="table table-bordered">
             <thead>
                 <tr>
-                    <th scope="col" data-toggle="tooltip" data-placement="top" title="Asset value taken at the first trading day per month" ><b>Monthly</b></th>
+                    <th scope="col" data-toggle="tooltip" data-placement="top" title="Asset value taken at the first trading day per month" ></th>
                     {% for i in range(0,tickers|length) %}
                     <th scope="col" data-toggle="tooltip" data-placement="top" title="{{companyNames[i]}}">{{tickers[i]}}<sup>&nbsp;<i class="fas fa-info " style="color:#00b0f0"> </i></sup> </th>
                     {%endfor%}
@@ -73,18 +117,61 @@
             {%endfor%}
             </tbody>
         </table>
+
+        <h3><b_black> Portfolio</b_black></h3>
+        <table class="table table-dark">
+            <thead>
+              <tr>
+                <th scope="col">Benchmark</th>
+                <th scope="col">Correlation</th>
+                <th scope="col">From</th>
+                <th scope="col">To</th>
+                
+         
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td scope="row">MSCI World</td>
+                <td>{{pfResults[1][0]}}</td>
+                <td>{{pfResults[1][1]}}</td>
+                <td>{{pfResults[1][2]}}</td>
+        
+              </tr>
+              <tr>
+                <td scope="row">S&P 500 </td>
+                <td>{{pfResults[5][0]}}</td>
+                <td>{{pfResults[5][1]}}</td>
+                <td>{{pfResults[5][2]}}</td>
+        
+              </tr>
+              <tr>
+                <td scope="row">Euro Stoxx 600</td>
+                <td>{{pfResults[9][0]}}</td>
+                <td>{{pfResults[9][1]}}</td> 
+                <td>{{pfResults[9][2]}}</td>           
+              </tr>
+            </tbody>
+        </table>
+        
     </div>
 
 
     {% if showCustomMatrix %}
+    <div class="col-xs-12" style="height:50px;"></div>
     <hr/>
+    <div class="col-xs-12" style="height:50px;"></div>
+
     <div class="table-responsive">
+        
         <table class="table table-bordered">
-            <h5>Selected timeframe:</h5>
+            <h4 class='text-center'>Selected timeframe:</h4>
+            <h5><b>Daily</b></h5>
+            <h3><b_black> Matrix</b_black></h3>
             <p class='text-muted'>Evaluated from: {{matrixCustom[1]}} to {{matrixCustom[2]}}. </p>
             <thead>
                 <tr>
-                    <th scope="col" data-toggle="tooltip" data-placement="top" title="Asset value taken daily"  ><b>Daily</b></th>
+                    <th scope="col" data-toggle="tooltip" data-placement="top" title="Asset value taken daily"  ></th>
                     {% for i in range(0,tickers|length) %}
                     <th scope="col" data-toggle="tooltip" data-placement="top" title="{{companyNames[i]}}">{{tickers[i]}}<sup>&nbsp;<i class="fas fa-info " style="color:#00b0f0"> </i></sup> </th>
                     {%endfor%}
@@ -109,13 +196,56 @@
             {%endfor%}
             </tbody>
         </table>
+
+        <h3><b_black> Portfolio</b_black></h3>
+        <table class="table table-dark">
+            <thead>
+              <tr>
+                <th scope="col">Benchmark</th>
+                <th scope="col">Correlation</th>
+                <th scope="col">From</th>
+                <th scope="col">To</th>
+                
+         
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td scope="row">MSCI World</td>
+                <td>{{pfResults[2][0]}}</td>
+                <td>{{pfResults[2][1]}}</td>
+                <td>{{pfResults[2][2]}}</td>
+        
+              </tr>
+              <tr>
+                <td scope="row">S&P 500 </td>
+                <td>{{pfResults[6][0]}}</td>
+                <td>{{pfResults[6][1]}}</td>
+                <td>{{pfResults[6][2]}}</td>
+        
+              </tr>
+              <tr>
+                <td scope="row">Euro Stoxx 600</td>
+                <td>{{pfResults[10][0]}}</td>
+                <td>{{pfResults[10][1]}}</td> 
+                <td>{{pfResults[10][2]}}</td>           
+              </tr>
+            </tbody>
+        </table>
+    
+    
     </div>
 
+    <div class="col-xs-12" style="height:50px;"></div>
+
     <div class="table-responsive">
+        <h5><b>Monthly</b></h5>
+        <h3><b_black> Matrix</b_black></h3>
+        <p class='text-muted'>Evaluated from: {{matrixCustom[1]}} to {{matrixCustom[2]}}. </p>
         <table class="table table-bordered">
             <thead>
                 <tr>
-                    <th scope="col" data-toggle="tooltip" data-placement="top" title="Asset value taken at the first trading day per month" ><b>Monthly</b></th>
+                    <th scope="col" data-toggle="tooltip" data-placement="top" title="Asset value taken at the first trading day per month" ></th>
                     {% for i in range(0,tickers|length) %}
                     <th scope="col" data-toggle="tooltip" data-placement="top" title="{{companyNames[i]}}">{{tickers[i]}}<sup>&nbsp;<i class="fas fa-info " style="color:#00b0f0"> </i></sup> </th>
                     {%endfor%}
@@ -138,6 +268,42 @@
             </tr>
 
             {%endfor%}
+            </tbody>
+        </table>
+
+        <h3><b_black> Portfolio</b_black></h3>
+        <table class="table table-dark">
+            <thead>
+              <tr>
+                <th scope="col">Benchmark</th>
+                <th scope="col">Correlation</th>
+                <th scope="col">From</th>
+                <th scope="col">To</th>
+                
+         
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td scope="row">MSCI World</td>
+                <td>{{pfResults[3][0]}}</td>
+                <td>{{pfResults[3][1]}}</td>
+                <td>{{pfResults[3][2]}}</td>
+        
+              </tr>
+              <tr>
+                <td scope="row">S&P 500 </td>
+                <td>{{pfResults[7][0]}}</td>
+                <td>{{pfResults[7][1]}}</td>
+                <td>{{pfResults[7][2]}}</td>
+        
+              </tr>
+              <tr>
+                <td scope="row">Euro Stoxx 600</td>
+                <td>{{pfResults[11][0]}}</td>
+                <td>{{pfResults[11][1]}}</td> 
+                <td>{{pfResults[11][2]}}</td>           
+              </tr>
             </tbody>
         </table>
     </div>

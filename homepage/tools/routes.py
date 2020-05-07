@@ -6,7 +6,7 @@ from flask import request
 from homepage.models import Portfolio, Position
 from flask_login import login_user, current_user, logout_user
 import sys
-from homepage.stockinterface import getCorrelationMatrix
+from homepage.stockinterface import getCorrelationMatrix, getPortfolioCorrelation
 import numpy as np
 import datetime as dt 
 from homepage.utils import is_FormDataField_filled
@@ -58,6 +58,7 @@ def correlation():
 def correlationResult(portfolio_id, start,end):
 
 
+    # print('Corr Start:')
     tickers = [] 
     companyNames = []
 
@@ -80,7 +81,38 @@ def correlationResult(portfolio_id, start,end):
     else:
         matrixCustom = getCorrelationMatrix(tickers,start,end)
         matrixCustomMonthly = getCorrelationMatrix(tickers,start,end,daily=False)
-        
+ 
+    benchTickers = []
+    benchTickers.append('IWDA.AS')
+    benchTickers.append('SPY')
+    benchTickers.append('EXSA.MI')
+
+    # benchTickers.append('VUSA.DE')  
+    # benchTickers.append('SPY')
+    # benchTickers.append('SXR8.DE')
+
+    pfResults = []
+
+    for ti in benchTickers:
+        pfCorr = getPortfolioCorrelation(positions,ti)
+
+        # pfCorrMonthly =getPortfolioCorrelation(positions,ti)
+        # pfCorrCustom = getPortfolioCorrelation(positions,ti)
+        # pfCorrCustomMonthly =getPortfolioCorrelation(positions,ti)
+
+        pfCorrMonthly =getPortfolioCorrelation(positions,ti, daily=False)
+        pfCorrCustom = getPortfolioCorrelation(positions,ti, start,end)
+        pfCorrCustomMonthly =getPortfolioCorrelation(positions,ti,start,end, daily=False)
+
+        pfResults.append(pfCorr)
+        pfResults.append(pfCorrMonthly)
+        pfResults.append(pfCorrCustom)
+        pfResults.append(pfCorrCustomMonthly)
+
+
+
+
+ 
     
 
     # matrix[0]= matrix[0].round(5)
@@ -88,8 +120,8 @@ def correlationResult(portfolio_id, start,end):
     # print(matrix,  file=sys.stderr)
     # # print(res,  file=sys.stderr)
 
-    
-    return render_template('correlationResult.html', title='Pandalike Investing - Correlation Result', matrixMax = matrixMax, matrixMaxMonthly=matrixMaxMonthly, matrixCustom=matrixCustom, matrixCustomMonthly=matrixCustomMonthly, tickers = tickers, companyNames=companyNames, showCustomMatrix=showCustomMatrix)
+    return render_template('correlationResult.html', title='Pandalike Investing - Correlation Result', matrixMax = matrixMax, matrixMaxMonthly=matrixMaxMonthly, 
+    matrixCustom=matrixCustom, matrixCustomMonthly=matrixCustomMonthly, tickers = tickers, companyNames=companyNames, showCustomMatrix=showCustomMatrix, pfResults=pfResults)
 
 
 
