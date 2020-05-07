@@ -100,8 +100,8 @@ def getPortfolioCorrelation(positions, ticker, filterStart = dt.datetime(1971,1,
 
     dfBench.columns = ['Benchmark']
 
-    # print('dfBench: ' + ticker )    
-    # print(dfBench)
+    print('dfBench: ' + ticker )    
+    print(dfBench)
 
     # if not daily:
     #         # https://stackoverflow.com/questions/60590945/extract-first-day-of-month-in-dataframe
@@ -117,18 +117,19 @@ def getPortfolioCorrelation(positions, ticker, filterStart = dt.datetime(1971,1,
     mask = (merge.index > pd.to_datetime(filterStart)) & (merge.index <= pd.to_datetime(filterEnd))
     merge = merge.loc[mask]
 
-    # print('Merge wiith Bench')
-    # print(merge)
+    print('Merge wiith Bench')
+    print(merge)
 
 
     # merge = merge.apply(lambda x: x/x.shift(1)-1)
     # merge.dropna(inplace=True)
 
     for i in range(len(positions)+1):
-        merge[merge.columns[i]] = merge[merge.columns[i]]/merge[merge.columns[i]][0]
+        divisor= merge[merge.columns[i]].iloc[0]
+        merge[merge.columns[i]] = merge[merge.columns[i]]/divisor
 
-    # print('Merge')    
-    # print(merge)
+    print('Merge')    
+    print(merge)
 
 
     for i in range(len(positions)):
