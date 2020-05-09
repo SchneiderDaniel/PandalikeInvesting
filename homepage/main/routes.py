@@ -40,7 +40,7 @@ def index():
                 tagsPerPost.append(tagToAdd)
             randomTags.append(tagsPerPost)
 
-    return render_template('index.html', randomPosts = randomPosts, randomTags=randomTags)
+    return render_template('index.html', randomPosts = randomPosts, randomTags=randomTags, shareable=True)
 
 
 @main.route('/favicon.ico')
@@ -63,12 +63,12 @@ def legal_notice():
 
 @main.route('/about')
 def about():
-    return render_template('about.html', title='Pandalike Investing - About Me', showSidebar = False)
+    return render_template('about.html', title='Pandalike Investing - About Me', showSidebar = False, shareable=True)
 
 
-@main.route('/pricing')
-def pricing():
-    return render_template('pricing.html', title='Pandalike Investing - Pricing')
+# @main.route('/pricing')
+# def pricing():
+#     return render_template('pricing.html', title='Pandalike Investing - Pricing', shareable=True)
 
 
 @main.route('/contact', methods=['GET', 'POST'])
@@ -79,7 +79,7 @@ def contact():
             f'Thanks {contact_form.name.data}, we have received your meessage. We will respond soon!', 'success')
         return redirect(url_for('main.index'))
 
-    return render_template('contact.html', contact_form=contact_form, title='Pandalike Investing - Contact Us', userIsBanned = False, showSidebar = False)
+    return render_template('contact.html', contact_form=contact_form, title='Pandalike Investing - Contact Us', userIsBanned = False, showSidebar = False, shareable=True)
 
 @main.app_context_processor
 def inject_template_scope():
@@ -122,7 +122,7 @@ def year():
 @main.app_context_processor
 def urlAndTitleInject():
 
-    return dict(url = request.url, title ="Pandalike Investing") 
+    return dict(url = request.url, title ="Pandalike Investing", shareable = False) 
 
 
 @main.before_app_request

@@ -121,7 +121,7 @@ def correlationResult(portfolio_id, start,end):
     # # print(res,  file=sys.stderr)
 
     return render_template('correlationResult.html', title='Pandalike Investing - Correlation Result', matrixMax = matrixMax, matrixMaxMonthly=matrixMaxMonthly, 
-    matrixCustom=matrixCustom, matrixCustomMonthly=matrixCustomMonthly, tickers = tickers, companyNames=companyNames, showCustomMatrix=showCustomMatrix, pfResults=pfResults)
+    matrixCustom=matrixCustom, matrixCustomMonthly=matrixCustomMonthly, tickers = tickers, companyNames=companyNames, showCustomMatrix=showCustomMatrix, pfResults=pfResults, shareable=True)
 
 
 

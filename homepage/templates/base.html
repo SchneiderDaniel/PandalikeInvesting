@@ -162,11 +162,11 @@
     {% endif %}
 
 
-   
+    {% if shareable %}
     <div class="social-share-floating-bar hidden-sm hidden-xs">
         {% include 'social_share.html' %}
     </div>
-
+    {% endif %}
 
     <main role="main" class="container">
 
@@ -191,12 +191,13 @@
                 {% endwith %}
                 {% block content %}{% endblock %}
 
+                {% if shareable %}
                 <div class="social-share-btns-container">
                     <div class="social-share-btns">
                       {% include 'social_share_bottom.html' %}
                     </div>
                 </div>
-
+                {% endif %}
 
             </div>
 

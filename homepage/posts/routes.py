@@ -37,7 +37,7 @@ def blog():
             tagsPerPost.append(tagToAdd)
         allTags.append(tagsPerPost)
 
-    return render_template('blog.html', posts=posts, allTags = allTags, tagged=tagged, title='Pandalike Investing - Blog')
+    return render_template('blog.html', posts=posts, allTags = allTags, tagged=tagged, title='Pandalike Investing - Blog', shareable=True)
 
 
 @posts.route('/new_post', methods=['GET', 'POST'])
@@ -169,7 +169,7 @@ def post(post_id):
     for t in theTagRel:
         toAdd = Tag.query.get_or_404(t.tag_id)
         theTags.append(toAdd)
-    return render_template('post.html', title=post.title, post=post, comments=comments, time_to_read=round(time_to_read), amount_comments=amount_comments, likes = likes, theTags=theTags)
+    return render_template('post.html', title=post.title, post=post, comments=comments, time_to_read=round(time_to_read), amount_comments=amount_comments, likes = likes, theTags=theTags, shareable=True)
 
 @posts.route('/post/<int:post_id>/like')
 @login_required_author()
@@ -252,7 +252,7 @@ def discussion(post_id, comment_id):
     # print('Comment ID:', file=sys.stderr)
     # print(comment_id, file=sys.stderr)
 
-    return render_template('discussion.html', comment = comment, post=post, form = form, discussions=discussions, title='Pandalike Investing - Discuss...')
+    return render_template('discussion.html', comment = comment, post=post, form = form, discussions=discussions, title='Pandalike Investing - Discuss...', shareable=True)
 
 
 
