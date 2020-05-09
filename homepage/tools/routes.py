@@ -62,6 +62,8 @@ def correlationResult(portfolio_id, start,end):
     tickers = [] 
     companyNames = []
 
+    portfolio = Portfolio.query.filter_by(id=portfolio_id).first_or_404()
+
     positions = db.session.query(Position).filter(Position.port_id == portfolio_id).all()
     for p in positions:
         tickers.append(p.ticker)
@@ -120,7 +122,7 @@ def correlationResult(portfolio_id, start,end):
     # print(matrix,  file=sys.stderr)
     # # print(res,  file=sys.stderr)
 
-    return render_template('correlationResult.html', title='Pandalike Investing - Correlation Result', matrixMax = matrixMax, matrixMaxMonthly=matrixMaxMonthly, 
+    return render_template('correlationResult.html', title='Pandalike Investing - Correlation Result', positions=positions,portfolio=portfolio, matrixMax = matrixMax, matrixMaxMonthly=matrixMaxMonthly, 
     matrixCustom=matrixCustom, matrixCustomMonthly=matrixCustomMonthly, tickers = tickers, companyNames=companyNames, showCustomMatrix=showCustomMatrix, pfResults=pfResults, shareable=True)
 
 

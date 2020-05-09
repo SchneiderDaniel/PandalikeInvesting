@@ -5,10 +5,36 @@
 {% block content %}
 
 
+
 <br>
 <div class="content-section">
 
-    
+  <br>
+  <legend class="border-bottom mb-4">Portfolio Overview: <b>{{portfolio.name}} </b></legend>
+
+  <table class="table table table-hover">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Ticker/Symbol</th>
+            <th scope="col">Percent</th>
+            <th scope="col">Currency</th>  
+        </tr>
+    </thead>
+    <tbody></tbody>
+    {% for i in range(0,positions|length) %}
+    <tr>
+        <th scope="row">{{i}}</th>
+        <td>{{positions[i].name}}</td>
+        <td><a href="https://finance.yahoo.com/quote/{{positions[i].ticker}}" target="_blank">{{positions[i].ticker}}</a></td>
+        <td>{{positions[i].percent}}%</td>
+        <td>{{positions[i].currency}}</td>
+    </tr>
+
+    {%endfor%}
+    </tbody>
+</table>
 
 
     <br>
