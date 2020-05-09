@@ -86,3 +86,31 @@ def overview(portfolio_id):
 
 
     return render_template('portfolio_Overview.html', title='Pandalike Investing - Portfolio Overview', portfolio=portfolio, positions = positions)
+
+
+@portfolios.route('/portfolio/delete/<int:portfolio_id>',  methods=['GET', 'POST'])
+@login_required_author()
+def deletePortfolio(portfolio_id):
+
+    portfolio = Portfolio.query.filter_by(id=portfolio_id).first_or_404()
+
+    if portfolio.creator != current_user:
+        abort(403)
+
+
+    positions = db.session.query(Position).filter(Position.port_id == portfolio_id).all()
+
+    for p in positions:
+        db.session.delete(p)
+
+  
+
+    db.session.delete(portfolio)
+    db.session.commit()
+    flash('Your porttfolio has been deleted!', 'success')
+    return redirect(url_for('portfolios.portfolio'))
+
+
+    
+
+

@@ -201,7 +201,7 @@ class CommentLikes(db.Model):
 
 class Portfolio(db.Model):
     __tablename__ = 'portfolios'
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer(), primary_key=True)
     name = db.Column(db.Text, nullable=False)
     numberPositions = db.Column(db.Integer, nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable= False)

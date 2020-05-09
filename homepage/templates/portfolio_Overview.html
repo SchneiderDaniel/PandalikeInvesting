@@ -7,6 +7,11 @@
 <br>
 <div class="content-section">
 
+    <!-- <div class="row"> -->
+    <button type="button" class="btn btn-danger btn-sm m-1 float-right" data-toggle="modal"
+                                data-target="#deleteModal">Delete</button>
+
+    <!-- </div> -->
     <br>
     <legend class="border-bottom mb-4">Portfolio Overview: <b>{{portfolio.name}} </b></legend>
 
@@ -38,6 +43,28 @@
     </table>
 
 
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteModalLabel">Delete this portfolio?</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <form action="{{url_for('portfolios.deletePortfolio', portfolio_id = portfolio.id)}}" method="POST">
+                    <input class="btn btn-danger" type="submit" value="Delete">
+                </form>
+            </div>
+        </div>
+    </div>
 </div>
 
 
