@@ -18,6 +18,7 @@
                 <th scope="col">Name</th>
                 <th scope="col">Ticker/Symbol</th>
                 <th scope="col">Percent</th>
+                <th scope="col">Currency</th>
                 <th scope="col"></th>
             </tr>
         </thead>
@@ -28,6 +29,7 @@
             <td>{{positions[i].name}}</td>
             <td><a href="https://finance.yahoo.com/quote/{{positions[i].ticker}}" target="_blank">{{positions[i].ticker}}</a></td>
             <td>{{positions[i].percent}}%</td>
+            <td>{{positions[i].currency}}</td>
             <td><a class="btn btn-outline-info float-right btn-sm" href="{{ url_for('portfolios.editPosition', portfolio_id=portfolio.id, position_id=positions[i].id) }}">Edit</a></td>
         </tr>
 

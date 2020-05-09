@@ -8,7 +8,7 @@ import yfinance as yf
 import sys
 from homepage.stockinterface import updateStockData
 
-from homepage.stockinterface import getNameToTicker
+from homepage.stockinterface import getNameToTicker, getCurrencyToTicker
 
 portfolios = Blueprint('portfolios', __name__)
 
@@ -56,6 +56,7 @@ def editPosition(portfolio_id,position_id):
 
     if form.validate_on_submit():  
         position.name = getNameToTicker(form.ticker.data)
+        position.currency = getCurrencyToTicker(form.ticker.data)
         position.ticker = form.ticker.data
         position.percent = form.percent.data 
         db.session.commit()

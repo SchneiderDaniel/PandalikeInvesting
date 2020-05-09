@@ -6,8 +6,9 @@ print(data,  file=sys.stderr)
 Init Migration:
 flask db init
 
+https://flask-migrate.readthedocs.io/en/latest/
 Migration:
 $env:FLASK_APP="run.py"
-flask db migrate  --> generates Migration scripts
+flask db migrate  --> generates Migration scripts   revert: flask db stamp head
 flask db upgrade  --> calls Migration scripts
 flask db downgrade --> revert Migration scripts

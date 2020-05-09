@@ -216,6 +216,7 @@ class Position(db.Model):
     name = db.Column(db.Text, nullable=False, default = "Empty")
     ticker = db.Column(db.Text, nullable=False, default = "Empty")
     percent =  db.Column(db.Float, nullable=False, default = "0.0")
+    currency = db.Column(db.Text,nullable=False, default = 'NA')
     port_id = db.Column(db.Integer, db.ForeignKey('portfolios.id'), nullable= False)
     
    
