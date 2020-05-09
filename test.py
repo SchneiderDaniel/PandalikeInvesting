@@ -3,6 +3,12 @@ import matplotlib.pyplot as plt
 from matplotlib import style
 import  pandas  as pd 
 import pandas_datareader.data as web
+import yfinance as yf
+
+
+
+# aTicker = yf.Ticker('MSFT')
+# print(aTicker.info)
 
 
 # style.use('ggplot')

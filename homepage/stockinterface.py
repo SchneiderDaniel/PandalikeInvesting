@@ -41,6 +41,18 @@ def getNameToTicker(ticker):
             companyName = " Name NA (Data found) "
     return companyName
 
+def getCurrencyToTicker(ticker):
+    currency = 'NA'
+
+    try:
+        aTicker = yf.Ticker(ticker)
+        currency = aTicker.info['currency']
+    except:
+        currency = 'NA'
+
+    return currency
+
+
 
 def getCorrelationDiagram(ticker1, ticker2):
     
