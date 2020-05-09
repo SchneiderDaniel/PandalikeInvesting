@@ -64,6 +64,13 @@ def correlationResult(portfolio_id, start,end):
 
     portfolio = Portfolio.query.filter_by(id=portfolio_id).first_or_404()
 
+    # print('Portfolio has one Currency:')
+    # print(Portfolio.hasOneCurrency(portfolio))
+
+    if not Portfolio.hasOneCurrency(portfolio):
+        flash('Attention, your portfolio contains different currencies', 'info')
+
+
     positions = db.session.query(Position).filter(Position.port_id == portfolio_id).all()
     for p in positions:
         tickers.append(p.ticker)

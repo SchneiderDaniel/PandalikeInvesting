@@ -208,7 +208,23 @@ class Portfolio(db.Model):
     positions = db.relationship('Position', backref='portfolio', lazy=True)
     def __repr__(self):
         return f"Portfolio('{self.name}', Size: '{self.numberPositions}')"
+    
+    @staticmethod
+    def hasOneCurrency(pf):
 
+        currency = ""
+
+        for pos in pf.positions:
+            if  currency=="":
+                currency = pos.currency
+            else:
+                if pos.currency!=currency:
+                    return False
+                
+        return True
+            
+
+        
 
 class Position(db.Model):
     __tablename__ = 'positions'
