@@ -62,6 +62,8 @@ def legal_notice():
 
 
 @main.route('/about')
+#TODO Remove
+@login_required_author('admin') 
 def about():
     return render_template('about.html', title='Pandalike Investing - About Me', showSidebar = False, shareable=True)
 

@@ -32,22 +32,22 @@ hashed_password = bcrypt.generate_password_hash(app.config['ADMIN_PASSWORD']).de
 
 user_admin = User(username = admin_name, email=admin_mail,password=hashed_password, activated=True)
 user_admin2 = User(username = admin_name + '2', email='2'+admin_mail,password=hashed_password, activated=True)
-user_admin3 = User(username = admin_name + '3', email='3'+admin_mail,password=hashed_password, activated=True)
-user_admin4 = User(username = admin_name + '4', email='4'+admin_mail,password=hashed_password, activated=True)
-user_admin5 = User(username = admin_name + '5', email='5'+admin_mail,password=hashed_password, activated=True)
+# user_admin3 = User(username = admin_name + '3', email='3'+admin_mail,password=hashed_password, activated=True)
+# user_admin4 = User(username = admin_name + '4', email='4'+admin_mail,password=hashed_password, activated=True)
+# user_admin5 = User(username = admin_name + '5', email='5'+admin_mail,password=hashed_password, activated=True)
 
 
 user_admin.roles.append(Role.query[2])
 user_admin2.roles.append(Role.query[0])
-user_admin3.roles.append(Role.query[0])
-user_admin4.roles.append(Role.query[0])
-user_admin5.roles.append(Role.query[0])
+# user_admin3.roles.append(Role.query[0])
+# user_admin4.roles.append(Role.query[0])
+# user_admin5.roles.append(Role.query[0])
 
 db.session.add(user_admin)
 db.session.add(user_admin2)
-db.session.add(user_admin3)
-db.session.add(user_admin4)
-db.session.add(user_admin5)
+# db.session.add(user_admin3)
+# db.session.add(user_admin4)
+# db.session.add(user_admin5)
 
 
 #________Rdy______
