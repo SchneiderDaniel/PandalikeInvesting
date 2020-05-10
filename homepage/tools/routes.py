@@ -27,7 +27,11 @@ def correlation():
     if form.validate_on_submit():
         choosenPortfolioID = form.portfolios.data
 
-        
+        portfolioCurrent = Portfolio.query.filter_by(id=choosenPortfolioID).first_or_404()
+
+        if portfolioCurrent.numberPositions<2:
+            flash('Your portfolio needs at least 2 positions for computing a correlation.', 'danger')
+            return redirect(url_for('portfolios.portfolio' ))
 
         start = dt.datetime(1971,1,1)
         end = dt.datetime.now()
