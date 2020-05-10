@@ -61,8 +61,15 @@
             </div>
             <div class="w-100"></div>
             <div class="col">
+                <img class="article-img"
+                src="{{ url_for('static', filename='/resources/img/flags/' + posts.items[i].region|string + '.png') }}">
+            </div>
+            <div class="col">
                 <a class="btn btn-outline-info float-right btn-sm" href="{{ url_for('posts.post', post_id=posts.items[i].id) }}">Read More...</a>
             </div>
+            
+
+
         </div>      
     </div>
 </article>

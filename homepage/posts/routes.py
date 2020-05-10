@@ -136,6 +136,7 @@ def update_post(post_id):
     if form.validate_on_submit():
         post.title = form.title.data
         post.abstract = form.abstract.data
+        post.region = form.region.data
         post.content = form.content.data
         db.session.commit()
         flash('Your post has been updated!', 'success')
@@ -144,6 +145,7 @@ def update_post(post_id):
         form.title.data = post.title
         form.abstract.data = post.abstract
         form.content.data = post.content
+        form.region.data = post.region
         likesList = db.session.query(PostTags).filter(PostTags.post_id == post.id ).all()
         tagsText = ''
         for l in likesList:

@@ -15,6 +15,19 @@
       {{ render_field(form.title, class='form-control', placeholder='Enter a title.') }}
       {{ render_field(form.tags, class='form-control', placeholder='Enter your Tags') }}
       {{ render_field(form.abstract, class='form-control', placeholder='Enter an abstract.') }}
+
+
+      {{form.region.label}} &nbsp; &nbsp;<br>
+      {% for subfield in form.region %}
+      <tr>
+          <td>{{ subfield }}</td>
+          <td>{{ subfield.label }}</td>
+          &nbsp;
+      </tr>
+      {% endfor %}
+      <br>
+      <br>
+
       <!-- {{ render_field(form.content, class='form-control', placeholder='Enter detailed content') }} -->
       {{ render_field(form.content, id="summernote") }}
       <!-- {{ form.tags.label }}

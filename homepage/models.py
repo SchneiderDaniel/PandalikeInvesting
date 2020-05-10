@@ -95,6 +95,7 @@ class Post(SearchableMixin, db.Model):
     date_posted = db.Column(db.DateTime, nullable=False,default=datetime.utcnow)
     abstract = db.Column(db.Text, nullable=False)
     content = db.Column(db.Text, nullable=False)
+    region = db.Column(db.Integer, default=0)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     comments = db.relationship('Comment', backref='post_comment', lazy=True)
     who_liked = db.relationship('User', backref='post_liked', lazy=True)
