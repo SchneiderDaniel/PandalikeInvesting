@@ -33,6 +33,7 @@
 </head>
 
 <body>
+   
 
     {% if not userIsBanned %}
     <header class="site-header">
@@ -141,6 +142,12 @@
             </div>
         </nav>
     </header>
+
+    {% if True %}
+    <div class="alert alert-danger text-center" role="alert">
+        Attention! This is a Test and Debugging environment and will not persist!
+    </div>
+    {%endif%}
 
     {% if cookies_check() %}
         {# then user has already consented so no requirement for consent banner #}
