@@ -1,6 +1,6 @@
 from flask import render_template, request, redirect, url_for, flash, Blueprint
 from flask_login import login_user, current_user, logout_user
-from homepage.models import User, Post, Role, UserRoles, Comment
+from homepage.models import User, Post, Role, UserRoles, Comment, Portfolio, Position
 from homepage import db, bcrypt
 from homepage.users.forms import (RegistrationForm,
                                   LoginForm, UpdateAccountForm, RequestResetForm, ResetPasswordForm, ActivateAccountForm)
@@ -25,6 +25,21 @@ def register():
         user.roles.append(Role.query[0])
         db.session.add(user)
         db.session.commit()
+
+        portfolio = Portfolio(name='Default', numberPositions=2, user_id=user.id)
+        
+        db.session.add(portfolio)
+        db.session.commit()
+
+        position1 = Position(port_id=portfolio.id, name = 'iShares NASDAQ 100 UCITS ETF', ticker= 'SXRV.DE', percent=50, currency='EUR')
+        position2 = Position(port_id=portfolio.id, name = 'iShares Core MSCI World UCITS ETF', ticker= 'EUNL.DE', percent=50, currency='EUR')
+
+        db.session.add(position1)
+        db.session.add(position2)
+        db.session.commit()
+
+
+
         sendActivateEMail(user)
         flash(
             f'Account created for {register_form.email.data}! Plz check your mails for activating your account.', 'success')
