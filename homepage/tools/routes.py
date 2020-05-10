@@ -70,6 +70,9 @@ def correlationResult(portfolio_id, start,end):
     if not Portfolio.hasOneCurrency(portfolio):
         flash('Attention, your portfolio contains different currencies', 'info')
 
+    if not Portfolio.isDefined(portfolio):
+        flash('Attention, your does not sum up to 100%', 'info')
+
 
     positions = db.session.query(Position).filter(Position.port_id == portfolio_id).all()
     for p in positions:

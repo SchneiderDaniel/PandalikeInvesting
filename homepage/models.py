@@ -222,6 +222,16 @@ class Portfolio(db.Model):
                     return False
                 
         return True
+
+    @staticmethod
+    def isDefined(pf):
+
+        balance = 0
+
+        for pos in pf.positions:
+            balance += pos.percent
+                
+        return balance == 100
             
 
         
