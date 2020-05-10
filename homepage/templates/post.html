@@ -3,13 +3,13 @@
 {% block content %}
 <br>
 <article class="media content-section">
-   
+
     <div class="container">
         <div class="row">
-        <img class="rounded-circle article-img"
-            src="{{ url_for('static', filename='/resources/img/profile_pics/' + post.author.image_file) }}">
+            <img class="rounded-circle article-img"
+                src="{{ url_for('static', filename='/resources/img/profile_pics/' + post.author.image_file) }}">
             <div class="article-metadata">
-                
+
                 <div class="row">
                     <div class="col-md-auto">
                         <a class="mr-2"
@@ -17,16 +17,29 @@
                         <br />
                         <small class="text-muted">posted on: {{ post.date_posted.strftime("%d %b, %Y") }}</small>
                     </div>
+
+                    {% if post.author == current_user %}
                     <div class="col-sm">
-                        {% if post.author == current_user %}
+                        
                         <div>
+                            
                             <a class="btn btn-secondary btn-sm mt-1 mb-1 "
                                 href="{{ url_for('posts.update_post', post_id = post.id) }}">Update</a>
                             <button type="button" class="btn btn-danger btn-sm m-1" data-toggle="modal"
                                 data-target="#deleteModal">Delete</button>
+                            
                         </div>
-                        {% endif %}
+                        
                     </div>
+
+                    {% else %}
+                    <div class="col-md-auto">
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    </div>
+
+                           
+                    {% endif %}
+                    
                     <div class="col-md-auto">
                         <small class="text-muted float-right">Time to Read: {{time_to_read}} min</small>
 
@@ -39,48 +52,49 @@
                 </div>
             </div>
             <div class="w-100">
-            {% for tag in theTags %}
-            <a class="badge badge-pill badge-primary" href="{{ url_for('posts.blog', page=1, tagged = tag.id) }}">
-                {{tag.name}}
-            </a>
-            {% endfor %}
+                {% for tag in theTags %}
+                <a class="badge badge-pill badge-primary" href="{{ url_for('posts.blog', page=1, tagged = tag.id) }}">
+                    {{tag.name}}
+                </a>
+                {% endfor %}
             </div>
             <br>
-            
+
 
         </div>
-       
+
         <br>
-       
+
 
         <div class="row">
-        
-        <h2 class="article-title">{{ post.title }}</h2>  
-            
-        <div class="col">
-            <img class="article-img"
-            src="{{ url_for('static', filename='/resources/img/flags/' + post.region|string + '.png') }}">
-        </div>
+
+            <h2 class="article-title">{{ post.title }}</h2>
+
+            <div class="col">
+                <img class="article-img"
+                    src="{{ url_for('static', filename='/resources/img/flags/' + post.region|string + '.png') }}">
+            </div>
 
 
         </div>
         <br>
         <div class="row">
-        <p class="article-abstract"> <b>Abstract:</b> {{ post.abstract }}</p>
+            <p class="article-abstract"> <b>Abstract:</b> {{ post.abstract }}</p>
         </div>
         <div class="row">
-        <p class="article-content">{{ post.content|safe }}</p>
+            <p class="article-content">{{ post.content|safe }}</p>
         </div>
-        
+
         <div class="w-100">
-            <a class="btn btn-icon float-right btn-md" href="{{ url_for('posts.like_post', post_id = post.id) }}"><i class="fas fa-thumbs-up"></i> {{likes}}</a> 
-        </div>    
-        
-            
-        
+            <a class="btn btn-icon float-right btn-md" href="{{ url_for('posts.like_post', post_id = post.id) }}"><i
+                    class="fas fa-thumbs-up"></i> {{likes}}</a>
+        </div>
+
+
+
 
     </div>
-    
+
 </article>
 {% if current_user.is_authenticated %}
 
@@ -96,11 +110,11 @@
     <div class="container">
         <div class="article-metadata">
             <div class="row">
-                <div class="col-sm-auto float-left" >
+                <div class="col-sm-auto float-left">
                     <img class="rounded-circle article-img-sm"
-                                src="{{ url_for('static', filename='/resources/img/profile_pics/' + comment.author_comment.image_file) }}">
+                        src="{{ url_for('static', filename='/resources/img/profile_pics/' + comment.author_comment.image_file) }}">
                 </div>
-            
+
                 <div class="col-sm float-left">
                     <div class="row">
                         <!-- <div class="col-md-1 mr-4 float-left ">
@@ -115,40 +129,47 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-auto ml-3 float-right">     
-                    <div class="row" >
+                <div class="col-md-auto ml-3 float-right">
+                    <div class="row">
                         {% if comment.author_comment == current_user %}
                         <a class="btn btn-secondary btn-sm mt-1 mb-1 mr-2 "
                             href="{{ url_for('posts.update_comment', post_id = post.id, comment_id = comment.id ) }}">Update</a>
-                        {% endif %} 
+                        {% endif %}
                         {% if current_user.is_authenticated %}
-                            {% if user_has_role(current_user,'admin') %}                      
-                                <form action="{{url_for('posts.delete_comment', post_id = post.id, comment_id = comment.id)}}" method="POST">
-                                    <input class="btn btn-danger btn-sm mt-1 mb-1" type="submit" value="Delete">
-                                </form>               
-                            {% endif %}
-                        {% endif %}       
-                    </div> 
+                        {% if user_has_role(current_user,'admin') %}
+                        <form action="{{url_for('posts.delete_comment', post_id = post.id, comment_id = comment.id)}}"
+                            method="POST">
+                            <input class="btn btn-danger btn-sm mt-1 mb-1" type="submit" value="Delete">
+                        </form>
+                        {% endif %}
+                        {% endif %}
+                    </div>
                 </div>
             </div>
         </div>
-            
-        
+
+
 
 
         {{ comment.content }}
-        <div class="row" >
+        <div class="row">
             {% if comment.discussions|length ==0%}
             <div class="col-sm float-left">
-                <small class="text-muted float-left"><a href="{{url_for('posts.discussion', post_id = post.id, comment_id = comment.id )}}"> Discuss this</a></small>
+                <small class="text-muted float-left"><a
+                        href="{{url_for('posts.discussion', post_id = post.id, comment_id = comment.id )}}"> Discuss
+                        this</a></small>
             </div>
             {% else %}
             <div class="col-sm float-left">
-                <small class="text-muted float-left"><a href="{{url_for('posts.discussion', post_id = post.id, comment_id = comment.id )}}"> This is discussed! ({{comment.discussions|length}})</a></small>
+                <small class="text-muted float-left"><a
+                        href="{{url_for('posts.discussion', post_id = post.id, comment_id = comment.id )}}"> This is
+                        discussed! ({{comment.discussions|length}})</a></small>
             </div>
             {% endif %}
             <div class="col-sm float-right">
-                <small class="text-danger float-right"><a href="{{url_for('posts.report', post_id = post.id, comment_id = comment.id )}}"> <i class="fas fa-exclamation-triangle"></i> Report</a></small>
+                <small class="text-danger float-right"><a
+                        href="{{url_for('posts.report', post_id = post.id, comment_id = comment.id )}}"> <i
+                            class="fas fa-exclamation-triangle"></i> Report</a></small>
             </div>
         </div>
     </div>

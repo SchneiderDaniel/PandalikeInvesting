@@ -18,7 +18,11 @@
           {{ render_field(register_form.username, class='form-control', placeholder='Enter a username') }}
           {{ render_field(register_form.email, class='form-control', placeholder='Enter your E-Mail') }}
           {{ render_field(register_form.password, class='form-control', placeholder='Enter a password') }}
+          
           {{ render_field(register_form.confirm_password, class='form-control', placeholder='Enter your password again') }}
+          <small class="text-muted">No worries, your passwort will never be explicitly stored. It will be encrypted by <a href="https://pypi.org/project/bcrypt/" >bcrypt.</a> </small>
+          <br>
+          <br>
           {{ render_checkbox(register_form.conditions)}}
 
 
