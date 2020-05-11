@@ -48,6 +48,7 @@ def correlation():
         
 
         flash('We have computed the Correlation Infos for you!', 'success')
+
         return redirect(url_for('tools.correlationResult', portfolio_id=choosenPortfolioID, start = start, end=end ))
 
 

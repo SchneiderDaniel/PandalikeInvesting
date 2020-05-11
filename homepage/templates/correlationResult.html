@@ -11,7 +11,9 @@
 
   <br>
   <legend class="border-bottom mb-4">Portfolio Overview: <b>{{portfolio.name}} </b></legend>
-
+  <div class="alert alert-danger" role="alert"> 
+  Known problem: We are sourcing data from Yahoo alone. If Yahoo reports wrong numbers for price (e.g. gigantic spikes in price; SPYD.DE on 31.03 2020) we can not correct this yet. Therefore we advice you to check the charts of your assets on yahoo. Perhaps you find another symbol or can skip that time with a custom timeframe.
+  </div>
   <table class="table table table-hover">
     <thead>
         <tr>
