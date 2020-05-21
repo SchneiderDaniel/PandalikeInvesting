@@ -1,0 +1,27 @@
+version: "3.7"
+
+services:
+
+  flask:
+    build: ./flask
+    container_name: flask
+    restart: alwayss
+    environment:
+        - ADMIN_MAIL='${ADMIN_MAIL}'
+        - ADMIN_PASSWORD= '${ADMIN_PASSWORD}'
+        - DATABASE_URI= '${DATABASE_URI}'
+        - ELASTICSEARCH_URL= '${ELASTICSEARCH_URL}'
+        - RECAPTCHA_PRIVATE_KEY= '${RECAPTCHA_PRIVATE_KEY}'
+        - RECAPTCHA_PUBLIC_KEY= '${RECAPTCHA_PUBLIC_KEY}'
+        - SECRET_KEY= '${SECRET_KEY}'
+        - EMAIL_PASS= '${EMAIL_PASS}'
+        - EMAIL_USER= '${EMAIL_USER}'
+    expose:
+      - 8080
+
+  nginx:
+    build: ./nginx
+    container_name: nginx
+    restart: always
+    ports:
+      - "80:80"

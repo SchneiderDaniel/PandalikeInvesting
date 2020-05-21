@@ -21,6 +21,23 @@ You should create a virtual environment and install the required packages with t
     source env/bin/activate
     (env) $ pip install -r requirements.txt
 
+Hints for uwsgi:
+- For Windwos uncomment uwsgi  from the requirements and use differnt app server or use cgywin
+- For Linux Ubuntu and Python3 you have to run to
+
+    apt-get install build-essential python3-dev
+
+General Hints:
+- Don't forget to setup the enviroments variable if you are not using docker. See config.py.
+
+
+Docker
+------------
+
+for using docker-compose you need to add a .env file parallel to the docker-compose.yml. This needs to contain the enviroment variables of your system. Like:
+
+    ADMIN_MAIL:'myniceemail@test.de'
+    ...
 
 
 Run
