@@ -17,7 +17,7 @@ services:
     container_name: postgres
     restart: always
     environment:
-      POSTGRES_PASSWORD: example
+      POSTGRES_PASSWORD: asdasdasd
       POSTGRES_USER: daniel
       POSTGRES_DB: my_db
     
