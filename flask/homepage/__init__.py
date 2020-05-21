@@ -69,6 +69,22 @@ class DateConverter(BaseConverter):
 def create_app(config_class=Config):
     print('Start creating the app',  file=sys.stderr)
     app = Flask(__name__)
+    print('Start configure the app',  file=sys.stderr)
+    # print(Config.RECAPTCHA_PUBLIC_KEY)
+    # print(Config.RECAPTCHA_PRIVATE_KEY)
+    # print(Config.SECRET_KEY)
+    # print(Config.SQLALCHEMY_DATABASE_URI)
+    # print(Config.MAIL_SERVER)
+    # print(Config.MAIL_PORT)
+    # print(Config.MAIL_USE_SSL)
+    # print(Config.MAIL_USERNAME)
+    # print(Config.MAIL_PASSWORD)
+    # print(Config.ADMIN_MAIL)
+    # print(Config.ADMIN_PASSWORD)
+    # print(Config.ADMIN_NAME)
+    # print(Config.ELASTICSEARCH_URL)
+    # print(Config.IS_DEBUG)
+
     app.config.from_object(Config)
 
     app.url_map.converters['date'] = DateConverter

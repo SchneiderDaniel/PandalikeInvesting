@@ -1,8 +1,8 @@
-env
-docker/.env
+flask/env
+flask.env
 __pycache__
-.vscode/
+flask/.vscode/
 .pytest_cache
-homepage/__pycache__
-homepage/static/resources/private
-homepage/static/resources/stockdata
+flask/homepage/__pycache__
+flask/omepage/static/resources/private
+flask/homepage/static/resources/stockdata

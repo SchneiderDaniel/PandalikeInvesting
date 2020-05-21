@@ -6,6 +6,11 @@ app.app_context().push()
 
 from homepage import db, bcrypt
 
+db.create_all()
+
+
+print('This is the DB Pathc', file=sys.stderr)
+print(app.config['SQLALCHEMY_DATABASE_URI'])
 print('Dropping Database...', file=sys.stderr)
 db.drop_all()
 print('Database dropped!', file=sys.stderr)

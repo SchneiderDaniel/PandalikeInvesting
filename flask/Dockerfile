@@ -12,10 +12,20 @@ WORKDIR /app
 
 
 # Copy the current directory contents into the container at /app 
-ADD ../.. /app
+ADD . /app
+
+RUN echo AdminMail
+
+
+RUN echo "$ADMIN_MAIL"
+
+RUN pip install --upgrade pip
 
 # Install the dependencies
-RUN pip install -r ../../requirements.txt
+RUN pip install -r requirements.txt
+
+# Install the dependencies
+#RUN python3 reinit.py
 
 # run the command to start uWSGI
-CMD ["uwsgi", "../../app.ini"]
+CMD ["uwsgi", "app.ini"]

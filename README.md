@@ -36,7 +36,7 @@ Docker
 
 for using docker-compose you need to add a .env file parallel to the docker-compose.yml. This needs to contain the enviroment variables of your system. Like:
 
-    ADMIN_MAIL:'myniceemail@test.de'
+    ADMIN_MAIL='myniceemail@test.de'
     ...
 
 
