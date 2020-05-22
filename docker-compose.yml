@@ -26,7 +26,7 @@ services:
     container_name: adminer
     restart: always
     ports:
-      - 8081:8080
+      - 127.0.0.1:8081:8080
 
   nginx:
     build: ./nginx
@@ -37,6 +37,7 @@ services:
 
   es01:
     image: docker.elastic.co/elasticsearch/elasticsearch:7.7.0
+    restart: always
     container_name: es01
     environment:
       - node.name=es01
@@ -52,11 +53,12 @@ services:
     volumes:
       - data01:/usr/share/elasticsearch/data
     ports:
-      - 9201:9200
+      - 127.0.0.1:9201:9200
     networks:
       - elastic
   es02:
     image: docker.elastic.co/elasticsearch/elasticsearch:7.7.0
+    restart: always
     container_name: es02
     environment:
       - node.name=es02
@@ -75,6 +77,7 @@ services:
       - elastic
   es03:
     image: docker.elastic.co/elasticsearch/elasticsearch:7.7.0
+    restart: always
     container_name: es03
     environment:
       - node.name=es03
