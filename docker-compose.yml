@@ -34,6 +34,13 @@ services:
     restart: always
     ports:
       - "80:80"
+      - "443:443"
+    volumes:
+      - .docker_compose_volume/nginx:/var/log/nginx
+      - /etc/ssl:/etc/ssl # dhparams file
+      - /etc/letsencrypt/live:/etc/letsencrypt/live # current certificate
+      - /etc/letsencrypt/archive:/etc/letsencrypt/archive # all certificates (symlinks from /live points here)
+
 
   es01:
     image: docker.elastic.co/elasticsearch/elasticsearch:7.7.0
