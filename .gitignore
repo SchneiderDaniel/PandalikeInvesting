@@ -5,4 +5,4 @@ flask/.vscode/
 .pytest_cache
 flask/homepage/__pycache__
 flask/omepage/static/resources/private
-flask/homepage/static/resources/stockdata
+flask/homepage/static/resources/stockdata/*.pkl
