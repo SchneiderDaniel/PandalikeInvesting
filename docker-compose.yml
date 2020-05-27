@@ -10,6 +10,8 @@ services:
     restart: always
     volumes:
       - ./flask/homepage/static/resources:/app/homepage/static/resources
+      - reqlog:/tmp/reqlog
+      - errlog:/tmp/errlog
     expose:
       - 8080
 
@@ -113,6 +115,10 @@ volumes:
   data03:
     driver: local
   postgres-data:
+    driver: local
+  reqlog:
+    driver: local
+  errlog:
     driver: local
 
 networks:
