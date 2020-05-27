@@ -9,7 +9,7 @@ services:
     container_name: flask
     restart: always
     volumes:
-      - ./flask/homepage/resources:./homepage/resources
+      - ./flask/homepage/static/resources:/app/homepage/static/resources
     expose:
       - 8080
 
