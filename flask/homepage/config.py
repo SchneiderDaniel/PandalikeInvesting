@@ -17,6 +17,6 @@ class Config:
     ADMIN_NAME = 'Pandalike Investing'
     ELASTICSEARCH_URL = os.environ.get('ELASTICSEARCH_URL')
     LANGUAGES = ['en', 'de']
-    POSTS_PER_PAGE = 3
+    POSTS_PER_PAGE = 10
     IS_DEBUG=True
     
