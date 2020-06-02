@@ -41,7 +41,7 @@ services:
       - "80:80"
       - "443:443"
     volumes:
-      - .docker_compose_volume/nginx:/var/log/nginx
+      - nginx-errors:/var/log/nginx
       - /etc/ssl:/etc/ssl # dhparams file
       - /etc/letsencrypt/live:/etc/letsencrypt/live # current certificate
       - /etc/letsencrypt/archive:/etc/letsencrypt/archive # all certificates (symlinks from /live points here)
@@ -69,5 +69,7 @@ volumes:
     driver: local
   errlog:
     driver: local
+  nginx-errors:
+      driver: local
 
-  
+   
