@@ -46,7 +46,7 @@ class UpdateAccountForm(FlaskForm):
         min=6, max=20, message=('Username needs 6-20 characters.'))])
     email = StringField('E-Mail:', validators=[DataRequired(), Email()])
     picture = FileField('Update Profile Picture', validators=[
-                        FileAllowed(['jpg', 'jpeg', 'png ', 'gif'])])
+                        FileAllowed(['jpg', 'jpeg', 'png', 'gif'])])
     recaptcha = RecaptchaField()
     submit = SubmitField('Update')
 

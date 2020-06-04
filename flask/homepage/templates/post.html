@@ -7,7 +7,7 @@
     <div class="container">
         <div class="row">
             <img class="rounded-circle article-img"
-                src="{{ url_for('static', filename='/resources/img/profile_pics/' + post.author.image_file) }}">
+                src="{{ url_for('static', filename='resources/img/profile_pics/' + post.author.image_file) }}">
             <div class="article-metadata">
 
                 <div class="row">
@@ -112,7 +112,7 @@
             <div class="row">
                 <div class="col-sm-auto float-left">
                     <img class="rounded-circle article-img-sm"
-                        src="{{ url_for('static', filename='/resources/img/profile_pics/' + comment.author_comment.image_file) }}">
+                        src="{{ url_for('static', filename='resources/img/profile_pics/' + comment.author_comment.image_file) }}">
                 </div>
 
                 <div class="col-sm float-left">

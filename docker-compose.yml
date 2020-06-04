@@ -6,6 +6,7 @@ services:
   elasticsearch:
     image: docker.elastic.co/elasticsearch/elasticsearch:7.4.0
     container_name: elasticsearch
+    restart: always
     environment:
       - xpack.security.enabled=false
       - discovery.type=single-node
@@ -26,6 +27,7 @@ services:
 
   kibana:
     container_name: kibana
+    restart: always
     image: docker.elastic.co/kibana/kibana:7.4.0
     environment:
       - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
@@ -81,9 +83,6 @@ services:
       - /etc/letsencrypt/live:/etc/letsencrypt/live # current certificate
       - /etc/letsencrypt/archive:/etc/letsencrypt/archive # all certificates (symlinks from /live points here)
 
-
-  
-  
 volumes:
   postgres-data:
     driver: local
