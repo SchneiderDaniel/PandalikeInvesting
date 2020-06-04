@@ -78,7 +78,7 @@ def contact():
     contact_form = ContactForm()
     if contact_form.validate_on_submit():
         flash(
-            f'Thanks {contact_form.name.data}, we have received your meessage. We will respond soon!', 'success')
+            f'Thanks {contact_form.name.data}, we have received your message. We will respond soon!', 'success')
         return redirect(url_for('main.index'))
 
     return render_template('contact.html', contact_form=contact_form, title='Pandalike Investing - Contact Us', userIsBanned = False, showSidebar = False, shareable=True)
