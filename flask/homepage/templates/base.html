@@ -11,6 +11,8 @@
         content="Finance, ETF, Fond, Stock, Correlation, Backtesting, Investing, Advice, Blog, Tools, MSCI World, S&P500">
     {% endblock %}
 
+    {% if not isDebug %}
+
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-168650628-1"></script>
     <script>
@@ -22,6 +24,7 @@
     </script>
 
     <script data-ad-client="ca-pub-9884321622507945" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    {% endif %}
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
@@ -312,7 +315,7 @@
 
    
 
-
+    <p style="margin-bottom:3cm;"></p>
     <footer class="footer">
         <div class="container">
             <span class="text-muted">© 2019-{{current_year}} Copyright
