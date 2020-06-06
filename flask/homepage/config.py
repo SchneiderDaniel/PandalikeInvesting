@@ -18,5 +18,4 @@ class Config:
     ELASTICSEARCH_URL = os.environ.get('ELASTICSEARCH_URL')
     LANGUAGES = ['en', 'de']
     POSTS_PER_PAGE = 10
-    IS_DEBUG=True
     

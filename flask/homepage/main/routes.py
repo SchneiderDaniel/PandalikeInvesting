@@ -127,7 +127,7 @@ def year():
 @main.app_context_processor
 def urlAndTitleInject():
 
-    return dict(url = request.url, title ="Pandalike Investing", shareable = False, isDebug=current_app.config['IS_DEBUG']) 
+    return dict(url = request.url, title ="Pandalike Investing", shareable = False, isDebug=current_app.config['DEBUG']) 
 
 
 @main.before_app_request
