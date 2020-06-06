@@ -43,7 +43,7 @@ services:
     container_name: flask
     restart: always
     volumes:
-      - ./flask/homepage/static/resources:/app/homepage/static/resources
+      - flask-resources:/app/homepage/static/resources
       - reqlog:/tmp/reqlog
       - errlog:/tmp/errlog
     expose:
@@ -93,4 +93,6 @@ volumes:
   nginx-errors:
       driver: local
   elasticsearch-data:
+    driver: local
+  flask-resources:
     driver: local
