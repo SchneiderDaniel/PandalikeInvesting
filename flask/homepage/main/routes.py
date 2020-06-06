@@ -10,6 +10,7 @@ from flask import g
 from flask_babel import Babel, get_locale
 import urllib
 from markupsafe import Markup
+from homepage.users.utils import sendEMailToAdmin
 
 
 main = Blueprint('main', __name__)
@@ -77,6 +78,8 @@ def about():
 def contact():
     contact_form = ContactForm()
     if contact_form.validate_on_submit():
+
+        sendEMailToAdmin(contact_form.email.data,contact_form.name.data,contact_form.body.data)
         flash(
             f'Thanks {contact_form.name.data}, we have received your message. We will respond soon!', 'success')
         return redirect(url_for('main.index'))

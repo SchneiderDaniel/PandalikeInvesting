@@ -35,6 +35,14 @@ def sendResetEMail(user):
 If you did not make this request, then simply ignore this E-Mail amd no changes will be made.
 '''
     mail.send(msg)
+    
+
+def sendEMailToAdmin(mailFrom, nameFrom, text):
+    msg = Message('Contact Message form '+ nameFrom +' to pandalikeInvesting.com',
+                  sender=mailFrom,
+                  recipients=[current_app.config['MAIL_USERNAME']])
+    msg.body = "The user: " + mailFrom+ " wrote to pandalikeInvesting.com: " + text
+    mail.send(msg)
 
 
 def sendActivateEMail(user):
