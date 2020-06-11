@@ -1,5 +1,6 @@
 flask/env
 flask.env
+.env
 __pycache__
 flask/.vscode/
 .pytest_cache
