@@ -253,6 +253,16 @@
                     Or do you want to see all blogpost?  <br><br> <a href="{{ url_for( 'posts.blog') }}" class="btn btn-primary btn-sm active" role="button" aria-pressed="true"><i class="fas fa-blog"></i>&nbsp; Blog</a>
                 </div>
 
+                <br>
+                <div class="content-section">
+                    <h4>Notice</h4>
+                    <p class='text-muted'><b>Important:</b>
+                        <br>
+                        I am a private investor and not an educated financial or tax consultant. All information that you find on this page and subpages might be inaccurate or false.
+                        Investing includes risk and can cause you to lose money. Also, the value of your assets, as well as the income of those assets may fluctuate over time. Take all of this into account.  
+                    </p>
+                </div>
+
                 
                 {% if not current_user.is_authenticated %}
                 <br>
@@ -276,7 +286,7 @@
 
                 <br>
                 <div class="content-section">
-                    <h4>Pandalike <b>Investing</b> Tools:</h4>
+                    <h4>Pandalike <b>Investing</b> Tools</h4>
                     <p class='text-muted'>Check out:
                         <ul class="list-group list-group-flush" >
                             <a href="{{ url_for( 'tools.correlation') }}" class="list-group-item list-group-item-light">Portfolio Correlation &nbsp; <i class="fas fa-hand-point-up"></i> </a>

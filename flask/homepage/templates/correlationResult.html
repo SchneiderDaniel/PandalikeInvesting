@@ -12,7 +12,7 @@
   <br>
   <legend class="border-bottom mb-4">Portfolio Overview: <b>{{portfolio.name}} </b></legend>
   <div class="alert alert-danger" role="alert"> 
-  Known problem: We are sourcing data from Yahoo alone. If Yahoo reports wrong numbers for price (e.g. gigantic spikes in price; SPYD.DE on 31.03 2020) we can not correct this yet. Therefore we advice you to check the charts of your assets on yahoo. Perhaps you find another symbol or can skip that time with a custom timeframe.
+    Something strange? Make sure to check out the constraints and known problems of the computation at the bottom of the page.
   </div>
   <table class="table table table-hover">
     <thead>
@@ -341,6 +341,26 @@
     
 </div>
 
+<div class="content-section">
+
+  <br>
+  <div class="alert alert-danger" role="alert"> 
+    Known problem: We are sourcing data from Yahoo alone. If Yahoo reports wrong numbers for price (e.g. gigantic spikes in price; SPYD.DE on 31.03 2020) we can not correct this yet. Therefore we advice you to check the charts of your assets on yahoo. Perhaps you find another symbol or can skip that time with a custom timeframe.
+  </div>
+
+  <legend class="border-bottom mb-4">Infos about the result </b></legend>
+  
+  
+  <ul class="list-group">
+    <li class="list-group-item">The results are computed based on past performance. Past performance is no guarantee for future results. They may vary.</li>
+    <li class="list-group-item">Investing includes risk and can cause you to lose money. Also, the value of your assets as well as the income of those assets may fluctuate over time.</li>
+    <li class="list-group-item">Don't make decisions based on the results that you gain from this page and any tool provided by pandalikeinvesting.com. Information provided by this site and the tools on this site are solely for informational purposes and are not a call to action for buying or selling securities. </li>
+    <li class="list-group-item">Results computed by our tools use information from many sources. We consider those resources as being reliable but we can not guarantee correctness or accuracy.</li>
+    <li class="list-group-item">The results of this tool assume that all dividends and other distributions are reinvested at no cost.</li>
+    <li class="list-group-item">The tools do not take currency into account. E.g. the results for correlation will not be accurate and you should not mix assets in different currencies. If you still mix them, keep in mind that e.g. the correlation is off for the S&P 500 in USD and EUR by approx. 0.03. </li>
+  </ul>
+
+</div>
 
 
 {% endblock %}

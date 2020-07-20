@@ -35,7 +35,7 @@ def portfolio():
 
         db.session.commit()
 
-        flash('Your portfolio has been created!', 'success')
+        flash('Your portfolio has been created! You can now edit your portfolio by clicking on Edit below.', 'success')
         return redirect(url_for('portfolios.portfolio'))
 
     portfolios = db.session.query(Portfolio).filter(Portfolio.user_id == current_user.id).all()
