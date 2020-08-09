@@ -68,6 +68,7 @@ def getCorrelationDiagram(ticker1, ticker2):
 
 def getPortfolioCorrelation(positions, ticker, filterStart = dt.datetime(1971,1,1), filterEnd = dt.datetime.now(), daily=True):
 
+    # print('Start get Portfolio Correlation')    
     dfList = []
 
     for p in positions:
@@ -97,23 +98,29 @@ def getPortfolioCorrelation(positions, ticker, filterStart = dt.datetime(1971,1,
     for i in range (1,len(dfList)):
         merge  = pd.merge(merge,dfList[i], how='inner', left_index=True, right_index=True) 
 
-    # print('Merge')    
-    # print(merge)
-
+    
    
 
 
-
+    # print('Merge0')
 
     updateStockData(ticker)
+    # print('Merge1')    
+    # print(merge)
+
+
     stockdataPathBench = os.path.join(current_app.root_path, 'static/resources/stockdata/' + ticker + '.pkl')
     dfBench = pd.read_pickle(stockdataPathBench)
+
+    # print('dfBench: ' + ticker )    
+    # print(dfBench)
+
+
     dfBench.drop(dfBench.columns.difference(['Adj Close']), 1, inplace=True)
 
     dfBench.columns = ['Benchmark']
 
-    # print('dfBench: ' + ticker )    
-    # print(dfBench)
+   
 
     # if not daily:
     #         # https://stackoverflow.com/questions/60590945/extract-first-day-of-month-in-dataframe
@@ -306,6 +313,8 @@ def saveStockDataFromScratch(ticker):
     
 
 def saveStockDataAlreadyExisting(ticker):
+
+    # print('Stock existing')
     stockdataPath = os.path.join(current_app.root_path, 'static/resources/stockdata/' + ticker + '.pkl')
     stockdataPathCSV = os.path.join(current_app.root_path, 'static/resources/stockdata/' + ticker + '.csv')
     df = pd.read_pickle(stockdataPath)
@@ -328,21 +337,22 @@ def saveStockDataAlreadyExisting(ticker):
 
 
     if (duration.days>4):
+        saveStockDataFromScratch(ticker)
 
-
-        df2 = web.DataReader(ticker, 'yahoo', df.index[-1], endNow)
+        # df2 = web.DataReader(ticker, 'yahoo', df.index[-1], endNow)
 
     
-        df2.drop(df.index[-1],inplace=True)
+        # df2.drop(df.index[-1],inplace=True)
 
-        print('Update stock DATA!!!!!')
-        print('OLD',  file=sys.stderr)
-        print(df,  file=sys.stderr)
-        print('Add',  file=sys.stderr)
-        print(df2,  file=sys.stderr)
-        df = df.append(df2)
+        # print('Update stock DATA!!!!!')
+        # print('OLD',  file=sys.stderr)
+        # print(df,  file=sys.stderr)
+        # print('Add',  file=sys.stderr)
+        # print(df2,  file=sys.stderr)
+        # df = df.append(df2)
 
-    df.to_pickle(stockdataPath)
+        # df.to_pickle(stockdataPath)
     # df.to_csv(stockdataPathCSV)
 
     
+    # print('Stock writen')
