@@ -232,7 +232,9 @@ class Portfolio(db.Model):
         for pos in pf.positions:
             balance += pos.percent
                 
-        return balance == 100
+        # return balance == 100
+
+        return (abs(balance-100)<0.01)
             
 
         
